@@ -7,8 +7,8 @@ DROP TABLE IF EXISTS Demo.CarFeatures;
 DROP TABLE IF EXISTS Demo.Car;
 DROP TABLE IF EXISTS Demo.Dealership;
 DROP TABLE IF EXISTS Demo.Customer;
-DROP TABLE IF EXISTS Demo.Feature;
 DROP TABLE IF EXISTS Demo.[Address];
+DROP TABLE IF EXISTS Demo.Feature;
 GO
 
 CREATE TABLE Demo.Feature
@@ -30,8 +30,6 @@ CREATE TABLE Demo.Dealership
 (
 	DealershipId INT NOT NULL IDENTITY(1, 1) PRIMARY KEY,
 	AddressId INT NOT NULL REFERENCES Demo.[Address](AddressId),
-	OpenTime DATETIMEOFFSET NOT NULL,
-	CloseTime DATETIMEOFFSET NOT NULL,
 	PhoneNumber NVARCHAR(16) NOT NULL,
 );
 
@@ -39,6 +37,7 @@ CREATE TABLE Demo.Car
 (
 	CarId INT NOT NULL IDENTITY(1, 1) PRIMARY KEY,
 	DealershipId INT NOT NULL REFERENCES Demo.Dealership(DealershipId),
+	[Year] INT NOT NULL,
 	Make NVARCHAR(16) NOT NULL,
 	Model NVARCHAR(16) NOT NULL,
 	Color NVARCHAR(16) NOT NULL,
@@ -52,7 +51,7 @@ CREATE TABLE Demo.Car
 CREATE TABLE Demo.CarFeatures
 (
 	CarId INT NOT NULL REFERENCES Demo.Car(CarId),
-	FeatureId INT NOT NULL REFERENCES Demo.Feature(FeatureId),
+	FeatureId INT NOT NULL REFERENCES Demo.Feature(FeatureId) UNIQUE,
 
 	PRIMARY KEY(CarId, FeatureId)
 );
