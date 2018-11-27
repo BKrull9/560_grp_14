@@ -1,10 +1,12 @@
 ﻿-- Work In Proggress!!!!!!!!!!!!!!
 
+-- Features
 insert into Demo.Feature ([Name])
 	values('Lift Kit'),('Tinted Windows'), ('Leather Seats'), ('Brake Kit'), ('Heated Seats'), ('Cooled Seats'), ('Backup Camera'), 
 	('Bluetooth'), ('Television'), ('Dual Televisions'), ('Heated Steering Wheel'), ('Upgraded Sound System'), ('Auto Pilot'), 
 	('Nitrus'), ('Off Road Tires'), ('OnStar'), ('Lane Assistance'), ('Four Wheel Drive'), ('Extended Cab'), ('Glass Packs')
 
+-- Addresses
 insert into Demo.[Address] (City, Street, Zipcode) values ('Jiagao', '00 Saint Paul Road', 38574);
 insert into Demo.[Address] (City, Street, Zipcode) values ('Malusac', '00 Novick Street', 47248);
 insert into Demo.[Address] (City, Street, Zipcode) values ('Czarnowąsy', '364 Laurel Alley', 46746);
@@ -1006,9 +1008,19 @@ insert into Demo.[Address] (City, Street, Zipcode) values ('Shazikou', '49696 No
 insert into Demo.[Address] (City, Street, Zipcode) values ('Aktogay', '3976 Orin Drive', 45047);
 insert into Demo.[Address] (City, Street, Zipcode) values ('Hualfín', '5 Carberry Court', 48365);
 
+-- Dealerships
+insert into Demo.Dealership (AddressId, PhoneNumber) values (1, '357-439-6546');
+insert into Demo.Dealership (AddressId, PhoneNumber) values (2, '632-818-6017');
+insert into Demo.Dealership (AddressId, PhoneNumber) values (3, '259-831-3327');
+insert into Demo.Dealership (AddressId, PhoneNumber) values (4, '963-534-2717');
+insert into Demo.Dealership (AddressId, PhoneNumber) values (5, '306-164-1086');
+insert into Demo.Dealership (AddressId, PhoneNumber) values (6, '696-379-4040');
+insert into Demo.Dealership (AddressId, PhoneNumber) values (7, '397-714-5549');
+
+
 SELECT *
 FROM Demo.[Address];
 
-
+Select * From Demo.Dealership
 
 
