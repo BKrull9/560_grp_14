@@ -1,14 +1,14 @@
 --CREATE SCHEMA Demo
 --GO
 
-DROP TABLE IF EXISTS Demo.Feature
-DROP TABLE IF EXISTS Demo.[Address]
-DROP TABLE IF EXISTS Demo.Dealership
-DROP TABLE IF EXISTS Demo.Car
-DROP TABLE IF EXISTS Demo.CarFeatures
-DROP TABLE IF EXISTS Demo.Employee
-DROP TABLE IF EXISTS Demo.Customer
-DROP TABLE IF EXISTS Demo.Sales
+DROP TABLE IF EXISTS Demo.Sales;
+DROP TABLE IF EXISTS Demo.Employee;
+DROP TABLE IF EXISTS Demo.CarFeatures;
+DROP TABLE IF EXISTS Demo.Car;
+DROP TABLE IF EXISTS Demo.Dealership;
+DROP TABLE IF EXISTS Demo.Customer;
+DROP TABLE IF EXISTS Demo.Feature;
+DROP TABLE IF EXISTS Demo.[Address];
 GO
 
 CREATE TABLE Demo.Feature
@@ -22,7 +22,7 @@ CREATE TABLE Demo.[Address]
 	AddressId INT NOT NULL IDENTITY(1, 1) PRIMARY KEY,
 	City NVARCHAR(32) NOT NULL,
 	Street NVARCHAR(32) NOT NULL,
-	Street2 NVARCHAR 32 NULL,
+	Street2 NVARCHAR(32) NULL,
 	Zipcode INT NOT NULL,
 );
 
@@ -38,7 +38,7 @@ CREATE TABLE Demo.Dealership
 CREATE TABLE Demo.Car
 (
 	CarId INT NOT NULL IDENTITY(1, 1) PRIMARY KEY,
-	DealershipId NOT NULL REFERENCES Demo.Dealership(DealershipId),
+	DealershipId INT NOT NULL REFERENCES Demo.Dealership(DealershipId),
 	Make NVARCHAR(16) NOT NULL,
 	Model NVARCHAR(16) NOT NULL,
 	Color NVARCHAR(16) NOT NULL,
@@ -52,7 +52,7 @@ CREATE TABLE Demo.Car
 CREATE TABLE Demo.CarFeatures
 (
 	CarId INT NOT NULL REFERENCES Demo.Car(CarId),
-	FeatureId INT NOT NULL REFERENCES Demo.CarFeatures(FeatureId),
+	FeatureId INT NOT NULL REFERENCES Demo.Feature(FeatureId),
 
 	PRIMARY KEY(CarId, FeatureId)
 );
@@ -82,8 +82,7 @@ CREATE TABLE Demo.Sales
 (
 	SaleId INT NOT NULL IDENTITY(1, 1) PRIMARY KEY,
 	EmployeeId INT NOT NULL REFERENCES Demo.Employee(EmployeeId),
-	CustomerId INT NOT NULL REFERENCES Demo.Custoemr(CustoemrId),
-	DealershipId INT NOT NULL REFERENCES Demo.Dealership(DealershipId),
+	CustomerId INT NOT NULL REFERENCES Demo.Customer(CustomerId),
 	CarId INT NOT NULL REFERENCES Demo.Car(CarId),
 	SaleAmount INT NOT NULL,
 	PurchasePrice INT NOT NULL,
