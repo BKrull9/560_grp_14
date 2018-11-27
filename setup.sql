@@ -44,8 +44,6 @@ CREATE TABLE Demo.Car
 	Milage INT NOT NULL,
 	OwnerCnt INT NOT NULL,
 	AskPrice INT NOT NULL,
-	PurchasePrice INT NOT NULL,
-	SalePrice INT NULL
 );
 
 CREATE TABLE Demo.CarFeatures
@@ -84,7 +82,6 @@ CREATE TABLE Demo.Sales
 	CustomerId INT NOT NULL REFERENCES Demo.Customer(CustomerId),
 	CarId INT NOT NULL REFERENCES Demo.Car(CarId),
 	SaleAmount INT NOT NULL,
-	PurchasePrice INT NOT NULL,
 );
 
 --TODO: Name FK References and Unique keys
