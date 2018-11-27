@@ -39,7 +39,7 @@ CREATE TABLE Demo.Car
 	DealershipId INT NOT NULL REFERENCES Demo.Dealership(DealershipId),
 	[Year] INT NOT NULL,
 	Make NVARCHAR(16) NOT NULL,
-	Model NVARCHAR(16) NOT NULL,
+	Model NVARCHAR(32) NOT NULL,
 	Color NVARCHAR(16) NOT NULL,
 	Milage INT NOT NULL,
 	OwnerCnt INT NOT NULL,
