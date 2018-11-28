@@ -59,9 +59,11 @@ CREATE TABLE Demo.Employee
 	EmployeeId INT NOT NULL IDENTITY(1, 1) PRIMARY KEY,
 	AddressId INT NOT NULL REFERENCES Demo.[Address](AddressId),
 	DealershipId INT NOT NULL REFERENCES Demo.Dealership(DealershipId),
+	FirstName NVARCHAR(32) NOT NULL,
+	LastName NVARCHAR(32) NOT NULL,
 	Email NVARCHAR(32) NOT NULL UNIQUE,
 	Salary INT NOT NULL,
-	Title NVARCHAR(16) NOT NULL,
+	Title NVARCHAR(32) NOT NULL,
 	PhoneNumber NVARCHAR(32) NOT NULL,
 );
 
