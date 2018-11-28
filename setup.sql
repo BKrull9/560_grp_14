@@ -61,9 +61,9 @@ CREATE TABLE Demo.Employee
 	DealershipId INT NOT NULL REFERENCES Demo.Dealership(DealershipId),
 	FirstName NVARCHAR(32) NOT NULL,
 	LastName NVARCHAR(32) NOT NULL,
-	Email NVARCHAR(32) NOT NULL UNIQUE,
+	Email NVARCHAR(128) NOT NULL UNIQUE,
 	Salary INT NOT NULL,
-	Title NVARCHAR(32) NOT NULL,
+	Title NVARCHAR(128) NOT NULL,
 	PhoneNumber NVARCHAR(32) NOT NULL,
 );
 
@@ -74,7 +74,7 @@ CREATE TABLE Demo.Customer
 	FirstName NVARCHAR(16) NOT NULL,
 	LastName NVARCHAR(16) NOT NULL,
 	PhoneNumber NVARCHAR(16) NOT NULL,
-	Email NVARCHAR(32) NOT NULL UNIQUE,
+	Email NVARCHAR(128) NOT NULL UNIQUE,
 );
 
 CREATE TABLE Demo.Sales
@@ -84,6 +84,8 @@ CREATE TABLE Demo.Sales
 	CustomerId INT NOT NULL REFERENCES Demo.Customer(CustomerId),
 	CarId INT NOT NULL REFERENCES Demo.Car(CarId),
 	SaleAmount INT NOT NULL,
+	CreatedOn DATETIMEOFFSET NOT NULL
+      CONSTRAINT [DF_Demo_Sale_CreatedOn] DEFAULT(SYSDATETIMEOFFSET()),
 );
 
 --TODO: Name FK References and Unique keys
