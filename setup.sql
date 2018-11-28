@@ -84,6 +84,8 @@ CREATE TABLE Demo.Sales
 	CustomerId INT NOT NULL REFERENCES Demo.Customer(CustomerId),
 	CarId INT NOT NULL REFERENCES Demo.Car(CarId),
 	SaleAmount INT NOT NULL,
+	CreatedOn DATETIMEOFFSET NOT NULL
+      CONSTRAINT [DF_Demo_Sale_CreatedOn] DEFAULT(SYSDATETIMEOFFSET()),
 );
 
 --TODO: Name FK References and Unique keys
