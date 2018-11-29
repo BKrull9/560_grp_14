@@ -18,10 +18,20 @@ export default class NavBar extends Component {
                 <div className="bp3-navbar-heading">Cars N Stuff</div>
               </div>
               <div className="bp3-navbar-group bp3-align-right">
-                <button className="bp3-button bp3-minimal bp3-icon-drive-time">Cars</button>
-                <button className="bp3-button bp3-minimal bp3-icon-person">Employees</button>
-                <button className="bp3-button bp3-minimal bp3-icon-office">Dealerships</button>
-                <button className="bp3-button bp3-minimal bp3-icon-user">Customers</button>
+                <button
+                    onClick={() => this.props.changeTab('cars')}
+                    className="bp3-button bp3-minimal bp3-icon-drive-time"
+                >Cars</button>
+                <button
+                    onClick={() => this.props.changeTab('employees')}
+                    className="bp3-button bp3-minimal bp3-icon-person"
+                >Employees</button>
+                <button
+                    onClick={() => this.props.changeTab('dealerships')}
+                    className="bp3-button bp3-minimal bp3-icon-office">Dealerships</button>
+                <button
+                    onClick={() => this.props.changeTab('customers')}
+                    className="bp3-button bp3-minimal bp3-icon-user">Customers</button>
               </div>
             </div>
           </nav>
