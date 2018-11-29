@@ -84,7 +84,7 @@ CREATE TABLE Demo.Sales
 	CustomerId INT NOT NULL REFERENCES Demo.Customer(CustomerId),
 	CarId INT NOT NULL REFERENCES Demo.Car(CarId),
 	SaleAmount INT NOT NULL,
-	CreatedOn DATETIMEOFFSET NOT NULL
+	SaleDate DATETIME NOT NULL
       CONSTRAINT [DF_Demo_Sale_CreatedOn] DEFAULT(SYSDATETIMEOFFSET()),
 );
 
