@@ -247,3 +247,23 @@ FROM Demo.Employee E
 WHERE E.DealershipId = @DealershipId
 GROUP BY E.EmployeeId, E.Email;
 GO
+
+/*---------------------------------------------------------------------------------
+Get the top X performing salespeople
+---------------------------------------------------------------------------------*/
+DROP PROCEDURE IF EXISTS Demo.GetTopEmployees;
+GO
+
+CREATE PROCEDURE Demo.GetTopEmployees
+	@EmployeeNumber INT = 0
+AS
+
+SELECT TOP(@EmployeeNumber) E.EmployeeId, E.FirstName, E.LastName, COUNT(DISTINCT S.SaleId) AS NumberSales, SUM(S.SaleAmount) AS SalesVolume
+FROM Demo.Employee E
+	INNER JOIN Demo.Sale S ON E.EmployeeId = S.EmployeeId
+GROUP BY E.EmployeeId, E.FirstName, E.LastName
+ORDER BY SalesVolume DESC
+
+EXEC Demo.GetTopEmployees
+	@EmployeeNumber = 10
+GO
