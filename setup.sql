@@ -49,7 +49,7 @@ CREATE TABLE Demo.Car
 CREATE TABLE Demo.CarFeatures
 (
 	CarId INT NOT NULL REFERENCES Demo.Car(CarId),
-	FeatureId INT NOT NULL REFERENCES Demo.Feature(FeatureId) UNIQUE,
+	FeatureId INT NOT NULL REFERENCES Demo.Feature(FeatureId),
 
 	PRIMARY KEY(CarId, FeatureId)
 );
