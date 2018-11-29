@@ -29,6 +29,7 @@ CREATE TABLE Demo.[Address]
 CREATE TABLE Demo.Dealership
 (
 	DealershipId INT NOT NULL IDENTITY(1, 1) PRIMARY KEY,
+	DealershipName NVARCHAR(32) NOT NULL,
 	AddressId INT NOT NULL REFERENCES Demo.[Address](AddressId),
 	PhoneNumber NVARCHAR(16) NOT NULL,
 );

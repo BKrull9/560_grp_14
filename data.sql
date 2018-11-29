@@ -1009,13 +1009,13 @@ insert into Demo.[Address] (City, Street, Zipcode) values ('Jiagao', '00 Saint P
 ('Hualfín', '5 Carberry Court', 48365);
 
 -- Dealerships
-insert into Demo.Dealership (AddressId, PhoneNumber) values (1, '357-439-6546'),
-(2, '632-818-6017'),
-(3, '259-831-3327'),
-(4, '963-534-2717'),
-(5, '306-164-1086'),
-(6, '696-379-4040'),
-(7, '397-714-5549');
+insert into Demo.Dealership (AddressId, DealershipName, PhoneNumber) values (1, 'West Dealership','357-439-6546'),
+(2, 'North Dealership','632-818-6017'),
+(3,'East Dealership', '259-831-3327'),
+(4, 'South Dealership','963-534-2717'),
+(5, 'North West Dealership','306-164-1086'),
+(6, 'South East Dealership','696-379-4040'),
+(7, 'Central Dealership','397-714-5549');
 
 -- cars 
 insert into Demo.Car (DealershipId, [Year], Make, Model, Color, Milage, OwnerCnt, AskPrice) values (6, 1991, 'Ford', 'Explorer', 'Goldenrod', 123368, 2, 46526),
