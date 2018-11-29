@@ -1009,7 +1009,7 @@ insert into Demo.[Address] (City, Street, Zipcode) values ('Jiagao', '00 Saint P
 ('Hualfín', '5 Carberry Court', 48365);
 
 -- Dealerships
-insert into Demo.Dealership (AddressId, DealershipName, PhoneNumber) values (1, 'West Dealership','357-439-6546'),
+insert into Demo.Dealership (AddressId, [Name], PhoneNumber) values (1, 'West Dealership','357-439-6546'),
 (2, 'North Dealership','632-818-6017'),
 (3,'East Dealership', '259-831-3327'),
 (4, 'South Dealership','963-534-2717'),
