@@ -2020,7 +2020,7 @@ insert into Demo.Car (DealershipId, [Year], Make, Model, Color, Milage, OwnerCnt
 (6, 2006, 'Pontiac', 'Daewoo Kalos', 'Indigo', 58692, 1, 197671);
 
 -- Car Feature 
-insert into Demo.CarFeatures (CarId, FeatureID) values (207, 10),
+insert into Demo.CarFeature (CarId, FeatureID) values (207, 10),
  (678, 13),
  (236, 18),
  (982, 6),
@@ -4026,9 +4026,9 @@ insert into Demo.Customer (AddressId, FirstName, LastName, PhoneNumber, Email) v
  (364, 'Niels', 'Pridding', '992-138-2692', 'npriddingdu@reddit.com'),
  (326, 'Annemarie', 'Cubbon', '709-204-0424', 'acubbondv@go.com');
 
--- sales -- Sorry Keller this is really gross
+-- sale -- Sorry Keller this is really gross
 
-insert into Demo.Sales(EmployeeId, CustomerId, CarId, SaleAmount, SaleDate)
+insert into Demo.Sale(EmployeeId, CustomerId, CarId, SaleAmount, SaleDate)
 select temp.EmplyeeId, temp.CustomerId, temp2.cId, temp.SaleAmount, temp.SaleDate
 from
 (

@@ -47,7 +47,7 @@ CREATE TABLE Demo.Car
 	AskPrice INT NOT NULL,
 );
 
-CREATE TABLE Demo.CarFeatures
+CREATE TABLE Demo.CarFeature
 (
 	CarId INT NOT NULL REFERENCES Demo.Car(CarId),
 	FeatureId INT NOT NULL REFERENCES Demo.Feature(FeatureId),
@@ -78,7 +78,7 @@ CREATE TABLE Demo.Customer
 	Email NVARCHAR(128) NOT NULL UNIQUE,
 );
 
-CREATE TABLE Demo.Sales
+CREATE TABLE Demo.Sale
 (
 	SaleId INT NOT NULL IDENTITY(1, 1) PRIMARY KEY,
 	EmployeeId INT NOT NULL REFERENCES Demo.Employee(EmployeeId),
