@@ -6,6 +6,7 @@ import CarsPage from "./main-pages/cars";
 import EmployeesPage from "./main-pages/employees";
 import DealershipsPage from "./main-pages/dealerships";
 import CustomersPage from "./main-pages/customers";
+import mysql from "mysql"
 
 class App extends Component {
   constructor(props) {
@@ -47,3 +48,4 @@ class App extends Component {
 }
 
 export default App;
+
