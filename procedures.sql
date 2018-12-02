@@ -92,10 +92,10 @@ SELECT * FROM Demo.Car;
 /*---------------------------------------------------------------------------------
 Employee Performance
 ---------------------------------------------------------------------------------*/
-DROP PROCEDURE IF EXISTS Demo.CarSearch;
+DROP PROCEDURE IF EXISTS Demo.EmployeePerformance;
 GO
 
-CREATE PROCEDURE Demo.CarSearch
+CREATE PROCEDURE Demo.EmployeePerformance
    @EmployeeId INT = 0,
    --@FirstNamePattern NVARCHAR(32) = N'%',
    --@LastNamePattern NVARCHAR(32) = N'%',
@@ -115,7 +115,15 @@ WHERE E.EmployeeId = @EmployeeId
 	--AND E.FirstName LIKE @FirstNamePattern
 	--AND E.LastName LIKE @LastNamePattern
 	AND S.SaleDate BETWEEN @StartDate AND @EndDate
-GROUP BY E.EmployeeId;
+GROUP BY E.EmployeeId, E.FirstName, E.LastName, E.PhoneNumber;
+GO
+
+SELECT * FROM Demo.Sale WHERE SaleDate BETWEEN '2018-01-01' AND '2018-12-31';
+
+EXEC Demo.EmployeePerformance
+	@EmployeeId = 8,
+	@StartDate = '2018-01-01',
+	@EndDate = '2018-12-31'
 GO
 
 /*---------------------------------------------------------------------------------
@@ -132,6 +140,7 @@ AS
 
 SELECT 
 	D.DealershipId AS DealershipId,
+	D.[Name] AS [Name],
 	D.AddressId AS DealershipAddress,
 	D.PhoneNumber AS DealershipPhoneNumber,
 	SUM(S.SaleAmount) AS TotalSales
@@ -140,7 +149,13 @@ FROM
 	JOIN Demo.Dealership D ON E.DealershipId = D.DealershipId
 	JOIN Demo.Sale S ON E.EmployeeId = S.EmployeeId
 WHERE D.[Name] LIKE @DealershipPattern
-GROUP BY D.DealershipId, D.AddressId, D.PhoneNumber;
+GROUP BY D.DealershipId, D.[Name], D.AddressId, D.PhoneNumber;
+GO
+
+EXEC Demo.DealershipPerformance
+	@DealershipPattern = 'North Dealership',
+	@StartDate = '2018-01-01',
+	@EndDate = '2018-12-31'
 GO
 
 /*---------------------------------------------------------------------------------
@@ -182,27 +197,27 @@ CREATE PROCEDURE Demo.CarWithFeature
 	@Feature3 INT = null,
 	@Feature4 INT = null,
 	@Feature5 INT = null,
-	@Feature6 INT = null,
-	@Feature7 INT = null,
-	@Feature8 INT = null,
-	@Feature9 INT = null,
-	@Feature10 INT = null,
-	@Feature11 INT = null,
-	@Feature12 INT = null,
-	@Feature13 INT = null,
-	@Feature14 INT = null,
-	@Feature15 INT = null,
-	@Feature16 INT = null,
-	@Feature17 INT = null,
-	@Feature18 INT = null,
-	@Feature19 INT = null,
-	@Feature20 INT = null
+	@Feature6 INT = null
+	--@Feature7 INT = null,
+	--@Feature8 INT = null,
+	--@Feature9 INT = null,
+	--@Feature10 INT = null,
+	--@Feature11 INT = null,
+	--@Feature12 INT = null,
+	--@Feature13 INT = null,
+	--@Feature14 INT = null,
+	--@Feature15 INT = null,
+	--@Feature16 INT = null,
+	--@Feature17 INT = null,
+	--@Feature18 INT = null,
+	--@Feature19 INT = null,
+	--@Feature20 INT = null
 AS 
 
 SELECT C.CarId, C.Make, C.Model, C.Color, C.Milage--, CF.FeatureId
 FROM Demo.Car C
 	INNER JOIN Demo.CarFeature CF ON C.CarId = CF.CarId 
-WHERE C.CarId IN ( SELECT CF.CarId FROM Demo.CarFeature CF WHERE CF.FeatureId =ISNULL( @Feature1, CF.FeatureId) )
+WHERE C.CarId IN ( SELECT CF.CarId FROM Demo.CarFeature CF WHERE CF.FeatureId =ISNULL(@Feature1, CF.FeatureId) )
 	AND C.CarId IN ( SELECT CF.CarId FROM Demo.CarFeature CF WHERE CF.FeatureId = ISNULL(@Feature2, CF.FeatureId) )
 	AND C.CarId IN ( SELECT CF.CarId FROM Demo.CarFeature CF WHERE CF.FeatureId = ISNULL(@Feature3, CF.FeatureId) )
 	AND C.CarId IN ( SELECT CF.CarId FROM Demo.CarFeature CF WHERE CF.FeatureId = ISNULL(@Feature4, CF.FeatureId) )
@@ -211,16 +226,16 @@ WHERE C.CarId IN ( SELECT CF.CarId FROM Demo.CarFeature CF WHERE CF.FeatureId =I
 	--AND C.CarId IN ( SELECT CF.CarId FROM Demo.CarFeature CF WHERE CF.FeatureId = ISNULL(@Feature7, CF.FeatureId) )
 	--AND C.CarId IN ( SELECT CF.CarId FROM Demo.CarFeature CF WHERE CF.FeatureId = ISNULL(@Feature8, CF.FeatureId) )
 	--AND C.CarId IN ( SELECT CF.CarId FROM Demo.CarFeature CF WHERE CF.FeatureId = ISNULL(@Feature9, CF.FeatureId) )
-	--AND C.CarId IN ( SELECT CF.CarId FROM Demo.CarFeature CF WHERE CF.FeatureId = ISNULL(@Feature1, CF.FeatureId)  )
-	--AND C.CarId IN ( SELECT CF.CarId FROM Demo.CarFeature CF WHERE CF.FeatureId = ISNULL(@Feature1, CF.FeatureId)  )
-	--AND C.CarId IN ( SELECT CF.CarId FROM Demo.CarFeature CF WHERE CF.FeatureId = ISNULL(@Feature1, CF.FeatureId)  )
-	--AND C.CarId IN ( SELECT CF.CarId FROM Demo.CarFeature CF WHERE CF.FeatureId = ISNULL(@Feature1, CF.FeatureId)  )
-	--AND C.CarId IN ( SELECT CF.CarId FROM Demo.CarFeature CF WHERE CF.FeatureId = ISNULL(@Feature1, CF.FeatureId)  )
-	--AND C.CarId IN ( SELECT CF.CarId FROM Demo.CarFeature CF WHERE CF.FeatureId = ISNULL(@Feature1, CF.FeatureId)  )
-	--AND C.CarId IN ( SELECT CF.CarId FROM Demo.CarFeature CF WHERE CF.FeatureId = ISNULL(@Feature1, CF.FeatureId)  )
-	--AND C.CarId IN ( SELECT CF.CarId FROM Demo.CarFeature CF WHERE CF.FeatureId = ISNULL(@Feature1, CF.FeatureId)  )
-	--AND C.CarId IN ( SELECT CF.CarId FROM Demo.CarFeature CF WHERE CF.FeatureId = ISNULL(@Feature1, CF.FeatureId)  )
-	--AND C.CarId IN ( SELECT CF.CarId FROM Demo.CarFeature CF WHERE CF.FeatureId = ISNULL(@Feature1, CF.FeatureId)  )
+	--AND C.CarId IN ( SELECT CF.CarId FROM Demo.CarFeature CF WHERE CF.FeatureId = ISNULL(@Feature10, CF.FeatureId) )
+	--AND C.CarId IN ( SELECT CF.CarId FROM Demo.CarFeature CF WHERE CF.FeatureId = ISNULL(@Feature11, CF.FeatureId) )
+	--AND C.CarId IN ( SELECT CF.CarId FROM Demo.CarFeature CF WHERE CF.FeatureId = ISNULL(@Feature12, CF.FeatureId) )
+	--AND C.CarId IN ( SELECT CF.CarId FROM Demo.CarFeature CF WHERE CF.FeatureId = ISNULL(@Feature13, CF.FeatureId) )
+	--AND C.CarId IN ( SELECT CF.CarId FROM Demo.CarFeature CF WHERE CF.FeatureId = ISNULL(@Feature14, CF.FeatureId) )
+	--AND C.CarId IN ( SELECT CF.CarId FROM Demo.CarFeature CF WHERE CF.FeatureId = ISNULL(@Feature15, CF.FeatureId) )
+	--AND C.CarId IN ( SELECT CF.CarId FROM Demo.CarFeature CF WHERE CF.FeatureId = ISNULL(@Feature16, CF.FeatureId) )
+	--AND C.CarId IN ( SELECT CF.CarId FROM Demo.CarFeature CF WHERE CF.FeatureId = ISNULL(@Feature17, CF.FeatureId) )
+	--AND C.CarId IN ( SELECT CF.CarId FROM Demo.CarFeature CF WHERE CF.FeatureId = ISNULL(@Feature18, CF.FeatureId) )
+	--AND C.CarId IN ( SELECT CF.CarId FROM Demo.CarFeature CF WHERE CF.FeatureId = ISNULL(@Feature19, CF.FeatureId) )
 	--AND C.CarId IN ( SELECT CF.CarId FROM Demo.CarFeature CF WHERE CF.FeatureId = ISNULL(@Feature20, CF.FeatureId) )
 GROUP BY C.CarId, C.Make, C.Model, C.Color, C.Milage
 GO
@@ -264,9 +279,27 @@ FROM Demo.Employee E
 	INNER JOIN Demo.Sale S ON E.EmployeeId = S.EmployeeId
 GROUP BY E.EmployeeId, E.FirstName, E.LastName
 ORDER BY SalesVolume DESC
+GO
 
 EXEC Demo.GetTopEmployees
 	@EmployeeNumber = 10
+GO
+
+/*---------------------------------------------------------------------------------
+Get all make types
+---------------------------------------------------------------------------------*/
+DROP PROCEDURE IF EXISTS Demo.GetMakeTypes;
+GO
+
+CREATE PROCEDURE Demo.GetMakeTypes
+
+AS
+
+SELECT DISTINCT C.Make
+FROM Demo.Car C
+GO
+
+EXEC Demo.GetMakeTypes;
 GO
 
 /*---------------------------------------------------------------------------------
@@ -287,5 +320,26 @@ WHERE NOT EXISTS
 	WHERE S.CarId = C.CarId
 )
 
-EXEC Demo.GetStockTotalValue
+EXEC Demo.GetStockTotalValue;
+GO
+
+/*---------------------------------------------------------------------------------
+Get the total value of the in-stock cars
+---------------------------------------------------------------------------------*/
+DROP PROCEDURE IF EXISTS Demo.GetStockTotalValue;
+GO
+
+CREATE PROCEDURE Demo.GetStockTotalValue
+AS
+
+SELECT SUM(C.AskPrice) AS TotalStockValue
+FROM Demo.Car C
+WHERE NOT EXISTS
+(
+	SELECT S.CarId
+	FROM Demo.Sale S
+	WHERE S.CarId = C.CarId
+);
+
+EXEC Demo.GetStockTotalValue;
 GO
