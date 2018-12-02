@@ -268,3 +268,24 @@ ORDER BY SalesVolume DESC
 EXEC Demo.GetTopEmployees
 	@EmployeeNumber = 10
 GO
+
+/*---------------------------------------------------------------------------------
+Get the total value of the in-stock cars
+---------------------------------------------------------------------------------*/
+DROP PROCEDURE IF EXISTS Demo.GetStockTotalValue;
+GO
+
+CREATE PROCEDURE Demo.GetStockTotalValue
+AS
+
+SELECT SUM(C.AskPrice)
+FROM Demo.Car C
+WHERE NOT EXISTS
+(
+	SELECT S.CarId
+	FROM Demo.Sale S
+	WHERE S.CarId = C.CarId
+)
+
+EXEC Demo.GetStockTotalValue
+GO
