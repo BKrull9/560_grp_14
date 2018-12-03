@@ -22,30 +22,8 @@ namespace TestConnection
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string conn_str;
-            SqlConnection conn;
-
-            conn_str = @"Server=mssql.cs.ksu.edu;Database=cis560_team14;Integrated Security=SSPI;";
-
-            conn = new SqlConnection(conn_str);
-            conn.Open();
-
-            SqlCommand cmd;
-            SqlDataReader data_reader;
-            string sql, output = "";
-
-            sql = "SELECT CarId FROM Demo.Car";
-            cmd = new SqlCommand(sql, conn);
-            data_reader = cmd.ExecuteReader();
-
-            while (data_reader.Read())
-            {
-                output += data_reader.GetValue(0) + "\n";
-            }
-
-            MessageBox.Show(output);
-
-            conn.Close();
+            Group14Connection conn = new Group14Connection();
+            conn.GetCustomerInformation(1);
         }
     }
 }
