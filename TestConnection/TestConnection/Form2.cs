@@ -28,7 +28,7 @@ namespace TestConnection
         // get car features button click
         private void button2_Click(object sender, EventArgs e)
         {
-
+           
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -39,10 +39,12 @@ namespace TestConnection
         //Car search button click
         private void uxCarSearch_Click(object sender, EventArgs e)
         {
-
+            CarSearch CS = new CarSearch(this);
+            CS.Show();
+            this.Hide();
         }
 
-        //car informationm button click
+        //car information button click
         private void uxCarInfo_Click(object sender, EventArgs e)
         {
 

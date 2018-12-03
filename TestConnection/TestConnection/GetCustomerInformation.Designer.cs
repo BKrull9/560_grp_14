@@ -77,6 +77,7 @@
             this.uxSearch.TabIndex = 5;
             this.uxSearch.Text = "Search";
             this.uxSearch.UseVisualStyleBackColor = true;
+            this.uxSearch.Click += new System.EventHandler(this.uxSearch_Click);
             // 
             // GetCustomerInformation
             // 

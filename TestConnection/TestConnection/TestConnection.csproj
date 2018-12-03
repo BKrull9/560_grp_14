@@ -70,8 +70,17 @@
     <Compile Include="GetCustomerInformation.Designer.cs">
       <DependentUpon>GetCustomerInformation.cs</DependentUpon>
     </Compile>
+    <Compile Include="ListEmployees.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ListEmployees.Designer.cs">
+      <DependentUpon>ListEmployees.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="CarSearch.resx">
+      <DependentUpon>CarSearch.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

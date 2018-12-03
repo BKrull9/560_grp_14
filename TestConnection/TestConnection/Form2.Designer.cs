@@ -29,12 +29,10 @@
         private void InitializeComponent()
         {
             this.uxGetCustomer = new System.Windows.Forms.Button();
-            this.uxCarFeat = new System.Windows.Forms.Button();
             this.uxListEmployees = new System.Windows.Forms.Button();
             this.uxCarSearch = new System.Windows.Forms.Button();
             this.uxEmployeePerf = new System.Windows.Forms.Button();
             this.uxDealershipPerf = new System.Windows.Forms.Button();
-            this.uxCarInfo = new System.Windows.Forms.Button();
             this.uxCarWithFeat = new System.Windows.Forms.Button();
             this.uxGetEmployees = new System.Windows.Forms.Button();
             this.uxGetTopEmployees = new System.Windows.Forms.Button();
@@ -57,20 +55,9 @@
             this.uxGetCustomer.UseVisualStyleBackColor = true;
             this.uxGetCustomer.Click += new System.EventHandler(this.button1_Click);
             // 
-            // uxCarFeat
-            // 
-            this.uxCarFeat.Location = new System.Drawing.Point(9, 162);
-            this.uxCarFeat.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.uxCarFeat.Name = "uxCarFeat";
-            this.uxCarFeat.Size = new System.Drawing.Size(276, 26);
-            this.uxCarFeat.TabIndex = 1;
-            this.uxCarFeat.Text = "Get Car Features";
-            this.uxCarFeat.UseVisualStyleBackColor = true;
-            this.uxCarFeat.Click += new System.EventHandler(this.button2_Click);
-            // 
             // uxListEmployees
             // 
-            this.uxListEmployees.Location = new System.Drawing.Point(9, 259);
+            this.uxListEmployees.Location = new System.Drawing.Point(9, 185);
             this.uxListEmployees.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.uxListEmployees.Name = "uxListEmployees";
             this.uxListEmployees.Size = new System.Drawing.Size(276, 26);
@@ -92,7 +79,7 @@
             // 
             // uxEmployeePerf
             // 
-            this.uxEmployeePerf.Location = new System.Drawing.Point(9, 349);
+            this.uxEmployeePerf.Location = new System.Drawing.Point(9, 275);
             this.uxEmployeePerf.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.uxEmployeePerf.Name = "uxEmployeePerf";
             this.uxEmployeePerf.Size = new System.Drawing.Size(276, 26);
@@ -103,7 +90,7 @@
             // 
             // uxDealershipPerf
             // 
-            this.uxDealershipPerf.Location = new System.Drawing.Point(9, 459);
+            this.uxDealershipPerf.Location = new System.Drawing.Point(9, 385);
             this.uxDealershipPerf.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.uxDealershipPerf.Name = "uxDealershipPerf";
             this.uxDealershipPerf.Size = new System.Drawing.Size(276, 26);
@@ -112,20 +99,9 @@
             this.uxDealershipPerf.UseVisualStyleBackColor = true;
             this.uxDealershipPerf.Click += new System.EventHandler(this.uxDealershipPerf_Click);
             // 
-            // uxCarInfo
-            // 
-            this.uxCarInfo.Location = new System.Drawing.Point(9, 123);
-            this.uxCarInfo.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.uxCarInfo.Name = "uxCarInfo";
-            this.uxCarInfo.Size = new System.Drawing.Size(276, 26);
-            this.uxCarInfo.TabIndex = 6;
-            this.uxCarInfo.Text = "Car Information";
-            this.uxCarInfo.UseVisualStyleBackColor = true;
-            this.uxCarInfo.Click += new System.EventHandler(this.uxCarInfo_Click);
-            // 
             // uxCarWithFeat
             // 
-            this.uxCarWithFeat.Location = new System.Drawing.Point(9, 199);
+            this.uxCarWithFeat.Location = new System.Drawing.Point(9, 125);
             this.uxCarWithFeat.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.uxCarWithFeat.Name = "uxCarWithFeat";
             this.uxCarWithFeat.Size = new System.Drawing.Size(276, 26);
@@ -136,7 +112,7 @@
             // 
             // uxGetEmployees
             // 
-            this.uxGetEmployees.Location = new System.Drawing.Point(9, 292);
+            this.uxGetEmployees.Location = new System.Drawing.Point(9, 218);
             this.uxGetEmployees.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.uxGetEmployees.Name = "uxGetEmployees";
             this.uxGetEmployees.Size = new System.Drawing.Size(276, 26);
@@ -147,7 +123,7 @@
             // 
             // uxGetTopEmployees
             // 
-            this.uxGetTopEmployees.Location = new System.Drawing.Point(9, 387);
+            this.uxGetTopEmployees.Location = new System.Drawing.Point(9, 313);
             this.uxGetTopEmployees.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.uxGetTopEmployees.Name = "uxGetTopEmployees";
             this.uxGetTopEmployees.Size = new System.Drawing.Size(276, 26);
@@ -168,7 +144,7 @@
             // 
             // uxGetStockTotal
             // 
-            this.uxGetStockTotal.Location = new System.Drawing.Point(9, 423);
+            this.uxGetStockTotal.Location = new System.Drawing.Point(9, 349);
             this.uxGetStockTotal.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.uxGetStockTotal.Name = "uxGetStockTotal";
             this.uxGetStockTotal.Size = new System.Drawing.Size(276, 26);
@@ -201,7 +177,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 235);
+            this.label3.Location = new System.Drawing.Point(6, 161);
             this.label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(58, 13);
@@ -211,7 +187,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 327);
+            this.label4.Location = new System.Drawing.Point(6, 253);
             this.label4.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(67, 13);
@@ -222,7 +198,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(295, 498);
+            this.ClientSize = new System.Drawing.Size(295, 426);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -232,12 +208,10 @@
             this.Controls.Add(this.uxGetTopEmployees);
             this.Controls.Add(this.uxGetEmployees);
             this.Controls.Add(this.uxCarWithFeat);
-            this.Controls.Add(this.uxCarInfo);
             this.Controls.Add(this.uxDealershipPerf);
             this.Controls.Add(this.uxEmployeePerf);
             this.Controls.Add(this.uxCarSearch);
             this.Controls.Add(this.uxListEmployees);
-            this.Controls.Add(this.uxCarFeat);
             this.Controls.Add(this.uxGetCustomer);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
@@ -251,12 +225,10 @@
         #endregion
 
         private System.Windows.Forms.Button uxGetCustomer;
-        private System.Windows.Forms.Button uxCarFeat;
         private System.Windows.Forms.Button uxListEmployees;
         private System.Windows.Forms.Button uxCarSearch;
         private System.Windows.Forms.Button uxEmployeePerf;
         private System.Windows.Forms.Button uxDealershipPerf;
-        private System.Windows.Forms.Button uxCarInfo;
         private System.Windows.Forms.Button uxCarWithFeat;
         private System.Windows.Forms.Button uxGetEmployees;
         private System.Windows.Forms.Button uxGetTopEmployees;
