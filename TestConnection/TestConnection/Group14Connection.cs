@@ -33,7 +33,7 @@ namespace TestConnection
                 $"@OwnerCnt={HandleNullableInt(ownerCount)}, " +
                 $"@AskPrice={HandleNullableInt(askPrice)}");
         }
-        public DataSet CarWithFeature(int[] featureIDs)
+        public DataSet CarWithFeature(List<int> featureIDs)
         {
             string qString = $"EXEC Demo.CarWithFeature";
             foreach (int id in featureIDs)
