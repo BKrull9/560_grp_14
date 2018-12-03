@@ -65,10 +65,30 @@ namespace TestConnection
         }
 
         private void PopulateDataGrid(DataSet data)
-        {            
-            foreach(DataRow row in data.Tables[0].Rows)
+        {
+            DataTable table = data.Tables[0];
+            DataRow row1 = data.Tables[0].Rows[0];
+            for (int i = 1; i < row.ItemArray.Length; i++)
             {
+                if (i != 0)
+                {
+                    dataGridView1.Columns.Add(table.Columns[i].ColumnName, table.Columns[i].ColumnName);
+                    rowData.Add(row[i].ToString());
+                }
 
+            }
+            for(int i = 0; i < table.Columns.Count; i++)
+            {
+                dataGridView1.Columns.Add(table.Columns[i].ColumnName, table.Columns[i].ColumnName);
+            }
+            dataGridView1.Rows.Add(rowData.ToArray());
+            foreach (DataRow row in data.Tables[0].Rows)
+            {
+                List<string> rowData = new List<string>();
+                for(int i = 1; i < row.ItemArray.Count; i++)
+                {
+
+                }
             }
         }
 
@@ -85,27 +105,27 @@ namespace TestConnection
 
         private void uxTestBtn_Click(object sender, EventArgs e)
         {
-            List<string> list = new List<string>();
-            list.Add("feature1");
-            list.Add("feature2");
-            list.Add("feature3");
-            list.Add("feature4");
-            list.Add("feature5");
-            list.Add("feature6");
-            list.Add("feature7");
-            list.Add("feature8");
-            list.Add("feature9");
-            list.Add("feature10");
-            list.Add("feature11");
-            list.Add("feature12");
-            list.Add("feature13");
-            list.Add("feature14");
-            list.Add("feature15");
-            list.Add("feature16");
-            list.Add("feature17");
-            list.Add("feature18");
-            list.Add("feature19");
-            list.Add("feature20");
+            List<Tuple<string, int>> list = new List<Tuple<string, int>>();
+            list.Add(new Tuple<String, int>("feature1", 1));
+            list.Add(new Tuple<String, int>("feature2", 2));
+            list.Add(new Tuple<String, int>("feature3", 3));
+            list.Add(new Tuple<String, int>("feature4", 4));
+            list.Add(new Tuple<String, int>("feature5", 5));
+            list.Add(new Tuple<String, int>("feature6", 6));
+            list.Add(new Tuple<String, int>("feature7", 7));
+            list.Add(new Tuple<String, int>("feature8", 8));
+            list.Add(new Tuple<String, int>("feature9", 9));
+            list.Add(new Tuple<String, int>("feature10", 10));
+            list.Add(new Tuple<String, int>("feature11", 11));
+            list.Add(new Tuple<String, int>("feature12", 12));
+            list.Add(new Tuple<String, int>("feature13", 13));
+            list.Add(new Tuple<String, int>("feature14", 14));
+            list.Add(new Tuple<String, int>("feature15", 15));
+            list.Add(new Tuple<String, int>("feature16", 16));
+            list.Add(new Tuple<String, int>("feature17", 17));
+            list.Add(new Tuple<String, int>("feature18", 18));
+            list.Add(new Tuple<String, int>("feature19", 19));
+            list.Add(new Tuple<String, int>("feature20", 20));
             //AddFeatures(list);
         }
     }
