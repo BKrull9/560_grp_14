@@ -28,17 +28,13 @@ namespace TestConnection
 
         private void uxSearch_Click(object sender, EventArgs e)
         {
-            if(textBox1.Text.Length > 0)
+            int num = 0;
+            if(textBox1.Text.Length > 0 && Int32.TryParse(textBox1.Text, out num))
             {
-                try
-                {
-                    int customerId = Convert.ToInt32(textBox1.Text);
-                    displayData(customerId);
-                }
-                catch
-                {
-                    MessageBox.Show("You must insert an integer value into the customer id field.");
-                }
+               
+               int customerId = Convert.ToInt32(textBox1.Text);
+               displayData(customerId);
+                
             }
             else
             {
@@ -48,7 +44,41 @@ namespace TestConnection
 
         private void displayData(int customerId)
         {
-            //MakeDataCallandDisplayData
+            try
+            {
+                dataGridView1.Rows.Clear();
+                dataGridView1.Columns.Clear();
+                Group14Connection g14 = new Group14Connection();
+                var data = g14.GetCustomerInformation(customerId);
+                var table = data.Tables[0];
+                var row = table.Rows[0];
+                List<string> rowData = new List<string>();
+                for (int i = 0; i < row.ItemArray.Length; i++)
+                {
+                    if (i != 0)
+                    {
+                        dataGridView1.Columns.Add(table.Columns[i].ColumnName, table.Columns[i].ColumnName);
+                        rowData.Add(row[i].ToString());
+                    }
+                }
+                dataGridView1.Rows.Add(rowData.ToArray());
+            }
+            catch
+            {
+                MessageBox.Show("This employee does not exist.");
+                textBox1.Text = "";
+            }
+        }
+
+        // do not use
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void GetCustomerInformation_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
