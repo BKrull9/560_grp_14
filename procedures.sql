@@ -22,7 +22,7 @@ EXEC Demo.GetCustomerInformation @CustomerId = 1;
 GO 
 
 /*---------------------------------------------------------------------------------
-Customer Information
+GetCarFeatures
 -- Procedure to get car features --
 ---------------------------------------------------------------------------------*/
 DROP PROCEDURE IF EXISTS Demo.GetCarFeatures;
@@ -133,7 +133,7 @@ DROP PROCEDURE IF EXISTS Demo.DealershipPerformance;
 GO
 
 CREATE PROCEDURE Demo.DealershipPerformance
-	@DealershipPattern NVARCHAR(32) = N'%',
+	@DealershipId INT = 0,
 	@StartDate DATETIMEOFFSET = '2000-01-01',
 	@EndDate DATETIMEOFFSET = '2999-12-31'
 AS
@@ -148,12 +148,12 @@ FROM
 	Demo.Employee E
 	JOIN Demo.Dealership D ON E.DealershipId = D.DealershipId
 	JOIN Demo.Sale S ON E.EmployeeId = S.EmployeeId
-WHERE D.[Name] LIKE @DealershipPattern
+WHERE D.DealershipId = @DealershipId
 GROUP BY D.DealershipId, D.[Name], D.AddressId, D.PhoneNumber;
 GO
 
 EXEC Demo.DealershipPerformance
-	@DealershipPattern = 'North Dealership',
+	@DealershipId = 1,
 	@StartDate = '2018-01-01',
 	@EndDate = '2018-12-31'
 GO
@@ -165,8 +165,7 @@ DROP PROCEDURE IF EXISTS Demo.CarInformation;
 GO
 
 CREATE PROCEDURE Demo.CarInformation
-	@CarId INT = 0,
-	@DealershipId INT = 0 
+	@CarId INT = 0
 AS 
 
 SELECT 
