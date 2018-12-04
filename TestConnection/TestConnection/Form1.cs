@@ -22,8 +22,8 @@ namespace TestConnection
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Group14Connection conn = new Group14Connection();
-            conn.GetCustomerInformation(1);
+            //Group14Connection conn = new Group14Connection();
+            //conn.GetCustomerInformation(1);
         }
     }
 }
