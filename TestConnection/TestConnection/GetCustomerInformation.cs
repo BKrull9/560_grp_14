@@ -27,57 +27,74 @@ namespace TestConnection
         }
 
         private void uxSearch_Click(object sender, EventArgs e)
-        {
-            int num = 0;
-            if(textBox1.Text.Length > 0 && Int32.TryParse(textBox1.Text, out num))
+        {            
+            Nullable<int> customer_id = null;
+            int temp;
+            if( Int32.TryParse(uxTxtCustomerId.Text, out temp ) )
             {
-               int customerId = Convert.ToInt32(textBox1.Text);
-               displayData(customerId);
-                
+                customer_id = temp;
+            }
+            
+            displayData( customer_id, uxTxtFistName.Text, uxTxtLastName.Text );
+        }
+
+        private void displayData(int? customerId, string first, string last)
+        {
+            uxDataGrid.Rows.Clear();
+            Group14Connection g14 = new Group14Connection();
+            var data = g14.GetCustomerInformation( customerId, first, last );
+            var table = data.Tables[0];
+            if( table.Rows.Count > 0 )
+            {
+                uxDataGrid.Rows.Add();
+                foreach ( DataRow data_row in table.Rows )
+                {
+                    DataGridViewRow new_row = (DataGridViewRow)uxDataGrid.Rows[0].Clone();
+                    new_row.Cells[0].Value = data_row.ItemArray[0].ToString();
+                    new_row.Cells[1].Value = data_row.ItemArray[1].ToString();
+                    new_row.Cells[2].Value = data_row.ItemArray[2].ToString();
+                    new_row.Cells[3].Value = data_row.ItemArray[3].ToString();
+                    new_row.Cells[4].Value = data_row.ItemArray[4].ToString();
+                    new_row.Cells[5].Value = data_row.ItemArray[5].ToString();
+                    new_row.Cells[6].Value = data_row.ItemArray[6].ToString();
+                    new_row.Cells[7].Value = data_row.ItemArray[7].ToString();
+                    new_row.Cells[8].Value = data_row.ItemArray[8].ToString();
+                    uxDataGrid.Rows.Add(new_row);
+                }
+                uxDataGrid.Rows.RemoveAt(0);
             }
             else
             {
-                MessageBox.Show("You must insert an integer value into the customer id field.");
-            }
-        }
-
-        private void displayData(int customerId)
-        {
-            try
-            {
-                dataGridView1.Rows.Clear();
-                dataGridView1.Columns.Clear();
-                Group14Connection g14 = new Group14Connection();
-                var data = g14.GetCustomerInformation(customerId);
-                var table = data.Tables[0];
-                var row = table.Rows[0];
-                List<string> rowData = new List<string>();
-                for (int i = 0; i < row.ItemArray.Length; i++)
-                {
-                    if (i != 0)
-                    {
-                        dataGridView1.Columns.Add(table.Columns[i].ColumnName, table.Columns[i].ColumnName);
-                        rowData.Add(row[i].ToString());
-                    }
-                }
-                dataGridView1.Rows.Add(rowData.ToArray());
-            }
-            catch
-            {
                 MessageBox.Show("This employee does not exist.");
-                textBox1.Text = "";
+                uxTxtCustomerId.Text = "";
             }
-        }
-
-        // do not use
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void GetCustomerInformation_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void uxDataGird_SelectionChanged(object sender, EventArgs e)
+        {
+            DataGridViewRow row = uxDataGrid.SelectedRows.Count == 0 ? null : uxDataGrid.SelectedRows[0];
+            if( row != null && row.Cells != null && row.Cells[0].Value != null )
+            {
+                uxCustomerId.Text   = row.Cells[0].Value.ToString();
+                uxPhoneNumber.Text  = row.Cells[1].Value.ToString();
+                uxEmail.Text        = row.Cells[2].Value.ToString();
+                //First Name = row.Cells[3].Value.ToString();
+                //Last Name = row.Cells[4].Value.ToString();
+                uxStreet.Text       = row.Cells[5].Value.ToString();
+                uxStreet2.Text      = row.Cells[6].Value.ToString();
+                uxCity.Text         = row.Cells[7].Value.ToString();
+                uxZipcode.Text      = row.Cells[8].Value.ToString();
+            }
+        }
+
+        private void uxTxtCustomerId_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            
         }
     }
 }

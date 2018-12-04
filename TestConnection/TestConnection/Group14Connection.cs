@@ -67,9 +67,9 @@ namespace TestConnection
         {
             return ExecQuery($"EXEC Demo.GetCarFeatures @CarId={carId}");
         }
-        public DataSet GetCustomerInformation(int customerId)
+        public DataSet GetCustomerInformation(int? customerId, string first, string last)
         {
-            return ExecQuery($"EXEC Demo.GetCustomerInformation @customerId={customerId}");
+            return ExecQuery($"EXEC Demo.GetCustomerInformation @customerId={HandleNullableInt(customerId)}, @FirstName=N'%{first}%', @LastName=N'%{last}%'");
         }
         public DataSet GetMakeTypes()
         {
