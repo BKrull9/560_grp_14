@@ -70,6 +70,12 @@
     <Compile Include="Home.Designer.cs">
       <DependentUpon>Home.cs</DependentUpon>
     </Compile>
+    <Compile Include="EmployeePerformance.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EmployeePerformance.Designer.cs">
+      <DependentUpon>EmployeePerformance.cs</DependentUpon>
+    </Compile>
     <Compile Include="GetCustomerInformation.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -99,6 +105,9 @@
     <Compile Include="Group14Connection.cs" />
     <EmbeddedResource Include="DealershipPerformance.resx">
       <DependentUpon>DealershipPerformance.cs</DependentUpon>
+    </EmbeddedResource>
+	<EmbeddedResource Include="EmployeePerformance.resx">
+      <DependentUpon>EmployeePerformance.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Home.resx">
       <DependentUpon>Home.cs</DependentUpon>
