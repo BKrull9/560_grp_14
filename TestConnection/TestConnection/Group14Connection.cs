@@ -23,11 +23,12 @@ namespace TestConnection
             return ExecQuery($"EXEC Demo.CarInformation @CarId = {carID};");
         }
         public DataSet CarSearch(string make, string model, string color,
-            int? milage, int? ownerCount, int? askPrice)
+            int? milage, int? ownerCount, int? askPrice, int? year)
         {
             return ExecQuery($"EXEC Demo.CarSearch " +
                 $"@Make={HandlePossibleEmptyString(make)}, " +
                 $"@Model={HandlePossibleEmptyString(model)}, " +
+                $"@Year={HandleNullableInt(year)}, " +
                 $"@Color={HandlePossibleEmptyString(color)}, " +
                 $"@Milage={HandleNullableInt(milage)}, " +
                 $"@OwnerCnt={HandleNullableInt(ownerCount)}, " +

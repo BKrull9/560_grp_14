@@ -44,6 +44,7 @@ namespace TestConnection
             Nullable<int> milage2 = null;
             Nullable<int> oc2 = null;
             Nullable<int> ap2 = null;
+            Nullable<int> year2 = null;
             if(Int32.TryParse(milage, out num))
             {
                 milage2 = Convert.ToInt32(milage);
@@ -56,8 +57,12 @@ namespace TestConnection
             {
                 ap2 = Convert.ToInt32(ap);
             }
+            if (Int32.TryParse(year, out num))
+            {
+                year2 = Convert.ToInt32(year);
+            }
             Group14Connection g14 = new Group14Connection();
-            var data = g14.CarSearch(make, model, color, milage2, oc2, ap2);
+            var data = g14.CarSearch(make, model, color, milage2, oc2, ap2, year2);
             var table = data.Tables[0];
 
             if (dataGridView1.Columns.Count > 0)
