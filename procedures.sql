@@ -9,16 +9,46 @@ DROP PROCEDURE IF EXISTS Demo.GetCustomerInformation;
 GO
 
 CREATE PROCEDURE Demo.GetCustomerInformation
-	@CustomerId INT = 0
+	@CustomerId INT = null,
+	@FirstName NVARCHAR(32) = N'%',
+	@LastName NVARCHAR(32) = N'%'
+
 AS
 
-SELECT C.AddressId, C.FirstName, C.LastName, C.PhoneNumber, C.Email, A.Street, A.Street2, A.City, A.Zipcode
+SELECT C.CustomerId, C.FirstName, C.LastName, C.PhoneNumber, C.Email, A.Street, A.Street2, A.City, A.Zipcode
 FROM Demo.Customer C
 	INNER JOIN Demo.[Address] A ON C.AddressId = A.AddressId
-WHERE C.CustomerId = @CustomerId
+WHERE C.CustomerId = ISNULL(@CustomerId, C.CustomerId)
+	AND C.FirstName LIKE @FirstName
+	AND C.LastName LIKE @LastName
 GO
 
 EXEC Demo.GetCustomerInformation @CustomerId = 1;
+EXEC Demo.GetCustomerInformation @FirstName = N'%don%';
+EXEC Demo.GetCustomerInformation @FirstName = N'%donall%';
+EXEC Demo.GetCustomerInformation @LastName = N'%ack%';
+EXEC Demo.GetCustomerInformation @FirstName = N'%nal%', @LastName = N'%ack%';
+GO 
+
+/*---------------------------------------------------------------------------------
+Customer Purchases
+-- Procedure to get customer information for display and computation --
+---------------------------------------------------------------------------------*/
+DROP PROCEDURE IF EXISTS Demo.GetCustomerPurchase;
+GO
+
+CREATE PROCEDURE Demo.GetCustomerPurchase
+	@CustomerId INT = 0
+AS
+
+SELECT SUM(S.SaleAmount) AS PurchaseAmount, COUNT(DISTINCT S.SaleId) AS PurchaseCount
+FROM Demo.Customer C
+	INNER JOIN Demo.Sale S ON C.CustomerId = S.CustomerId
+WHERE C.CustomerId = @CustomerId
+GROUP BY C.CustomerId
+GO
+
+EXEC Demo.GetCustomerPurchase @CustomerId = 1;
 GO 
 
 /*---------------------------------------------------------------------------------
