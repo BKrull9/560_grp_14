@@ -41,7 +41,7 @@ CREATE PROCEDURE Demo.GetCustomerPurchase
 	@CustomerId INT = 0
 AS
 
-SELECT SUM(S.SaleAmount) AS PurchaseAmount, COUNT(DISTINCT S.SaleId) AS PurchaseCount
+SELECT COUNT(DISTINCT S.SaleId) AS PurchaseCount, SUM(S.SaleAmount) AS PurchaseAmount
 FROM Demo.Customer C
 	INNER JOIN Demo.Sale S ON C.CustomerId = S.CustomerId
 WHERE C.CustomerId = @CustomerId
