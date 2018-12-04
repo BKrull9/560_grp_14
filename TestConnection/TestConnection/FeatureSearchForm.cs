@@ -10,6 +10,8 @@ using System.Windows.Forms;
 
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace TestConnection
 {
@@ -21,11 +23,21 @@ namespace TestConnection
         {
             InitializeComponent();
             homePage = ret;
+
+            List<Tuple<string, int>> features = GetFeatures();
+            AddFeatures(features);
+            GetCarsWithFeatures(null, null);
         }
 
-        public List<string> GetFeatures()
+        public List<Tuple<string, int>> GetFeatures()
         {
-            List<string> list = new List<string>();
+            Group14Connection conn = new Group14Connection();
+            List<Tuple<string, int>> list = new List<Tuple<string, int>>();
+            DataSet data = conn.ListFeature();
+            foreach( DataRow row in data.Tables[0].Rows )
+            {
+                list.Add( new Tuple<string, int>( row.ItemArray[0].ToString(), Int32.Parse( row.ItemArray[1].ToString() ) ) );
+            }
 
             return list;
         }
@@ -53,43 +65,48 @@ namespace TestConnection
 
         private void GetCarsWithFeatures(object sender, EventArgs e)
         {
-            List<int> id_list = new List<int>();
-            foreach( Control cb in uxFeatureTable.Controls )
+            List<string> id_list = new List<string>();
+            foreach (Control control in uxFeatureTable.Controls)
             {
-                int feature_id = Int32.Parse( cb.Name.Substring(cb.Name.Length - 1) );
-                id_list.Add(feature_id);
+                CheckBox cb = control as CheckBox;
+                if (cb.Checked)
+                {
+                    string feature_id = Regex.Match(cb.Name, @"\d+").Value;
+                    id_list.Add(feature_id);
+                }
             }
+
             Group14Connection conn = new Group14Connection();
-            DataSet data = conn.CarWithFeature( id_list );
+            if (id_list.Count == 0)
+            {
+                id_list.Add("null");
+            }
+
+            DataSet data = conn.CarWithFeature(id_list); //conn.CarSearch("", "", "", null, null, null);
             PopulateDataGrid(data);
         }
 
         private void PopulateDataGrid(DataSet data)
         {
+            uxDataGrid.Rows.Clear();
+            uxDataGrid.Rows.Add();
             DataTable table = data.Tables[0];
-            DataRow row1 = data.Tables[0].Rows[0];
-            for (int i = 1; i < row.ItemArray.Length; i++)
+            foreach( DataRow data_row in table.Rows )
             {
-                if (i != 0)
-                {
-                    dataGridView1.Columns.Add(table.Columns[i].ColumnName, table.Columns[i].ColumnName);
-                    rowData.Add(row[i].ToString());
-                }
+                DataGridViewRow new_row = (DataGridViewRow)uxDataGrid.Rows[0].Clone();
+                new_row.Cells[0].Value = data_row.ItemArray[0].ToString();
+                new_row.Cells[1].Value = data_row.ItemArray[1].ToString();
+                new_row.Cells[2].Value = data_row.ItemArray[2].ToString();
+                new_row.Cells[3].Value = data_row.ItemArray[3].ToString();
+                new_row.Cells[4].Value = Int32.Parse( data_row.ItemArray[4].ToString() ).ToString( "C", CultureInfo.CurrentCulture );
+                new_row.Cells[5].Value = data_row.ItemArray[5].ToString();
+                new_row.Cells[6].Value = data_row.ItemArray[6].ToString();
+                new_row.Cells[7].Value = data_row.ItemArray[7].ToString();
+                new_row.Cells[8].Value = data_row.ItemArray[8].ToString();
 
+                uxDataGrid.Rows.Add( new_row );
             }
-            for(int i = 0; i < table.Columns.Count; i++)
-            {
-                dataGridView1.Columns.Add(table.Columns[i].ColumnName, table.Columns[i].ColumnName);
-            }
-            dataGridView1.Rows.Add(rowData.ToArray());
-            foreach (DataRow row in data.Tables[0].Rows)
-            {
-                List<string> rowData = new List<string>();
-                for(int i = 1; i < row.ItemArray.Count; i++)
-                {
-
-                }
-            }
+            uxDataGrid.Rows.RemoveAt(0);
         }
 
         private void FeatureSearchForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -103,30 +120,19 @@ namespace TestConnection
             homePage.Show();
         }
 
-        private void uxTestBtn_Click(object sender, EventArgs e)
+        private void uxDataGrid_SelectionChanged(object sender, EventArgs e)
         {
-            List<Tuple<string, int>> list = new List<Tuple<string, int>>();
-            list.Add(new Tuple<String, int>("feature1", 1));
-            list.Add(new Tuple<String, int>("feature2", 2));
-            list.Add(new Tuple<String, int>("feature3", 3));
-            list.Add(new Tuple<String, int>("feature4", 4));
-            list.Add(new Tuple<String, int>("feature5", 5));
-            list.Add(new Tuple<String, int>("feature6", 6));
-            list.Add(new Tuple<String, int>("feature7", 7));
-            list.Add(new Tuple<String, int>("feature8", 8));
-            list.Add(new Tuple<String, int>("feature9", 9));
-            list.Add(new Tuple<String, int>("feature10", 10));
-            list.Add(new Tuple<String, int>("feature11", 11));
-            list.Add(new Tuple<String, int>("feature12", 12));
-            list.Add(new Tuple<String, int>("feature13", 13));
-            list.Add(new Tuple<String, int>("feature14", 14));
-            list.Add(new Tuple<String, int>("feature15", 15));
-            list.Add(new Tuple<String, int>("feature16", 16));
-            list.Add(new Tuple<String, int>("feature17", 17));
-            list.Add(new Tuple<String, int>("feature18", 18));
-            list.Add(new Tuple<String, int>("feature19", 19));
-            list.Add(new Tuple<String, int>("feature20", 20));
-            //AddFeatures(list);
+            DataGridViewRow row = uxDataGrid.SelectedRows.Count == 0 ? null : uxDataGrid.SelectedRows[0];
+            if( row != null && row.Cells != null && row.Cells[0].Value != null )
+            {
+                uxMake.Text     = row.Cells[1].Value.ToString();
+                uxModel.Text    = row.Cells[2].Value.ToString();
+                uxYear.Text     = row.Cells[3].Value.ToString();
+                uxAskPrice.Text = row.Cells[4].Value.ToString();
+                uxColor.Text    = row.Cells[5].Value.ToString();
+                uxMilage.Text   = row.Cells[6].Value.ToString();
+                uxOwnerCount.Text = row.Cells[7].Value.ToString();
+            }
         }
     }
 }

@@ -33,12 +33,14 @@ namespace TestConnection
                 $"@OwnerCnt={HandleNullableInt(ownerCount)}, " +
                 $"@AskPrice={HandleNullableInt(askPrice)}");
         }
-        public DataSet CarWithFeature(List<int> featureIDs)
+        public DataSet CarWithFeature(List<string> featureIDs)
         {
             string qString = $"EXEC Demo.CarWithFeature";
-            foreach (int id in featureIDs)
+            int i = 1;
+            foreach (string id in featureIDs)
             {
-                qString += $" @Feature{id} = 1,";
+                qString += $" @Feature{i} = {id},";
+                i++;
             }
             // remove the last comma to avoid syntax error
             qString = qString.Substring(0, qString.Length - 1);
@@ -83,6 +85,10 @@ namespace TestConnection
         public DataSet ListEmployee()
         {
             return ExecQuery($"EXEC Demo.ListEmployee");
+        }
+        public DataSet ListFeature()
+        {
+            return ExecQuery($"EXEC Demo.ListFeature");
         }
         private DataSet ExecQuery(string sql)
         {

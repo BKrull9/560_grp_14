@@ -53,7 +53,9 @@ namespace TestConnection
         // Get car with features button click
         private void uxCarWithFeat_Click(object sender, EventArgs e)
         {
-
+            FeatureSearchForm feature_search_form = new FeatureSearchForm(this);
+            feature_search_form.Show();
+            this.Hide();
         }
 
         // list employees button click
