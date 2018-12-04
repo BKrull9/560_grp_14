@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.uxFeatureTable = new System.Windows.Forms.TableLayoutPanel();
-            this.uxTestBtn = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -45,8 +44,17 @@
             this.uxOwnerCount = new System.Windows.Forms.Label();
             this.uxAskPrice = new System.Windows.Forms.Label();
             this.uxBack = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.uxDataGrid = new System.Windows.Forms.DataGridView();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.make = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.model = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.year = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.askPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.color = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.milage = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dealershipId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ownerCnt = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.uxDataGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // uxFeatureTable
@@ -66,19 +74,9 @@
             this.uxFeatureTable.Size = new System.Drawing.Size(481, 129);
             this.uxFeatureTable.TabIndex = 0;
             // 
-            // uxTestBtn
-            // 
-            this.uxTestBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.uxTestBtn.Location = new System.Drawing.Point(365, 310);
-            this.uxTestBtn.Name = "uxTestBtn";
-            this.uxTestBtn.Size = new System.Drawing.Size(128, 23);
-            this.uxTestBtn.TabIndex = 1;
-            this.uxTestBtn.Text = "Test Feature Population";
-            this.uxTestBtn.UseVisualStyleBackColor = true;
-            this.uxTestBtn.Click += new System.EventHandler(this.uxTestBtn_Click);
-            // 
             // label1
             // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(289, 152);
             this.label1.Name = "label1";
@@ -88,6 +86,7 @@
             // 
             // label2
             // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(289, 174);
             this.label2.Name = "label2";
@@ -97,8 +96,9 @@
             // 
             // label3
             // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(289, 197);
+            this.label3.Location = new System.Drawing.Point(289, 218);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(34, 13);
             this.label3.TabIndex = 5;
@@ -106,8 +106,9 @@
             // 
             // label4
             // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(289, 219);
+            this.label4.Location = new System.Drawing.Point(289, 196);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(32, 13);
             this.label4.TabIndex = 6;
@@ -115,6 +116,7 @@
             // 
             // label5
             // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(289, 241);
             this.label5.Name = "label5";
@@ -124,6 +126,7 @@
             // 
             // label6
             // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(289, 265);
             this.label6.Name = "label6";
@@ -133,6 +136,7 @@
             // 
             // label7
             // 
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(289, 288);
             this.label7.Name = "label7";
@@ -142,6 +146,7 @@
             // 
             // uxMake
             // 
+            this.uxMake.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.uxMake.AutoSize = true;
             this.uxMake.Location = new System.Drawing.Point(374, 152);
             this.uxMake.Name = "uxMake";
@@ -151,6 +156,7 @@
             // 
             // uxModel
             // 
+            this.uxModel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.uxModel.AutoSize = true;
             this.uxModel.Location = new System.Drawing.Point(374, 174);
             this.uxModel.Name = "uxModel";
@@ -160,8 +166,9 @@
             // 
             // uxColor
             // 
+            this.uxColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.uxColor.AutoSize = true;
-            this.uxColor.Location = new System.Drawing.Point(374, 197);
+            this.uxColor.Location = new System.Drawing.Point(374, 218);
             this.uxColor.Name = "uxColor";
             this.uxColor.Size = new System.Drawing.Size(13, 13);
             this.uxColor.TabIndex = 12;
@@ -169,6 +176,7 @@
             // 
             // uxMilage
             // 
+            this.uxMilage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.uxMilage.AutoSize = true;
             this.uxMilage.Location = new System.Drawing.Point(374, 243);
             this.uxMilage.Name = "uxMilage";
@@ -178,8 +186,9 @@
             // 
             // uxYear
             // 
+            this.uxYear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.uxYear.AutoSize = true;
-            this.uxYear.Location = new System.Drawing.Point(374, 219);
+            this.uxYear.Location = new System.Drawing.Point(374, 196);
             this.uxYear.Name = "uxYear";
             this.uxYear.Size = new System.Drawing.Size(13, 13);
             this.uxYear.TabIndex = 14;
@@ -187,6 +196,7 @@
             // 
             // uxOwnerCount
             // 
+            this.uxOwnerCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.uxOwnerCount.AutoSize = true;
             this.uxOwnerCount.Location = new System.Drawing.Point(374, 265);
             this.uxOwnerCount.Name = "uxOwnerCount";
@@ -196,6 +206,7 @@
             // 
             // uxAskPrice
             // 
+            this.uxAskPrice.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.uxAskPrice.AutoSize = true;
             this.uxAskPrice.Location = new System.Drawing.Point(374, 288);
             this.uxAskPrice.Name = "uxAskPrice";
@@ -214,22 +225,97 @@
             this.uxBack.UseVisualStyleBackColor = true;
             this.uxBack.Click += new System.EventHandler(this.uxBack_Click);
             // 
-            // dataGridView1
+            // uxDataGrid
             // 
-            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 152);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(271, 155);
-            this.dataGridView1.TabIndex = 18;
+            this.uxDataGrid.AllowUserToAddRows = false;
+            this.uxDataGrid.AllowUserToDeleteRows = false;
+            this.uxDataGrid.AllowUserToResizeRows = false;
+            this.uxDataGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.uxDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.uxDataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.id,
+            this.make,
+            this.model,
+            this.year,
+            this.askPrice,
+            this.color,
+            this.milage,
+            this.dealershipId,
+            this.ownerCnt});
+            this.uxDataGrid.Location = new System.Drawing.Point(12, 152);
+            this.uxDataGrid.MultiSelect = false;
+            this.uxDataGrid.Name = "uxDataGrid";
+            this.uxDataGrid.RowHeadersVisible = false;
+            this.uxDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.uxDataGrid.Size = new System.Drawing.Size(271, 155);
+            this.uxDataGrid.TabIndex = 18;
+            this.uxDataGrid.SelectionChanged += new System.EventHandler(this.uxDataGrid_SelectionChanged);
+            // 
+            // id
+            // 
+            this.id.HeaderText = "Id";
+            this.id.Name = "id";
+            this.id.Visible = false;
+            // 
+            // make
+            // 
+            this.make.HeaderText = "Make";
+            this.make.Name = "make";
+            this.make.ReadOnly = true;
+            // 
+            // model
+            // 
+            this.model.HeaderText = "Model";
+            this.model.Name = "model";
+            this.model.ReadOnly = true;
+            // 
+            // year
+            // 
+            this.year.HeaderText = "Year";
+            this.year.Name = "year";
+            this.year.ReadOnly = true;
+            // 
+            // askPrice
+            // 
+            this.askPrice.HeaderText = "Ask Price";
+            this.askPrice.Name = "askPrice";
+            this.askPrice.ReadOnly = true;
+            // 
+            // color
+            // 
+            this.color.HeaderText = "Color";
+            this.color.Name = "color";
+            this.color.ReadOnly = true;
+            this.color.Visible = false;
+            // 
+            // milage
+            // 
+            this.milage.HeaderText = "Milage";
+            this.milage.Name = "milage";
+            this.milage.ReadOnly = true;
+            this.milage.Visible = false;
+            // 
+            // dealershipId
+            // 
+            this.dealershipId.HeaderText = "Dealership ID";
+            this.dealershipId.Name = "dealershipId";
+            this.dealershipId.ReadOnly = true;
+            this.dealershipId.Visible = false;
+            // 
+            // ownerCnt
+            // 
+            this.ownerCnt.HeaderText = "Owner Count";
+            this.ownerCnt.Name = "ownerCnt";
+            this.ownerCnt.ReadOnly = true;
+            this.ownerCnt.Visible = false;
             // 
             // FeatureSearchForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(505, 343);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.uxDataGrid);
             this.Controls.Add(this.uxBack);
             this.Controls.Add(this.uxAskPrice);
             this.Controls.Add(this.uxOwnerCount);
@@ -245,12 +331,11 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.uxTestBtn);
             this.Controls.Add(this.uxFeatureTable);
             this.Name = "FeatureSearchForm";
             this.Text = "FeatureSearchForm";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FeatureSearchForm_FormClosed);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.uxDataGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -259,7 +344,6 @@
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel uxFeatureTable;
-        private System.Windows.Forms.Button uxTestBtn;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
@@ -275,6 +359,15 @@
         private System.Windows.Forms.Label uxOwnerCount;
         private System.Windows.Forms.Label uxAskPrice;
         private System.Windows.Forms.Button uxBack;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView uxDataGrid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn make;
+        private System.Windows.Forms.DataGridViewTextBoxColumn model;
+        private System.Windows.Forms.DataGridViewTextBoxColumn year;
+        private System.Windows.Forms.DataGridViewTextBoxColumn askPrice;
+        private System.Windows.Forms.DataGridViewTextBoxColumn color;
+        private System.Windows.Forms.DataGridViewTextBoxColumn milage;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dealershipId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ownerCnt;
     }
 }

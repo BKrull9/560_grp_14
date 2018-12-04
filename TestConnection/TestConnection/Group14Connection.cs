@@ -23,22 +23,25 @@ namespace TestConnection
             return ExecQuery($"EXEC Demo.CarInformation @CarId = {carID};");
         }
         public DataSet CarSearch(string make, string model, string color,
-            int? milage, int? ownerCount, int? askPrice)
+            int? milage, int? ownerCount, int? askPrice, int? year)
         {
             return ExecQuery($"EXEC Demo.CarSearch " +
                 $"@Make={HandlePossibleEmptyString(make)}, " +
                 $"@Model={HandlePossibleEmptyString(model)}, " +
+                $"@Year={HandleNullableInt(year)}, " +
                 $"@Color={HandlePossibleEmptyString(color)}, " +
                 $"@Milage={HandleNullableInt(milage)}, " +
                 $"@OwnerCnt={HandleNullableInt(ownerCount)}, " +
                 $"@AskPrice={HandleNullableInt(askPrice)}");
         }
-        public DataSet CarWithFeature(List<int> featureIDs)
+        public DataSet CarWithFeature(List<string> featureIDs)
         {
             string qString = $"EXEC Demo.CarWithFeature";
-            foreach (int id in featureIDs)
+            int i = 1;
+            foreach (string id in featureIDs)
             {
-                qString += $" @Feature{id} = 1,";
+                qString += $" @Feature{i} = {id},";
+                i++;
             }
             // remove the last comma to avoid syntax error
             qString = qString.Substring(0, qString.Length - 1);
@@ -83,6 +86,10 @@ namespace TestConnection
         public DataSet ListEmployee(int DealershipId)
         {
             return ExecQuery($"EXEC Demo.GetEmployees @DealershipId = {DealershipId}");
+        }
+        public DataSet ListFeature()
+        {
+            return ExecQuery($"EXEC Demo.ListFeature");
         }
         private DataSet ExecQuery(string sql)
         {

@@ -13,7 +13,7 @@ namespace TestConnection
     public partial class GetCustomerInformation : Form
     {
         Home homePage;
-
+        //TODO: Add first/last name options to search with
         public GetCustomerInformation(Home ret)
         {
             homePage = ret;
@@ -31,7 +31,6 @@ namespace TestConnection
             int num = 0;
             if(textBox1.Text.Length > 0 && Int32.TryParse(textBox1.Text, out num))
             {
-               
                int customerId = Convert.ToInt32(textBox1.Text);
                displayData(customerId);
                 

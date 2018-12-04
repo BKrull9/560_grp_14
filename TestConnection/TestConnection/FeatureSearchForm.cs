@@ -10,6 +10,8 @@ using System.Windows.Forms;
 
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace TestConnection
 {
@@ -21,11 +23,21 @@ namespace TestConnection
         {
             InitializeComponent();
             homePage = ret;
+
+            List<Tuple<string, int>> features = GetFeatures();
+            AddFeatures(features);
+            GetCarsWithFeatures(null, null);
         }
 
-        public List<string> GetFeatures()
+        public List<Tuple<string, int>> GetFeatures()
         {
-            List<string> list = new List<string>();
+            Group14Connection conn = new Group14Connection();
+            List<Tuple<string, int>> list = new List<Tuple<string, int>>();
+            DataSet data = conn.ListFeature();
+            foreach( DataRow row in data.Tables[0].Rows )
+            {
+                list.Add( new Tuple<string, int>( row.ItemArray[0].ToString(), Int32.Parse( row.ItemArray[1].ToString() ) ) );
+            }
 
             return list;
         }
@@ -53,23 +65,48 @@ namespace TestConnection
 
         private void GetCarsWithFeatures(object sender, EventArgs e)
         {
-            List<int> id_list = new List<int>();
-            foreach( Control cb in uxFeatureTable.Controls )
+            List<string> id_list = new List<string>();
+            foreach (Control control in uxFeatureTable.Controls)
             {
-                int feature_id = Int32.Parse( cb.Name.Substring(cb.Name.Length - 1) );
-                id_list.Add(feature_id);
+                CheckBox cb = control as CheckBox;
+                if (cb.Checked)
+                {
+                    string feature_id = Regex.Match(cb.Name, @"\d+").Value;
+                    id_list.Add(feature_id);
+                }
             }
+
             Group14Connection conn = new Group14Connection();
-            DataSet data = conn.CarWithFeature( id_list );
+            if (id_list.Count == 0)
+            {
+                id_list.Add("null");
+            }
+
+            DataSet data = conn.CarWithFeature(id_list); //conn.CarSearch("", "", "", null, null, null);
             PopulateDataGrid(data);
         }
 
         private void PopulateDataGrid(DataSet data)
-        {            
-            foreach(DataRow row in data.Tables[0].Rows)
+        {
+            uxDataGrid.Rows.Clear();
+            uxDataGrid.Rows.Add();
+            DataTable table = data.Tables[0];
+            foreach( DataRow data_row in table.Rows )
             {
+                DataGridViewRow new_row = (DataGridViewRow)uxDataGrid.Rows[0].Clone();
+                new_row.Cells[0].Value = data_row.ItemArray[0].ToString();
+                new_row.Cells[1].Value = data_row.ItemArray[1].ToString();
+                new_row.Cells[2].Value = data_row.ItemArray[2].ToString();
+                new_row.Cells[3].Value = data_row.ItemArray[3].ToString();
+                new_row.Cells[4].Value = Int32.Parse( data_row.ItemArray[4].ToString() ).ToString( "C", CultureInfo.CurrentCulture );
+                new_row.Cells[5].Value = data_row.ItemArray[5].ToString();
+                new_row.Cells[6].Value = data_row.ItemArray[6].ToString();
+                new_row.Cells[7].Value = data_row.ItemArray[7].ToString();
+                new_row.Cells[8].Value = data_row.ItemArray[8].ToString();
 
+                uxDataGrid.Rows.Add( new_row );
             }
+            uxDataGrid.Rows.RemoveAt(0);
         }
 
         private void FeatureSearchForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -83,30 +120,19 @@ namespace TestConnection
             homePage.Show();
         }
 
-        private void uxTestBtn_Click(object sender, EventArgs e)
+        private void uxDataGrid_SelectionChanged(object sender, EventArgs e)
         {
-            List<string> list = new List<string>();
-            list.Add("feature1");
-            list.Add("feature2");
-            list.Add("feature3");
-            list.Add("feature4");
-            list.Add("feature5");
-            list.Add("feature6");
-            list.Add("feature7");
-            list.Add("feature8");
-            list.Add("feature9");
-            list.Add("feature10");
-            list.Add("feature11");
-            list.Add("feature12");
-            list.Add("feature13");
-            list.Add("feature14");
-            list.Add("feature15");
-            list.Add("feature16");
-            list.Add("feature17");
-            list.Add("feature18");
-            list.Add("feature19");
-            list.Add("feature20");
-           // AddFeatures(list);
+            DataGridViewRow row = uxDataGrid.SelectedRows.Count == 0 ? null : uxDataGrid.SelectedRows[0];
+            if( row != null && row.Cells != null && row.Cells[0].Value != null )
+            {
+                uxMake.Text     = row.Cells[1].Value.ToString();
+                uxModel.Text    = row.Cells[2].Value.ToString();
+                uxYear.Text     = row.Cells[3].Value.ToString();
+                uxAskPrice.Text = row.Cells[4].Value.ToString();
+                uxColor.Text    = row.Cells[5].Value.ToString();
+                uxMilage.Text   = row.Cells[6].Value.ToString();
+                uxOwnerCount.Text = row.Cells[7].Value.ToString();
+            }
         }
     }
 }

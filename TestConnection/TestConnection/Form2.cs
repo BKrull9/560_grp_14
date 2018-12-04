@@ -23,18 +23,7 @@ namespace TestConnection
             GetCustomerInformation GCI = new GetCustomerInformation(this);
             GCI.Show();
             this.Hide();
-        }
-
-        // get car features button click
-        private void button2_Click(object sender, EventArgs e)
-        {
-           
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
+        }        
 
         //Car search button click
         private void uxCarSearch_Click(object sender, EventArgs e)
@@ -44,16 +33,12 @@ namespace TestConnection
             this.Hide();
         }
 
-        //car information button click
-        private void uxCarInfo_Click(object sender, EventArgs e)
-        {
-
-        }
-
         // Get car with features button click
         private void uxCarWithFeat_Click(object sender, EventArgs e)
         {
-
+            FeatureSearchForm feature_search_form = new FeatureSearchForm(this);
+            feature_search_form.Show();
+            this.Hide();
         }
 
         // list employees button click
