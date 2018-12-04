@@ -52,6 +52,12 @@
     <Compile Include="CarSearch.Designer.cs">
       <DependentUpon>CarSearch.cs</DependentUpon>
     </Compile>
+    <Compile Include="DealershipPerformance.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DealershipPerformance.Designer.cs">
+      <DependentUpon>DealershipPerformance.cs</DependentUpon>
+    </Compile>
     <Compile Include="FeatureSearchForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -82,15 +88,18 @@
     <Compile Include="ListEmployeesForm.Designer.cs">
       <DependentUpon>ListEmployeesForm.cs</DependentUpon>
     </Compile>
-	<Compile Include="MakePurchase.cs">
+    <Compile Include="MakePurchase.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MakePurchase.Designer.cs">
       <DependentUpon>MakePurchase.cs</DependentUpon>
-	</Compile>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Group14Connection.cs" />
+    <EmbeddedResource Include="DealershipPerformance.resx">
+      <DependentUpon>DealershipPerformance.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -109,9 +118,9 @@
     <EmbeddedResource Include="ListEmployeesForm.resx">
       <DependentUpon>ListEmployeesForm.cs</DependentUpon>
     </EmbeddedResource>
-	<EmbeddedResource Include="MakePurchase.resx">
+    <EmbeddedResource Include="MakePurchase.resx">
       <DependentUpon>MakePurchase.cs</DependentUpon>
-	</EmbeddedResource>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

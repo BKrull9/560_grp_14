@@ -77,7 +77,9 @@ namespace TestConnection
         // deqalership performance button click
         private void uxDealershipPerf_Click(object sender, EventArgs e)
         {
-
+            DealershipPerformance dp = new DealershipPerformance(this);
+            dp.Show();
+            this.Hide();
         }
     }
 }
