@@ -80,9 +80,9 @@ namespace TestConnection
         {
             return ExecQuery($"EXEC Demo.GetTopEmployees @EmployeeNumber={employeeNumber}");
         }
-        public DataSet ListEmployee()
+        public DataSet ListEmployee(int DealershipId)
         {
-            return ExecQuery($"EXEC Demo.ListEmployee");
+            return ExecQuery($"EXEC Demo.GetEmployees @DealershipId = {DealershipId}");
         }
         private DataSet ExecQuery(string sql)
         {

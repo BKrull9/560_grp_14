@@ -59,6 +59,9 @@ namespace TestConnection
         // list employees button click
         private void uxListEmployees_Click(object sender, EventArgs e)
         {
+            ListEmployeesForm LES = new ListEmployeesForm(this);
+            LES.Show();
+            this.Hide();
 
         }
 
