@@ -173,11 +173,14 @@ SELECT
 	D.[Name] AS [Name],
 	D.AddressId AS DealershipAddress,
 	D.PhoneNumber AS DealershipPhoneNumber,
-	SUM(S.SaleAmount) AS TotalSales
+	SUM(S.SaleAmount) AS TotalSales,
+	count(distinct S.SaleId) as SaleCount,
+	SUM(s.SaleAmount-c.AskPrice) as HaggleLoss
 FROM
 	Demo.Employee E
 	JOIN Demo.Dealership D ON E.DealershipId = D.DealershipId
 	JOIN Demo.Sale S ON E.EmployeeId = S.EmployeeId
+	inner join Demo.Car c on s.CarId = c.CarId
 WHERE D.DealershipId = @DealershipId
 GROUP BY D.DealershipId, D.[Name], D.AddressId, D.PhoneNumber;
 GO

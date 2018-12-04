@@ -4647,3 +4647,5 @@ where CarId in
 	select s.CarId 
 	from Demo.Sale s
 )
+
+
