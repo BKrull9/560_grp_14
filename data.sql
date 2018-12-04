@@ -4639,3 +4639,11 @@ join(
 on e.row_num = c.row_num
 ) as temp2(eId, cId) on temp2.eId = temp.EmplyeeId
 order by temp.EmplyeeId
+
+update Demo.Car 
+set IsSold = 1
+where CarId in 
+(
+	select s.CarId 
+	from Demo.Sale s
+)

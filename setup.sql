@@ -45,6 +45,7 @@ CREATE TABLE Demo.Car
 	Milage INT NOT NULL,
 	OwnerCnt INT NOT NULL,
 	AskPrice INT NOT NULL,
+	IsSold bit NOT NULL Default 0
 );
 
 CREATE TABLE Demo.CarFeature

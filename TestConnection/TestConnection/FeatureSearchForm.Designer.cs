@@ -54,6 +54,7 @@
             this.milage = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dealershipId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ownerCnt = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.uxDataGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -310,11 +311,23 @@
             this.ownerCnt.ReadOnly = true;
             this.ownerCnt.Visible = false;
             // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button1.Location = new System.Drawing.Point(93, 313);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 19;
+            this.button1.Text = "Purchase";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // FeatureSearchForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(505, 343);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.uxDataGrid);
             this.Controls.Add(this.uxBack);
             this.Controls.Add(this.uxAskPrice);
@@ -369,5 +382,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn milage;
         private System.Windows.Forms.DataGridViewTextBoxColumn dealershipId;
         private System.Windows.Forms.DataGridViewTextBoxColumn ownerCnt;
+        private System.Windows.Forms.Button button1;
     }
 }
