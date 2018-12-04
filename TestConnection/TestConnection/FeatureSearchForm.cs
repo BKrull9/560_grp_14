@@ -106,7 +106,7 @@ namespace TestConnection
             list.Add("feature18");
             list.Add("feature19");
             list.Add("feature20");
-            AddFeatures(list);
+            //AddFeatures(list);
         }
     }
 }

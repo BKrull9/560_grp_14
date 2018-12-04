@@ -134,10 +134,10 @@
             // 
             // button11
             // 
-            this.button11.Location = new System.Drawing.Point(318, 611);
+            this.button11.Location = new System.Drawing.Point(9, 422);
             this.button11.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(276, 46);
+            this.button11.Size = new System.Drawing.Size(276, 26);
             this.button11.TabIndex = 10;
             this.button11.Text = "Get Make Types";
             this.button11.UseVisualStyleBackColor = true;
@@ -198,7 +198,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(295, 426);
+            this.ClientSize = new System.Drawing.Size(303, 462);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);

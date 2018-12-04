@@ -31,7 +31,6 @@ namespace TestConnection
             int num = 0;
             if(textBox1.Text.Length > 0 && Int32.TryParse(textBox1.Text, out num))
             {
-               
                int customerId = Convert.ToInt32(textBox1.Text);
                displayData(customerId);
                 
