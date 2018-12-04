@@ -268,13 +268,14 @@ CREATE PROCEDURE Demo.GetEmployees
 	@DealershipId INT = 0
 AS
 
-SELECT E.EmployeeId, E.Email, E. Salary, E.Title, E.PhoneNumber, A.Street, A.Street2, A.City, A.Zipcode
+SELECT E.EmployeeId, E.Email, E.Salary, E.Title, E.PhoneNumber, A.Street, A.Street2, A.City, A.Zipcode
 FROM Demo.Employee E
 	INNER JOIN Demo.Dealership D ON E.DealershipId = D.DealershipId
 	INNER JOIN Demo.[Address] A ON E.AddressId = A.AddressId
 WHERE E.DealershipId = @DealershipId
-GROUP BY E.EmployeeId, E.Email;
 GO
+
+EXEC Demo.GetEmployees @DealershipId = 1
 
 /*---------------------------------------------------------------------------------
 Get the top X performing salespeople
