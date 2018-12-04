@@ -13,7 +13,7 @@ namespace TestConnection
     public partial class GetCustomerInformation : Form
     {
         Home homePage;
-
+        //TODO: Add first/last name options to search with
         public GetCustomerInformation(Home ret)
         {
             homePage = ret;
