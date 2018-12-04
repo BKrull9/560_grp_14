@@ -172,7 +172,6 @@
             this.label2.Size = new System.Drawing.Size(28, 13);
             this.label2.TabIndex = 13;
             this.label2.Text = "Cars";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label3
             // 
