@@ -131,5 +131,17 @@ namespace TestConnection
             }
 
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            MakePurchase purch = new MakePurchase(homePage, Convert.ToInt32(dataGridView1.SelectedRows[0].Cells[0].Value));
+            purch.Show();
+            this.Hide();
+        }
+
+        private void CarSearch_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

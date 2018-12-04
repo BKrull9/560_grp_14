@@ -134,5 +134,12 @@ namespace TestConnection
                 uxOwnerCount.Text = row.Cells[7].Value.ToString();
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            MakePurchase purch = new MakePurchase(homePage, Convert.ToInt32(uxDataGrid.SelectedRows[0].Cells[0].Value));
+            purch.Show();
+            this.Hide();
+        }
     }
 }

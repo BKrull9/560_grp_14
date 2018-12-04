@@ -104,6 +104,14 @@ namespace TestConnection
             conn.Close();
             return dataSet;
         }
+        public DataSet MakePurchase(string employeeEmail, string customerEmail, int carID, int purchaseAmount)
+        {
+            return ExecQuery($"EXEC Demo.MakePurchase " +
+                $"@EmployeeEmail='{employeeEmail}', " +
+                $"@CustomerEmail='{customerEmail}', " +
+                $"@SalePrice={purchaseAmount.ToString()}, " +
+                $"@CarId={carID.ToString()}");
+        }
         private string HandlePossibleEmptyString(string s)
         {
             if (s.Length > 0)
