@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,11 +14,13 @@ namespace TestConnection
     public partial class GetCustomerInformation : Form
     {
         Home homePage;
+        Group14Connection conn;
         //TODO: Add first/last name options to search with
         public GetCustomerInformation(Home ret)
         {
             homePage = ret;
             InitializeComponent();
+            conn = new Group14Connection();
         }
 
         private void uxBack_Click(object sender, EventArgs e)
@@ -41,8 +44,7 @@ namespace TestConnection
         private void displayData(int? customerId, string first, string last)
         {
             uxDataGrid.Rows.Clear();
-            Group14Connection g14 = new Group14Connection();
-            var data = g14.GetCustomerInformation( customerId, first, last );
+            var data = conn.GetCustomerInformation( customerId, first, last );
             var table = data.Tables[0];
             if( table.Rows.Count > 0 )
             {
@@ -67,6 +69,8 @@ namespace TestConnection
             {
                 MessageBox.Show("This employee does not exist.");
                 uxTxtCustomerId.Text = "";
+                uxTxtFistName.Text = "";
+                uxTxtLastName.Text = "";
             }
         }
 
@@ -89,12 +93,22 @@ namespace TestConnection
                 uxStreet2.Text      = row.Cells[6].Value.ToString();
                 uxCity.Text         = row.Cells[7].Value.ToString();
                 uxZipcode.Text      = row.Cells[8].Value.ToString();
-            }
-        }
-
-        private void uxTxtCustomerId_KeyPress(object sender, KeyPressEventArgs e)
-        {
             
+
+                DataSet data = conn.GetCustomerPurchase( Int32.Parse(row.Cells[0].Value.ToString() ) );
+                DataTable table = data.Tables[0];
+                if( table.Rows.Count > 0 )
+                {
+                    DataRow data_row = table.Rows[0];
+                    uxNumPurchase.Text = data_row.ItemArray[0].ToString();
+                    uxPurchaseAmount.Text = Int32.Parse( data_row.ItemArray[1].ToString() ).ToString( "C", CultureInfo.CurrentCulture);
+                }
+                else
+                {
+                    uxNumPurchase.Text = "N/A";
+                    uxPurchaseAmount.Text = "N/A";
+                }
+            }
         }
     }
 }

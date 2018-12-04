@@ -82,7 +82,6 @@
             this.uxTxtCustomerId.Name = "uxTxtCustomerId";
             this.uxTxtCustomerId.Size = new System.Drawing.Size(100, 20);
             this.uxTxtCustomerId.TabIndex = 2;
-            this.uxTxtCustomerId.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.uxTxtCustomerId_KeyPress);
             // 
             // uxBack
             // 

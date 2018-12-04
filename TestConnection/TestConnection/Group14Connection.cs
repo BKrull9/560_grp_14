@@ -68,8 +68,15 @@ namespace TestConnection
             return ExecQuery($"EXEC Demo.GetCarFeatures @CarId={carId}");
         }
         public DataSet GetCustomerInformation(int? customerId, string first, string last)
+        { 
+            return ExecQuery($"EXEC Demo.GetCustomerInformation " +
+                $"@CustomerId={HandleNullableInt(customerId)}, " +
+                $"@FirstName='%{first}%', " +
+                $"@LastName='%{last}%'");
+        }
+        public DataSet GetCustomerPurchase(int customerId)
         {
-            return ExecQuery($"EXEC Demo.GetCustomerInformation @customerId={HandleNullableInt(customerId)}, @FirstName=N'%{first}%', @LastName=N'%{last}%'");
+            return ExecQuery($"EXEC Demo.GetCustomerPurchase @CustomerId={customerId}");
         }
         public DataSet GetMakeTypes()
         {
