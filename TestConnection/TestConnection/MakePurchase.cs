@@ -12,12 +12,14 @@ namespace TestConnection
 {
     public partial class MakePurchase : Form
     {
+        Group14Connection conn;
         Form returnScreen;
         int carID;
         public MakePurchase(Form ret, int cID)
         {
             returnScreen = ret;
             carID = cID;
+            conn = new Group14Connection();
             InitializeComponent();
         }
 
@@ -45,26 +47,29 @@ namespace TestConnection
 
         public void makePurchase(string ce, string ee, int amount)
         {
-            Group14Connection g14 = new Group14Connection();
-            var data = g14.MakePurchase(ee, ce, carID, amount);
+            DataSet data = conn.MakePurchase(ee, ce, carID, amount);
+            string text = "";
             try
             {
-                if (Convert.ToInt32(data.Tables[0].Rows[0].ItemArray[0].ToString()) == carID)
-                {
-                    this.Hide();
-                    returnScreen.Show();
-                    MessageBox.Show("Purchase has been logged.");
+                if( data != null )
+                { 
+                    if (Convert.ToInt32(data.Tables[0].Rows[0].ItemArray[0].ToString()) == carID)
+                    {
+                        this.Hide();
+                        returnScreen.Show();
+                        text = "Purchase has been logged.";
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("There was an error proccessing your request.");
+                    text = "There was an error proccessing your request.";
                 }
             }
             catch
             {
-                MessageBox.Show("There was an error proccessing your request.");
+                text = "There was an error proccessing your request.";
             }
-
+            MessageBox.Show(text);
         }
 
         private void MakePurchase_FormClosed(object sender, FormClosedEventArgs e)
