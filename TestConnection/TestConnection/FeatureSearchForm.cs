@@ -137,7 +137,8 @@ namespace TestConnection
                 uxAskPrice.Text = row.Cells[4].Value.ToString();
                 uxColor.Text    = row.Cells[5].Value.ToString();
                 uxMilage.Text   = row.Cells[6].Value.ToString();
-                uxOwnerCount.Text = row.Cells[7].Value.ToString();
+                //DealershipId = row.Cells[7].Value.ToString();
+                uxOwnerCount.Text = row.Cells[8].Value.ToString();
             }
         }
 
