@@ -21,16 +21,9 @@ namespace TestConnection
 
         private void uxEmployeeSearchButton_Click(object sender, EventArgs e)
         {
-            int num = 0;
-            if (textBox1.Text.Length > 0 && Int32.TryParse(textBox1.Text, out num))
-            {
-                int dealershipId = Convert.ToInt32(textBox1.Text);
-                displayData(dealershipId);
-            }
-            else
-            {
-                MessageBox.Show("You must insert an integer value between 1 and 7 into the dealership id field.");
-            }
+            string firstName = firstNameText.Text;
+            string lastName = lastNameText.Text;
+            displayData(firstName, lastName);
         }
 
         private void uxBackButton_Click(object sender, EventArgs e)
@@ -39,20 +32,26 @@ namespace TestConnection
             homePage.Show();
         }
 
-        private void displayData(int dealershipId)
+        private void displayData(string firstName, string lastName)
         {
-
-            dataGridView1.Rows.Clear();
-            dataGridView1.Columns.Clear();
             Group14Connection g14 = new Group14Connection();
-            var data = g14.ListEmployee(dealershipId);
+            var data = g14.ListEmployee(firstName, lastName);
             var table = data.Tables[0];
+
+            if(dataGridView1.Columns.Count > 0)
+            {
+                dataGridView1.Rows.Clear();
+                dataGridView1.Columns.Clear();
+            }
            
 
             for (int i = 0; i < table.Rows[0].ItemArray.Length; i++)
             {
                 dataGridView1.Columns.Add(table.Columns[i].ColumnName, table.Columns[i].ColumnName);
-                
+                if(i != 0 && i !=1 && i != 2)
+                {
+                    dataGridView1.Columns[i].Visible = false;
+                }
 
             }
 
@@ -67,6 +66,26 @@ namespace TestConnection
                 string[] arr = rowData.ToArray();
                 string hold = arr[0];
                 dataGridView1.Rows.Add(arr);
+            }
+        }
+
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                employeeId.Text = "Employee ID: " + dataGridView1.SelectedRows[0].Cells[2].Value.ToString();
+                PhoneLabel.Text = "Phone Number: " + dataGridView1.SelectedRows[0].Cells[3].Value.ToString();
+                EmailLabel.Text = "Email: " + dataGridView1.SelectedRows[0].Cells[4].Value.ToString();
+                DealershipName.Text = "Dealership: " + dataGridView1.SelectedRows[0].Cells[5].Value.ToString();
+                StreetAddress.Text = "Street: " + dataGridView1.SelectedRows[0].Cells[6].Value.ToString();
+                CityLabel.Text = "City: " + dataGridView1.SelectedRows[0].Cells[7].Value.ToString();
+                ZipCodeLabel.Text = "Zip Code: " + dataGridView1.SelectedRows[0].Cells[8].Value.ToString();
+                NumberOfSalesLabel.Text = "Number of Sales: " + dataGridView1.SelectedRows[0].Cells[9].Value.ToString();
+                TotalSalesLabel.Text = "Total Sales: " + dataGridView1.SelectedRows[0].Cells[10].Value.ToString();
+            }
+            catch
+            {
+
             }
         }
     }
