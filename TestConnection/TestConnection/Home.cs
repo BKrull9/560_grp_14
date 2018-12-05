@@ -59,15 +59,18 @@ namespace TestConnection
         // employee performance button click
         private void uxEmployeePerf_Click(object sender, EventArgs e)
         {
-
+            EmployeePerformance EP = new EmployeePerformance(this);
+            EP.Show();
+            this.Hide();
         }
 
         // get top employees button click
         private void uxGetTopEmployees_Click(object sender, EventArgs e)
         {
-
+            GetTopEmployees gte = new GetTopEmployees(this);
+            gte.Show();
+            this.Hide();
         }
-
         // get stock total value 
         private void uxGetStockTotal_Click(object sender, EventArgs e)
         {

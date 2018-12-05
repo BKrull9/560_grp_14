@@ -321,7 +321,7 @@ CREATE PROCEDURE Demo.GetTopEmployees
 	@DealershipId INT = 0
 AS
 
-SELECT TOP(@EmployeeNumber) E.EmployeeId, E.FirstName, E.LastName, E.Email, a.City, COUNT(DISTINCT S.SaleId) AS NumberSales, SUM(S.SaleAmount) AS SalesVolume
+SELECT TOP(@EmployeeNumber) Rank() over(order by SUM(S.SaleAmount) desc), E.EmployeeId, E.FirstName, E.LastName, E.Email, a.City, COUNT(DISTINCT S.SaleId) AS NumberSales, SUM(S.SaleAmount) AS SalesVolume
 FROM Demo.Employee E
 	INNER JOIN Demo.Sale S ON E.EmployeeId = S.EmployeeId
 	Inner Join Demo.[Address] a ON a.AddressId = e.AddressId
@@ -409,6 +409,21 @@ From Demo.Employee e
 	cross join Demo.Customer c
 where e.Email = @EmployeeEmail and c.Email = @CustomerEmail
 
+/*---------------------------------------------------------------------------------
+Get a certain employee's weekly performance 
+---------------------------------------------------------------------------------*/
+DROP PROCEDURE IF EXISTS Demo.GetWeeklyPerformace;
+GO
+
+CREATE PROCEDURE Demo.GetWeeklyPerformance
+AS
+
+SELECT E.EmployeeId, E.FirstName, E.LastName, SUM(sales), COUNT(DISTINCT S.SaleId), SUM(DIFFERENCE(ask-sale)
+FROM Demo.Employee E
+	INNER JOIN Demo.Sale S ON E.EmployeeId = S.EmployeeId
+
+EXEC Demo.GetWeeklyPerformance;
+GO
 update Demo.Car
 set IsSold = 1
 where CarId = @CarID

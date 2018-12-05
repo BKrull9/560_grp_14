@@ -188,6 +188,7 @@
             this.Controls.Add(this.uxListEmployees);
             this.Controls.Add(this.uxGetCustomer);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.Name = "Home";
             this.Text = "Company Home";

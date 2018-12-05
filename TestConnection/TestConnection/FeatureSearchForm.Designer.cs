@@ -345,6 +345,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.uxFeatureTable);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "FeatureSearchForm";
             this.Text = "FeatureSearchForm";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FeatureSearchForm_FormClosed);
