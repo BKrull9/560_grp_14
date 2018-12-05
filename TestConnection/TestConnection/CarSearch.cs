@@ -62,35 +62,49 @@ namespace TestConnection
                 year2 = Convert.ToInt32(year);
             }
             Group14Connection g14 = new Group14Connection();
-            var data = g14.CarSearch(make, model, color, milage2, oc2, ap2, year2);
+            var data = new DataSet();
+            try
+            {
+                data = g14.CarSearch(make, model, color, milage2, oc2, ap2, year2);
+            }
+            catch
+            {
+                MessageBox.Show("There was an error proccessing your request.");
+            }
             var table = data.Tables[0];
-
-            if (dataGridView1.Columns.Count > 0)
+            if (table.Rows.Count > 0)
             {
-                dataGridView1.Rows.Clear();
-                dataGridView1.Columns.Clear();
-            }
-            for (int j = 0; j < table.Rows[0].ItemArray.Length; j++)
-            {
-                dataGridView1.Columns.Add(table.Columns[j].ColumnName, table.Columns[j].ColumnName);
-                if (j != 2 && j != 3 && j != 4)
+                if (dataGridView1.Columns.Count > 0)
                 {
-                    dataGridView1.Columns[j].Visible = false;
+                    dataGridView1.Rows.Clear();
+                    dataGridView1.Columns.Clear();
+                }
+                for (int j = 0; j < table.Rows[0].ItemArray.Length; j++)
+                {
+                    dataGridView1.Columns.Add(table.Columns[j].ColumnName, table.Columns[j].ColumnName);
+                    if (j != 2 && j != 3 && j != 4)
+                    {
+                        dataGridView1.Columns[j].Visible = false;
+                    }
+                }
+
+
+                for (int i = 0; i < table.Rows.Count; i++)
+                {
+                    List<string> rowData = new List<string>();
+                    var row = table.Rows[i];
+                    for (int j = 0; j < table.Rows[0].ItemArray.Length; j++)
+                    {
+                        rowData.Add(row[j].ToString());
+                    }
+                    string[] arr = rowData.ToArray();
+                    string hold = arr[0];
+                    dataGridView1.Rows.Add(arr);
                 }
             }
-            
-
-            for (int i = 0; i < table.Rows.Count; i++)
+            else
             {
-                List<string> rowData = new List<string>();
-                var row = table.Rows[i];
-                for(int j = 0; j < table.Rows[0].ItemArray.Length; j++)
-                {
-                    rowData.Add(row[j].ToString());
-                }
-                string[] arr = rowData.ToArray();
-                string hold = arr[0];
-                dataGridView1.Rows.Add(arr);
+                MessageBox.Show("There was an error proccessing your request.");
             }
 
             
