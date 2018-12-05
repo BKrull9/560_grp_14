@@ -186,10 +186,7 @@ CREATE PROCEDURE Demo.DealershipPerformance
 AS
 
 SELECT 
-	D.DealershipId AS DealershipId,
-	D.[Name] AS [Name],
-	D.AddressId AS DealershipAddress,
-	D.PhoneNumber AS DealershipPhoneNumber,
+	Year(S.SaleDate),
 	SUM(S.SaleAmount) AS TotalSales,
 	count(distinct S.SaleId) as SaleCount,
 	SUM(s.SaleAmount-c.AskPrice) as HaggleLoss
@@ -199,10 +196,45 @@ FROM
 	JOIN Demo.Sale S ON E.EmployeeId = S.EmployeeId
 	inner join Demo.Car c on s.CarId = c.CarId
 WHERE D.DealershipId = @DealershipId and s.SaleDate > @StartDate and s.SaleDate < @EndDate
-GROUP BY D.DealershipId, D.[Name], D.AddressId, D.PhoneNumber;
+GROUP BY D.DealershipId, D.[Name], D.AddressId, D.PhoneNumber, Year(S.SaleDate)
+order by Year(S.SaleDate) desc
 GO
 
 EXEC Demo.DealershipPerformance
+	@DealershipId = 1,
+	@StartDate = '2017-01-01',
+	@EndDate = '2018-12-31'
+GO
+
+/*---------------------------------------------------------------------------------
+Dealership Performance
+---------------------------------------------------------------------------------*/
+DROP PROCEDURE IF EXISTS Demo.DealershipPerformance2;
+GO
+
+CREATE PROCEDURE Demo.DealershipPerformance2
+	@DealershipId INT = 0,
+	@StartDate DATETIMEOFFSET = '2000-01-01',
+	@EndDate DATETIMEOFFSET = '2999-12-31'
+AS
+
+SELECT 
+	Year(S.SaleDate),
+	Month(S.SaleDate),
+	SUM(S.SaleAmount) AS TotalSales,
+	count(distinct S.SaleId) as SaleCount,
+	SUM(s.SaleAmount-c.AskPrice) as HaggleLoss
+FROM
+	Demo.Employee E
+	JOIN Demo.Dealership D ON E.DealershipId = D.DealershipId
+	JOIN Demo.Sale S ON E.EmployeeId = S.EmployeeId
+	inner join Demo.Car c on s.CarId = c.CarId
+WHERE D.DealershipId = @DealershipId and s.SaleDate > @StartDate and s.SaleDate < @EndDate
+GROUP BY D.DealershipId, D.[Name], D.AddressId, D.PhoneNumber, Year(S.SaleDate), Month(S.SaleDate)
+order by Year(S.SaleDate) desc, Month(S.SaleDate) desc
+GO
+
+EXEC Demo.DealershipPerformance2
 	@DealershipId = 1,
 	@StartDate = '2017-01-01',
 	@EndDate = '2018-12-31'

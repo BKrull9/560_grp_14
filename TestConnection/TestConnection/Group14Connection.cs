@@ -55,6 +55,14 @@ namespace TestConnection
                 $"@StartDate='{startDate.ToString()}', " +
                 $"@EndDate='{endDate.ToString()}'");
         }
+        public DataSet DealershipPerformance2(int dealershipID,
+            DateTimeOffset startDate, DateTimeOffset endDate)
+        {
+            return ExecQuery($"EXEC Demo.DealershipPerformance2 " +
+                $"@DealershipId={dealershipID}, " +
+                $"@StartDate='{startDate.ToString()}', " +
+                $"@EndDate='{endDate.ToString()}'");
+        }
         public DataSet EmployeePerformance(int employeeID,
             DateTimeOffset startDate, DateTimeOffset endDate)
         {

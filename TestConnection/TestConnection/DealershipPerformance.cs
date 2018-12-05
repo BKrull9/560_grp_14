@@ -28,7 +28,7 @@ namespace TestConnection
         private void uxSearch_Click(object sender, EventArgs e)
         {
             int delership = findSelectedRadio();
-            if(delership != 0 && checkDates())
+            if (delership != 0 && checkDates())
             {
                 displayData(delership, dateTimePicker1.Value, dateTimePicker2.Value);
             }
@@ -42,19 +42,58 @@ namespace TestConnection
         {
             dataGridView1.Rows.Clear();
             Group14Connection g14 = new Group14Connection();
-            var data = g14.DealershipPerformance(dealershipId, start, end);
-            if(data == null)
+            DataSet data = new DataSet();
+            if (comboBox1.SelectedIndex == 0)
+            {
+                data = g14.DealershipPerformance2(dealershipId, start, end);
+                if (data != null)
+                {
+                    foreach (DataRow r in data.Tables[0].Rows)
+                    {
+                        string[] arr = new string[5];
+                        arr[0] = r.ItemArray[0].ToString();
+                        arr[1] = r.ItemArray[1].ToString();
+                        arr[2] = string.Format("{0:c}", Convert.ToInt32(r.ItemArray[2].ToString()));
+                        arr[3] = r.ItemArray[3].ToString();
+                        arr[4] = string.Format("{0:c}", Convert.ToInt32(r.ItemArray[4].ToString()));
+                        dataGridView1.Rows.Add(arr);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("There was an error proccessing your request.");
+                    return;
+                }
+            }
+            else if (comboBox1.SelectedIndex == 1)
+            {
+                data = g14.DealershipPerformance(dealershipId, start, end);
+                if (data != null)
+                {
+                    foreach (DataRow r in data.Tables[0].Rows)
+                    {
+                        string[] arr = new string[5];
+                        arr[0] = r.ItemArray[0].ToString();
+                        arr[1] = "NA";
+                        arr[2] = string.Format("{0:c}", Convert.ToInt32(r.ItemArray[1].ToString()));
+                        arr[3] = r.ItemArray[2].ToString();
+                        arr[4] = string.Format("{0:c}", Convert.ToInt32(r.ItemArray[3].ToString()));
+                        dataGridView1.Rows.Add(arr);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("There was an error proccessing your request.");
+                    return;
+                }
+            }
+            else
             {
                 MessageBox.Show("There was an error proccessing your request.");
                 return;
             }
-            var row = data.Tables[0].Rows[0].ItemArray;
-            string[] arr = new string[3];
-            arr[0] = string.Format("{0:c}", Convert.ToInt32(row[4]));
-            arr[1] = row[5].ToString();
-            arr[2] = string.Format("{0:c}", Convert.ToInt32(row[6]));
-            dataGridView1.Rows.Add(arr);
         }
+    
 
         private bool checkDates()
         {
