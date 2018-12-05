@@ -26,10 +26,10 @@ namespace TestConnection
             int? milage, int? ownerCount, int? askPrice, int? year)
         {
             return ExecQuery($"EXEC Demo.CarSearch " +
-                $"@Make={HandlePossibleEmptyString(make)}, " +
-                $"@Model={HandlePossibleEmptyString(model)}, " +
+                $"@Make='%{make}%', " +
+                $"@Model='%{model}%', " +
                 $"@Year={HandleNullableInt(year)}, " +
-                $"@Color={HandlePossibleEmptyString(color)}, " +
+                $"@Color='%{color}%', " +
                 $"@Milage={HandleNullableInt(milage)}, " +
                 $"@OwnerCnt={HandleNullableInt(ownerCount)}, " +
                 $"@AskPrice={HandleNullableInt(askPrice)}");
