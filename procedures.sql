@@ -78,20 +78,19 @@ DROP PROCEDURE IF EXISTS Demo.ListEmployee;
 GO
 
 CREATE PROCEDURE Demo.ListEmployee
-	@EmployeeId INT = 0,
+	@CustomerId INT = 0,
 	@FirstName NVARCHAR(32) = N'%',
 	@LastName NVARCHAR(32) = N'%'
 AS
 
 SELECT
-	E.EmployeeId,
 	E.FirstName,
 	E.LastName,
+	E.EmployeeId,
 	E.PhoneNumber,
 	E.Email,
 	D.[Name] AS DealershipName,
 	A.Street,
-	A.Street2,
 	A.City,
 	A.Zipcode,
 	Count(S.SaleId) AS NumberOfSales,
@@ -100,12 +99,9 @@ FROM Demo.Employee E
 	JOIN Demo.Dealership D ON E.DealershipId = D.DealershipId
 	JOIN Demo.[Address] A ON A.AddressId = E.AddressId
 	JOIN Demo.Sale S ON S.EmployeeId = E.EmployeeId
-WHERE E.EmployeeId = ISNULL(@EmployeeId, E.EmployeeId)
-	AND E.FirstName Like @FirstName 
-	AND E.LastName LIKE @LastName
-
-GROUP BY E.FirstName, E.LastName, E.EmployeeId, E.PhoneNumber, E.Email, D.[Name], 
-	A.Street, A.Street2, A.City, A.Zipcode; 
+WHERE E.FirstName Like @FirstName OR E.LastName LIKE @LastName
+GROUP BY E.FirstName,E.LastName, E.EmployeeId, E.PhoneNumber, E.Email, D.[Name], 
+	A.Street, A.City, A.Zipcode; 
 GO
 
 /*---------------------------------------------------------------------------------
@@ -202,13 +198,13 @@ FROM
 	JOIN Demo.Dealership D ON E.DealershipId = D.DealershipId
 	JOIN Demo.Sale S ON E.EmployeeId = S.EmployeeId
 	inner join Demo.Car c on s.CarId = c.CarId
-WHERE D.DealershipId = @DealershipId
+WHERE D.DealershipId = @DealershipId and s.SaleDate > @StartDate and s.SaleDate < @EndDate
 GROUP BY D.DealershipId, D.[Name], D.AddressId, D.PhoneNumber;
 GO
 
 EXEC Demo.DealershipPerformance
 	@DealershipId = 1,
-	@StartDate = '2018-01-01',
+	@StartDate = '2017-01-01',
 	@EndDate = '2018-12-31'
 GO
 
