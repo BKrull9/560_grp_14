@@ -112,7 +112,7 @@ namespace TestConnection
 
             conn.Close();
 
-            if( dataSet.Tables[0].Rows.Count > 0 )
+            if( dataSet.Tables[0].Rows.Count == 0 )
             {
                 dataSet = null;
             }

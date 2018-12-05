@@ -18,12 +18,14 @@ namespace TestConnection
     public partial class FeatureSearchForm : Form
     {
         Home homePage;
+        Group14Connection conn; 
 
         public FeatureSearchForm(Home ret)
         {
             InitializeComponent();
             homePage = ret;
 
+            conn = new Group14Connection();
             List<Tuple<string, int>> features = GetFeatures();
             AddFeatures(features);
             GetCarsWithFeatures(null, null);
@@ -31,12 +33,14 @@ namespace TestConnection
 
         public List<Tuple<string, int>> GetFeatures()
         {
-            Group14Connection conn = new Group14Connection();
             List<Tuple<string, int>> list = new List<Tuple<string, int>>();
             DataSet data = conn.ListFeature();
-            foreach( DataRow row in data.Tables[0].Rows )
-            {
-                list.Add( new Tuple<string, int>( row.ItemArray[0].ToString(), Int32.Parse( row.ItemArray[1].ToString() ) ) );
+            if( data != null )
+            { 
+                foreach( DataRow row in data.Tables[0].Rows )
+                {
+                    list.Add( new Tuple<string, int>( row.ItemArray[0].ToString(), Int32.Parse( row.ItemArray[1].ToString() ) ) );
+                }
             }
 
             return list;
@@ -53,6 +57,7 @@ namespace TestConnection
                 if(modulo_feature % 5 == 0 )
                 {
                     uxFeatureTable.ColumnCount += 1;
+                    uxFeatureTable.ColumnStyles[0].SizeType = SizeType.AutoSize;
                 }
                 CheckBox cb = new CheckBox();
                 cb.Text = feature.Item1;
@@ -75,8 +80,7 @@ namespace TestConnection
                     id_list.Add(feature_id);
                 }
             }
-
-            Group14Connection conn = new Group14Connection();
+            
             if (id_list.Count == 0)
             {
                 id_list.Add("null");
@@ -90,23 +94,25 @@ namespace TestConnection
         {
             uxDataGrid.Rows.Clear();
             uxDataGrid.Rows.Add();
-            DataTable table = data.Tables[0];
-            foreach( DataRow data_row in table.Rows )
+            if (data != null)
             {
-                DataGridViewRow new_row = (DataGridViewRow)uxDataGrid.Rows[0].Clone();
-                new_row.Cells[0].Value = data_row.ItemArray[0].ToString();
-                new_row.Cells[1].Value = data_row.ItemArray[1].ToString();
-                new_row.Cells[2].Value = data_row.ItemArray[2].ToString();
-                new_row.Cells[3].Value = data_row.ItemArray[3].ToString();
-                new_row.Cells[4].Value = Int32.Parse( data_row.ItemArray[4].ToString() ).ToString( "C", CultureInfo.CurrentCulture );
-                new_row.Cells[5].Value = data_row.ItemArray[5].ToString();
-                new_row.Cells[6].Value = data_row.ItemArray[6].ToString();
-                new_row.Cells[7].Value = data_row.ItemArray[7].ToString();
-                new_row.Cells[8].Value = data_row.ItemArray[8].ToString();
-
-                uxDataGrid.Rows.Add( new_row );
+                DataTable table = data.Tables[0];
+                foreach (DataRow data_row in table.Rows)
+                {
+                    DataGridViewRow new_row = (DataGridViewRow)uxDataGrid.Rows[0].Clone();
+                    new_row.Cells[0].Value = data_row.ItemArray[0].ToString();
+                    new_row.Cells[1].Value = data_row.ItemArray[1].ToString();
+                    new_row.Cells[2].Value = data_row.ItemArray[2].ToString();
+                    new_row.Cells[3].Value = data_row.ItemArray[3].ToString();
+                    new_row.Cells[4].Value = Int32.Parse(data_row.ItemArray[4].ToString()).ToString("C", CultureInfo.CurrentCulture);
+                    new_row.Cells[5].Value = data_row.ItemArray[5].ToString();
+                    new_row.Cells[6].Value = data_row.ItemArray[6].ToString();
+                    new_row.Cells[7].Value = data_row.ItemArray[7].ToString();
+                    new_row.Cells[8].Value = data_row.ItemArray[8].ToString();
+                    uxDataGrid.Rows.Add(new_row);
+                }
+                uxDataGrid.Rows.RemoveAt(0);
             }
-            uxDataGrid.Rows.RemoveAt(0);
         }
 
         private void FeatureSearchForm_FormClosed(object sender, FormClosedEventArgs e)
