@@ -24,13 +24,13 @@ namespace TestConnection
 
         private void uxEmployeeSearchButton_Click(object sender, EventArgs e)
         {
-            Nullable<int> customer_id = null;
+            Nullable<int> employee_id = null;
             int temp;
             if (Int32.TryParse(uxTxtEmployeeId.Text, out temp))
             {
-                customer_id = temp;
+                employee_id = temp;
             }
-            DataSet data = conn.ListEmployee(customer_id, firstNameText.Text, lastNameText.Text);
+            DataSet data = conn.ListEmployee(employee_id, firstNameText.Text, lastNameText.Text);
             displayData(data);
         }
 
