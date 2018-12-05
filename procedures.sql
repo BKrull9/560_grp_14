@@ -317,18 +317,22 @@ DROP PROCEDURE IF EXISTS Demo.GetTopEmployees;
 GO
 
 CREATE PROCEDURE Demo.GetTopEmployees
-	@EmployeeNumber INT = 0
+	@EmployeeNumber INT = 0,
+	@DealershipId INT = 0
 AS
 
-SELECT TOP(@EmployeeNumber) E.EmployeeId, E.FirstName, E.LastName, COUNT(DISTINCT S.SaleId) AS NumberSales, SUM(S.SaleAmount) AS SalesVolume
+SELECT TOP(@EmployeeNumber) E.EmployeeId, E.FirstName, E.LastName, E.Email, a.City, COUNT(DISTINCT S.SaleId) AS NumberSales, SUM(S.SaleAmount) AS SalesVolume
 FROM Demo.Employee E
 	INNER JOIN Demo.Sale S ON E.EmployeeId = S.EmployeeId
-GROUP BY E.EmployeeId, E.FirstName, E.LastName
+	Inner Join Demo.[Address] a ON a.AddressId = e.AddressId
+where E.DealershipId = @DealershipID
+GROUP BY E.EmployeeId, E.FirstName, E.LastName, E.Email, a.City
 ORDER BY SalesVolume DESC
 GO
 
 EXEC Demo.GetTopEmployees
-	@EmployeeNumber = 10
+	@EmployeeNumber = 10,
+	@DealershipId = 1
 GO
 
 /*---------------------------------------------------------------------------------

@@ -82,6 +82,12 @@
     <Compile Include="GetCustomerInformation.Designer.cs">
       <DependentUpon>GetCustomerInformation.cs</DependentUpon>
     </Compile>
+    <Compile Include="GetTopEmployees.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GetTopEmployees.Designer.cs">
+      <DependentUpon>GetTopEmployees.cs</DependentUpon>
+    </Compile>
     <Compile Include="ListEmployeesForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -114,6 +120,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FeatureSearchForm.resx">
       <DependentUpon>FeatureSearchForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GetTopEmployees.resx">
+      <DependentUpon>GetTopEmployees.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ListEmployeesForm.resx">
       <DependentUpon>ListEmployeesForm.cs</DependentUpon>
