@@ -119,6 +119,12 @@ namespace TestConnection
                 $"@SalePrice={purchaseAmount.ToString()}, " +
                 $"@CarId={carID.ToString()}");
         }
+        public DataSet GetTopCustomers(int dealershipId, int customerCount)
+        {
+            return ExecQuery($"EXEC Demo.GetTopCustomers " +
+                $"@DealershipId='{dealershipId}', " +
+                $"@NumberOfCustomers='{customerCount}'");
+        }
         private string HandlePossibleEmptyString(string s)
         {
             if (s.Length > 0)

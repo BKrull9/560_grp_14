@@ -34,10 +34,6 @@
             this.uxlNAme = new System.Windows.Forms.Label();
             this.uxfName = new System.Windows.Forms.Label();
             this.uxEmplyeeId = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Rank = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.uxBack = new System.Windows.Forms.Button();
             this.usSearch = new System.Windows.Forms.Button();
             this.uxNum = new System.Windows.Forms.TextBox();
@@ -49,6 +45,10 @@
             this.uxEast = new System.Windows.Forms.RadioButton();
             this.uxNorthWest = new System.Windows.Forms.RadioButton();
             this.uxWest = new System.Windows.Forms.RadioButton();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Rank = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -106,33 +106,6 @@
             this.uxEmplyeeId.TabIndex = 44;
             this.uxEmplyeeId.Text = "Employee Id: ";
             // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Rank,
-            this.fName,
-            this.lName});
-            this.dataGridView1.Location = new System.Drawing.Point(12, 79);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(344, 253);
-            this.dataGridView1.TabIndex = 43;
-            // 
-            // Rank
-            // 
-            this.Rank.HeaderText = "Rank";
-            this.Rank.Name = "Rank";
-            // 
-            // fName
-            // 
-            this.fName.HeaderText = "First Name";
-            this.fName.Name = "fName";
-            // 
-            // lName
-            // 
-            this.lName.HeaderText = "Last Name";
-            this.lName.Name = "lName";
-            // 
             // uxBack
             // 
             this.uxBack.Location = new System.Drawing.Point(12, 339);
@@ -165,9 +138,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(6, 45);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(116, 13);
+            this.label1.Size = new System.Drawing.Size(114, 13);
             this.label1.TabIndex = 39;
-            this.label1.Text = "Number of Employees: ";
+            this.label1.Text = "Number of Customers: ";
             // 
             // uxCentral
             // 
@@ -246,18 +219,50 @@
             this.uxWest.Text = "West";
             this.uxWest.UseVisualStyleBackColor = true;
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Rank,
+            this.fName,
+            this.lName});
+            this.dataGridView1.Location = new System.Drawing.Point(9, 68);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersVisible = false;
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView1.Size = new System.Drawing.Size(344, 253);
+            this.dataGridView1.TabIndex = 51;
+            this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
+            // 
+            // Rank
+            // 
+            this.Rank.HeaderText = "Rank";
+            this.Rank.Name = "Rank";
+            // 
+            // fName
+            // 
+            this.fName.HeaderText = "First Name";
+            this.fName.Name = "fName";
+            // 
+            // lName
+            // 
+            this.lName.HeaderText = "Last Name";
+            this.lName.Name = "lName";
+            // 
             // GetTopCustomers
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(566, 374);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.uxCity);
             this.Controls.Add(this.uxEmail);
             this.Controls.Add(this.uxSSaleNum);
             this.Controls.Add(this.uxlNAme);
             this.Controls.Add(this.uxfName);
             this.Controls.Add(this.uxEmplyeeId);
-            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.uxBack);
             this.Controls.Add(this.usSearch);
             this.Controls.Add(this.uxNum);
@@ -285,10 +290,6 @@
         private System.Windows.Forms.Label uxlNAme;
         private System.Windows.Forms.Label uxfName;
         private System.Windows.Forms.Label uxEmplyeeId;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Rank;
-        private System.Windows.Forms.DataGridViewTextBoxColumn fName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn lName;
         private System.Windows.Forms.Button uxBack;
         private System.Windows.Forms.Button usSearch;
         private System.Windows.Forms.TextBox uxNum;
@@ -300,5 +301,9 @@
         private System.Windows.Forms.RadioButton uxEast;
         private System.Windows.Forms.RadioButton uxNorthWest;
         private System.Windows.Forms.RadioButton uxWest;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Rank;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn lName;
     }
 }
