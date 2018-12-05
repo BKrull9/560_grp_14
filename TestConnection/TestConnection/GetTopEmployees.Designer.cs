@@ -177,9 +177,9 @@
             this.lName});
             this.dataGridView1.Location = new System.Drawing.Point(12, 80);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.ReadOnly = true;
             this.dataGridView1.Size = new System.Drawing.Size(344, 253);
             this.dataGridView1.TabIndex = 24;
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
@@ -188,16 +188,19 @@
             // 
             this.Rank.HeaderText = "Rank";
             this.Rank.Name = "Rank";
+            this.Rank.ReadOnly = true;
             // 
             // fName
             // 
             this.fName.HeaderText = "First Name";
             this.fName.Name = "fName";
+            this.fName.ReadOnly = true;
             // 
             // lName
             // 
             this.lName.HeaderText = "Last Name";
             this.lName.Name = "lName";
+            this.lName.ReadOnly = true;
             // 
             // uxEmplyeeId
             // 

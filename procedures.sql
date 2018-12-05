@@ -23,12 +23,6 @@ WHERE C.CustomerId = ISNULL(@CustomerId, C.CustomerId)
 	AND C.LastName LIKE @LastName
 GO
 
-EXEC Demo.GetCustomerInformation @CustomerId = 1;
-EXEC Demo.GetCustomerInformation @FirstName = N'%don%';
-EXEC Demo.GetCustomerInformation @FirstName = N'%donall%';
-EXEC Demo.GetCustomerInformation @LastName = N'%ack%';
-EXEC Demo.GetCustomerInformation @FirstName = N'%nal%', @LastName = N'%ack%';
-GO 
 
 /*---------------------------------------------------------------------------------
 Customer Purchases
@@ -48,8 +42,6 @@ WHERE C.CustomerId = @CustomerId
 GROUP BY C.CustomerId
 GO
 
-EXEC Demo.GetCustomerPurchase @CustomerId = 1;
-GO 
 
 /*---------------------------------------------------------------------------------
 GetCarFeatures
@@ -68,8 +60,6 @@ FROM Demo.Feature F
 WHERE CF.CarId = @CarId
 GO
 
-EXEC Demo.GetCarFeatures @CarId = 52;
-GO 
 
 /*---------------------------------------------------------------------------------
 List Employee
@@ -117,6 +107,7 @@ GO
 CREATE PROCEDURE Demo.CarSearch
 	@Make NVARCHAR(32) = N'%',
 	@Model NVARCHAR(32) = N'%',
+	@Year int = 0,
 	@Color NVARCHAR(16) = N'%',
 	@Milage INT = NULL,
 	@OwnerCnt INT = NULL,
@@ -131,14 +122,9 @@ WHERE C.Make LIKE @Make
 	AND C.Milage <= ISNULL(@Milage, C.Milage) --https://stackoverflow.com/questions/10622260/how-do-you-query-an-int-column-for-any-value
 	AND C.OwnerCnt <= ISNULL(@OwnerCnt, C.OwnerCnt)
 	AND C.AskPrice <= ISNULL(@AskPrice, C.AskPrice)
+	AND C.[Year] <= ISNULL(@Year, C.[Year])
+	and c.IsSold = 0
 GO
-
-EXEC Demo.CarSearch 
-	@Make = N'Ford',
-	@Color = N'Teal';
-GO 
-
-SELECT * FROM Demo.Car;
 
 /*---------------------------------------------------------------------------------
 Employee Performance
@@ -169,13 +155,6 @@ WHERE E.EmployeeId = @EmployeeId
 GROUP BY E.EmployeeId, E.FirstName, E.LastName, E.PhoneNumber;
 GO
 
-SELECT * FROM Demo.Sale WHERE SaleDate BETWEEN '2018-01-01' AND '2018-12-31';
-
-EXEC Demo.EmployeePerformance
-	@EmployeeId = 8,
-	@StartDate = '2018-01-01',
-	@EndDate = '2018-12-31'
-GO
 
 /*---------------------------------------------------------------------------------
 Dealership Performance
@@ -202,12 +181,6 @@ FROM
 WHERE D.DealershipId = @DealershipId and s.SaleDate > @StartDate and s.SaleDate < @EndDate
 GROUP BY D.DealershipId, D.[Name], D.AddressId, D.PhoneNumber, Year(S.SaleDate)
 order by Year(S.SaleDate) desc
-GO
-
-EXEC Demo.DealershipPerformance
-	@DealershipId = 1,
-	@StartDate = '2017-01-01',
-	@EndDate = '2018-12-31'
 GO
 
 /*---------------------------------------------------------------------------------
@@ -238,11 +211,6 @@ GROUP BY D.DealershipId, D.[Name], D.AddressId, D.PhoneNumber, Year(S.SaleDate),
 order by Year(S.SaleDate) desc, Month(S.SaleDate) desc
 GO
 
-EXEC Demo.DealershipPerformance2
-	@DealershipId = 1,
-	@StartDate = '2017-01-01',
-	@EndDate = '2018-12-31'
-GO
 
 /*---------------------------------------------------------------------------------
 Car Information
@@ -267,8 +235,6 @@ FROM
 	Demo.Car C
 WHERE C.CarId = @CarId
 GO
-
-EXEC Demo.CarInformation 89
 
 /*---------------------------------------------------------------------------------
 Cars With X Features
@@ -322,13 +288,8 @@ WHERE C.CarId IN ( SELECT CF.CarId FROM Demo.CarFeature CF WHERE CF.FeatureId =I
 	AND C.CarId IN ( SELECT CF.CarId FROM Demo.CarFeature CF WHERE CF.FeatureId = ISNULL(@Feature18, CF.FeatureId) )
 	AND C.CarId IN ( SELECT CF.CarId FROM Demo.CarFeature CF WHERE CF.FeatureId = ISNULL(@Feature19, CF.FeatureId) )
 	AND C.CarId IN ( SELECT CF.CarId FROM Demo.CarFeature CF WHERE CF.FeatureId = ISNULL(@Feature20, CF.FeatureId) )
-GROUP BY C.CarId, C.Make, C.Model, C.[Year], C.AskPrice, C.Color, C.Milage, C.DealershipId, C.OwnerCnt
-GO
-
-EXEC Demo.CarWithFeature 
-	@Feature1 = 20,
-	@Feature2 = 19,
-	@Feature3 = 8;
+	AND C.IsSold = 0
+GROUP BY C.CarId, C.Make, C.Model, C.[Year], C.AskPrice, C.Color, C.Milage, C.DealershipId, C.OwnerCnt;
 GO
 
 /*---------------------------------------------------------------------------------
@@ -342,8 +303,8 @@ AS
 SELECT F.[Name], F.FeatureId
 FROM Demo.Feature F;
 
-EXEC Demo.ListFeature;
 
+GO
 /*---------------------------------------------------------------------------------
 Get Employees - From Dealership (Duplicate of above?)
 ---------------------------------------------------------------------------------*/
@@ -358,10 +319,9 @@ SELECT E.EmployeeId, E.Email, E.Salary, E.Title, E.PhoneNumber, A.Street, A.Stre
 FROM Demo.Employee E
 	INNER JOIN Demo.Dealership D ON E.DealershipId = D.DealershipId
 	INNER JOIN Demo.[Address] A ON E.AddressId = A.AddressId
-WHERE E.DealershipId = @DealershipId
+WHERE E.DealershipId = @DealershipId;
 GO
 
-EXEC Demo.GetEmployees @DealershipId = 1
 
 /*---------------------------------------------------------------------------------
 Get the top X performing salespeople
@@ -374,7 +334,7 @@ CREATE PROCEDURE Demo.GetTopEmployees
 	@DealershipId INT = 0
 AS
 
-SELECT TOP(@EmployeeNumber) Rank() over(order by SUM(S.SaleAmount) desc), E.EmployeeId, E.FirstName, E.LastName, E.Email, a.City, COUNT(DISTINCT S.SaleId) AS NumberSales, SUM(S.SaleAmount) AS SalesVolume
+SELECT TOP(@EmployeeNumber) Rank() over(order by SUM(S.SaleAmount) desc),  E.FirstName, E.LastName, E.EmployeeId, E.Email, a.City, COUNT(DISTINCT S.SaleId) AS NumberSales, SUM(S.SaleAmount) AS SalesVolume
 FROM Demo.Employee E
 	INNER JOIN Demo.Sale S ON E.EmployeeId = S.EmployeeId
 	Inner Join Demo.[Address] a ON a.AddressId = e.AddressId
@@ -383,10 +343,6 @@ GROUP BY E.EmployeeId, E.FirstName, E.LastName, E.Email, a.City
 ORDER BY SalesVolume DESC
 GO
 
-EXEC Demo.GetTopEmployees
-	@EmployeeNumber = 10,
-	@DealershipId = 1
-GO
 
 /*---------------------------------------------------------------------------------
 Get all make types
@@ -400,9 +356,6 @@ AS
 
 SELECT DISTINCT C.Make
 FROM Demo.Car C
-GO
-
-EXEC Demo.GetMakeTypes;
 GO
 
 /*---------------------------------------------------------------------------------
@@ -423,7 +376,6 @@ WHERE NOT EXISTS
 	WHERE S.CarId = C.CarId
 )
 
-EXEC Demo.GetStockTotalValue;
 GO
 
 /*---------------------------------------------------------------------------------
@@ -444,7 +396,6 @@ WHERE NOT EXISTS
 	WHERE S.CarId = C.CarId
 );
 
-EXEC Demo.GetStockTotalValue;
 GO
 
 DROP PROCEDURE IF EXISTS Demo.MakePurchase;
@@ -498,3 +449,8 @@ FROM Demo.Employee E
 
 EXEC Demo.GetWeeklyPerformance;
 GO
+
+
+select * from Demo.Car where Make = 'Volkswagen' and Model = 'Type 2'
+select * from Demo.Employee where DealershipId = 6
+select * from Demo.Customer
