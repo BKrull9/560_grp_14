@@ -62,14 +62,11 @@ namespace TestConnection
                 year2 = Convert.ToInt32(year);
             }
             Group14Connection g14 = new Group14Connection();
-            var data = new DataSet();
-            try
-            {
-                data = g14.CarSearch(make, model, color, milage2, oc2, ap2, year2);
-            }
-            catch
+            var data = g14.CarSearch(make, model, color, milage2, oc2, ap2, year2);
+            if (data == null)
             {
                 MessageBox.Show("There was an error proccessing your request.");
+                return;
             }
             var table = data.Tables[0];
             if (table.Rows.Count > 0)

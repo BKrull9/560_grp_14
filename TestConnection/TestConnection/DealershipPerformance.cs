@@ -43,6 +43,11 @@ namespace TestConnection
             dataGridView1.Rows.Clear();
             Group14Connection g14 = new Group14Connection();
             var data = g14.DealershipPerformance(dealershipId, start, end);
+            if(data == null)
+            {
+                MessageBox.Show("There was an error proccessing your request.");
+                return;
+            }
             var row = data.Tables[0].Rows[0].ItemArray;
             string[] arr = new string[3];
             arr[0] = string.Format("{0:c}", Convert.ToInt32(row[4]));
