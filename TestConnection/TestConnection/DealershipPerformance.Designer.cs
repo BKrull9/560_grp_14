@@ -208,6 +208,7 @@
             // 
             // DealershipPerformance
             // 
+            this.AcceptButton = this.uxSearch;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(366, 327);
@@ -225,6 +226,7 @@
             this.Controls.Add(this.uxWest);
             this.Controls.Add(this.dateTimePicker2);
             this.Controls.Add(this.dateTimePicker1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "DealershipPerformance";
             this.Text = "DealershipPerformance";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

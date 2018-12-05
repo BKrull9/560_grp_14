@@ -59,7 +59,9 @@ namespace TestConnection
         // employee performance button click
         private void uxEmployeePerf_Click(object sender, EventArgs e)
         {
-
+            EmployeePerformance EP = new EmployeePerformance(this);
+            EP.Show();
+            this.Hide();
         }
 
         // get top employees button click

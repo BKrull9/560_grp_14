@@ -33,6 +33,15 @@
             this.uxBack = new System.Windows.Forms.Button();
             this.uxSearch = new System.Windows.Forms.Button();
             this.uxDataGrid = new System.Windows.Forms.DataGridView();
+            this.customerId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.firstName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lastName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.phoneNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.email = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.street = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.street2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.city = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.zipcode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.uxTxtLastName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.uxTxtFistName = new System.Windows.Forms.TextBox();
@@ -55,15 +64,6 @@
             this.label12 = new System.Windows.Forms.Label();
             this.uxEmail = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
-            this.customerId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.firstName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lastName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.phoneNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.email = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.street = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.street2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.city = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.zipcode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.uxDataGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -127,6 +127,60 @@
             this.uxDataGrid.Size = new System.Drawing.Size(237, 150);
             this.uxDataGrid.TabIndex = 6;
             this.uxDataGrid.SelectionChanged += new System.EventHandler(this.uxDataGird_SelectionChanged);
+            // 
+            // customerId
+            // 
+            this.customerId.HeaderText = "Customer ID";
+            this.customerId.Name = "customerId";
+            this.customerId.Visible = false;
+            // 
+            // firstName
+            // 
+            this.firstName.HeaderText = "First Name";
+            this.firstName.Name = "firstName";
+            // 
+            // lastName
+            // 
+            this.lastName.HeaderText = "Last Name";
+            this.lastName.Name = "lastName";
+            // 
+            // phoneNumber
+            // 
+            this.phoneNumber.HeaderText = "Phone Number";
+            this.phoneNumber.Name = "phoneNumber";
+            this.phoneNumber.ReadOnly = true;
+            this.phoneNumber.Visible = false;
+            // 
+            // email
+            // 
+            this.email.HeaderText = "Email";
+            this.email.Name = "email";
+            this.email.ReadOnly = true;
+            this.email.Visible = false;
+            // 
+            // street
+            // 
+            this.street.HeaderText = "Street";
+            this.street.Name = "street";
+            this.street.Visible = false;
+            // 
+            // street2
+            // 
+            this.street2.HeaderText = "street2";
+            this.street2.Name = "street2";
+            this.street2.Visible = false;
+            // 
+            // city
+            // 
+            this.city.HeaderText = "City";
+            this.city.Name = "city";
+            this.city.Visible = false;
+            // 
+            // zipcode
+            // 
+            this.zipcode.HeaderText = "Zipcode";
+            this.zipcode.Name = "zipcode";
+            this.zipcode.Visible = false;
             // 
             // uxTxtLastName
             // 
@@ -322,62 +376,9 @@
             this.label14.TabIndex = 28;
             this.label14.Text = "Email:";
             // 
-            // customerId
-            // 
-            this.customerId.HeaderText = "Customer ID";
-            this.customerId.Name = "customerId";
-            this.customerId.Visible = false;
-            // 
-            // firstName
-            // 
-            this.firstName.HeaderText = "First Name";
-            this.firstName.Name = "firstName";
-            // 
-            // lastName
-            // 
-            this.lastName.HeaderText = "Last Name";
-            this.lastName.Name = "lastName";
-            // 
-            // phoneNumber
-            // 
-            this.phoneNumber.HeaderText = "Phone Number";
-            this.phoneNumber.Name = "phoneNumber";
-            this.phoneNumber.ReadOnly = true;
-            this.phoneNumber.Visible = false;
-            // 
-            // email
-            // 
-            this.email.HeaderText = "Email";
-            this.email.Name = "email";
-            this.email.ReadOnly = true;
-            this.email.Visible = false;
-            // 
-            // street
-            // 
-            this.street.HeaderText = "Street";
-            this.street.Name = "street";
-            this.street.Visible = false;
-            // 
-            // street2
-            // 
-            this.street2.HeaderText = "street2";
-            this.street2.Name = "street2";
-            this.street2.Visible = false;
-            // 
-            // city
-            // 
-            this.city.HeaderText = "City";
-            this.city.Name = "city";
-            this.city.Visible = false;
-            // 
-            // zipcode
-            // 
-            this.zipcode.HeaderText = "Zipcode";
-            this.zipcode.Name = "zipcode";
-            this.zipcode.Visible = false;
-            // 
             // GetCustomerInformation
             // 
+            this.AcceptButton = this.uxSearch;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(567, 253);
@@ -408,6 +409,7 @@
             this.Controls.Add(this.uxBack);
             this.Controls.Add(this.uxTxtCustomerId);
             this.Controls.Add(this.label2);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "GetCustomerInformation";
             this.Text = "Get Customer Information";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.GetCustomerInformation_FormClosed);
