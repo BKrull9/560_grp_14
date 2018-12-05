@@ -140,6 +140,7 @@
             this.uxDataGrid.Location = new System.Drawing.Point(15, 111);
             this.uxDataGrid.MultiSelect = false;
             this.uxDataGrid.Name = "uxDataGrid";
+            this.uxDataGrid.ReadOnly = true;
             this.uxDataGrid.RowHeadersVisible = false;
             this.uxDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.uxDataGrid.Size = new System.Drawing.Size(304, 155);
