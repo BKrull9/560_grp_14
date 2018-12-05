@@ -321,7 +321,7 @@ CREATE PROCEDURE Demo.GetTopEmployees
 	@DealershipId INT = 0
 AS
 
-SELECT TOP(@EmployeeNumber) E.EmployeeId, E.FirstName, E.LastName, E.Email, a.City, COUNT(DISTINCT S.SaleId) AS NumberSales, SUM(S.SaleAmount) AS SalesVolume
+SELECT TOP(@EmployeeNumber) Rank() over(order by SUM(S.SaleAmount) desc), E.EmployeeId, E.FirstName, E.LastName, E.Email, a.City, COUNT(DISTINCT S.SaleId) AS NumberSales, SUM(S.SaleAmount) AS SalesVolume
 FROM Demo.Employee E
 	INNER JOIN Demo.Sale S ON E.EmployeeId = S.EmployeeId
 	Inner Join Demo.[Address] a ON a.AddressId = e.AddressId

@@ -86,9 +86,9 @@ namespace TestConnection
         {
             return ExecQuery($"EXEC Demo.GetStockTotalValue");
         }
-        public DataSet GetTopEmployees(int employeeNumber)
+        public DataSet GetTopEmployees(int employeeNumber, int dealership)
         {
-            return ExecQuery($"EXEC Demo.GetTopEmployees @EmployeeNumber={employeeNumber}");
+            return ExecQuery($"EXEC Demo.GetTopEmployees @EmployeeNumber={employeeNumber}, @DealershipId={dealership}");
         }
         public DataSet ListEmployee(int DealershipId)
         {

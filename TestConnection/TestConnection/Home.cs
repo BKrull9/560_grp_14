@@ -65,9 +65,10 @@ namespace TestConnection
         // get top employees button click
         private void uxGetTopEmployees_Click(object sender, EventArgs e)
         {
-
+            GetTopEmployees gte = new GetTopEmployees(this);
+            gte.Show();
+            this.Hide();
         }
-
         // get stock total value 
         private void uxGetStockTotal_Click(object sender, EventArgs e)
         {
