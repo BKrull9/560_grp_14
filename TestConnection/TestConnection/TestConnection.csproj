@@ -64,6 +64,12 @@
     <Compile Include="FeatureSearchForm.Designer.cs">
       <DependentUpon>FeatureSearchForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="GetTopCustomers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GetTopCustomers.Designer.cs">
+      <DependentUpon>GetTopCustomers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Home.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -106,7 +112,10 @@
     <EmbeddedResource Include="DealershipPerformance.resx">
       <DependentUpon>DealershipPerformance.cs</DependentUpon>
     </EmbeddedResource>
-	<EmbeddedResource Include="EmployeePerformance.resx">
+    <EmbeddedResource Include="GetTopCustomers.resx">
+      <DependentUpon>GetTopCustomers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EmployeePerformance.resx">
       <DependentUpon>EmployeePerformance.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Home.resx">

@@ -78,19 +78,20 @@ DROP PROCEDURE IF EXISTS Demo.ListEmployee;
 GO
 
 CREATE PROCEDURE Demo.ListEmployee
-	@CustomerId INT = 0,
+	@EmployeeId INT = 0,
 	@FirstName NVARCHAR(32) = N'%',
 	@LastName NVARCHAR(32) = N'%'
 AS
 
 SELECT
+	E.EmployeeId,
 	E.FirstName,
 	E.LastName,
-	E.EmployeeId,
 	E.PhoneNumber,
 	E.Email,
 	D.[Name] AS DealershipName,
 	A.Street,
+	A.Street2,
 	A.City,
 	A.Zipcode,
 	Count(S.SaleId) AS NumberOfSales,
@@ -99,9 +100,12 @@ FROM Demo.Employee E
 	JOIN Demo.Dealership D ON E.DealershipId = D.DealershipId
 	JOIN Demo.[Address] A ON A.AddressId = E.AddressId
 	JOIN Demo.Sale S ON S.EmployeeId = E.EmployeeId
-WHERE E.FirstName Like @FirstName OR E.LastName LIKE @LastName
-GROUP BY E.FirstName,E.LastName, E.EmployeeId, E.PhoneNumber, E.Email, D.[Name], 
-	A.Street, A.City, A.Zipcode; 
+WHERE E.EmployeeId = ISNULL(@EmployeeId, E.EmployeeId)
+	AND E.FirstName Like @FirstName 
+	AND E.LastName LIKE @LastName
+
+GROUP BY E.FirstName, E.LastName, E.EmployeeId, E.PhoneNumber, E.Email, D.[Name], 
+	A.Street, A.Street2, A.City, A.Zipcode; 
 GO
 
 /*---------------------------------------------------------------------------------
