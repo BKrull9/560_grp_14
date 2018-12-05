@@ -111,6 +111,12 @@ namespace TestConnection
             }
 
             conn.Close();
+
+            if( dataSet.Tables[0].Rows.Count > 0 )
+            {
+                dataSet = null;
+            }
+
             return dataSet;
         }
         public DataSet MakePurchase(string employeeEmail, string customerEmail, int carID, int purchaseAmount)
