@@ -78,6 +78,7 @@ DROP PROCEDURE IF EXISTS Demo.ListEmployee;
 GO
 
 CREATE PROCEDURE Demo.ListEmployee
+	@CustomerId INT = 0,
 	@FirstName NVARCHAR(32) = N'%',
 	@LastName NVARCHAR(32) = N'%'
 AS
@@ -413,6 +414,9 @@ GO
 DROP PROCEDURE IF EXISTS Demo.MakePurchase;
 GO
 
+DROP PROCEDURE IF EXISTS Demo.MakePurchase;
+GO
+
 CREATE PROCEDURE Demo.MakePurchase
 	@EmployeeEmail NVARCHAR(128),
 	@CustomerEmail NVARCHAR(128),
@@ -424,6 +428,12 @@ Select e.EmployeeId, c.CustomerId, @CarID, @SalePrice
 From Demo.Employee e
 	cross join Demo.Customer c
 where e.Email = @EmployeeEmail and c.Email = @CustomerEmail
+
+update Demo.Car
+set IsSold = 1
+where CarId = @CarID
+
+go
 
 /*---------------------------------------------------------------------------------
 Get a certain employee's weekly performance 
@@ -440,8 +450,3 @@ FROM Demo.Employee E
 
 EXEC Demo.GetWeeklyPerformance;
 GO
-update Demo.Car
-set IsSold = 1
-where CarId = @CarID
-
-go
