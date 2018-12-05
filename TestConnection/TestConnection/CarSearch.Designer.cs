@@ -51,9 +51,9 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.uxBack = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.button2 = new System.Windows.Forms.Button();
+            this.uxPurchase = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -251,15 +251,15 @@
             this.label14.TabIndex = 23;
             this.label14.Text = "Features:";
             // 
-            // button1
+            // uxBack
             // 
-            this.button1.Location = new System.Drawing.Point(12, 347);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 24;
-            this.button1.Text = "Back";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.uxBack.Location = new System.Drawing.Point(12, 347);
+            this.uxBack.Name = "uxBack";
+            this.uxBack.Size = new System.Drawing.Size(75, 23);
+            this.uxBack.TabIndex = 24;
+            this.uxBack.Text = "Back";
+            this.uxBack.UseVisualStyleBackColor = true;
+            this.uxBack.Click += new System.EventHandler(this.button1_Click);
             // 
             // dataGridView1
             // 
@@ -277,24 +277,25 @@
             this.dataGridView1.TabIndex = 25;
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
             // 
-            // button2
+            // uxPurchase
             // 
-            this.button2.Location = new System.Drawing.Point(93, 347);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 26;
-            this.button2.Text = "Purchase";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.uxPurchase.Location = new System.Drawing.Point(93, 347);
+            this.uxPurchase.Name = "uxPurchase";
+            this.uxPurchase.Size = new System.Drawing.Size(75, 23);
+            this.uxPurchase.TabIndex = 26;
+            this.uxPurchase.Text = "Purchase";
+            this.uxPurchase.UseVisualStyleBackColor = true;
+            this.uxPurchase.Click += new System.EventHandler(this.button2_Click);
             // 
             // CarSearch
             // 
+            this.AcceptButton = this.uxSearch;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(658, 382);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.uxPurchase);
             this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.uxBack);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label12);
@@ -352,8 +353,8 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button uxBack;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button uxPurchase;
     }
 }
