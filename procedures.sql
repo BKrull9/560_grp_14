@@ -78,13 +78,30 @@ DROP PROCEDURE IF EXISTS Demo.ListEmployee;
 GO
 
 CREATE PROCEDURE Demo.ListEmployee
-
+	@CustomerId INT = 0,
+	@FirstName NVARCHAR(32) = N'%',
+	@LastName NVARCHAR(32) = N'%'
 AS
 
-SELECT 
+SELECT
 	E.FirstName,
-	E.LastName
-FROM Demo.Employee E;
+	E.LastName,
+	E.EmployeeId,
+	E.PhoneNumber,
+	E.Email,
+	D.[Name] AS DealershipName,
+	A.Street,
+	A.City,
+	A.Zipcode,
+	Count(S.SaleId) AS NumberOfSales,
+	Sum(S.SaleAmount) AS TotalSales 	
+FROM Demo.Employee E
+	JOIN Demo.Dealership D ON E.DealershipId = D.DealershipId
+	JOIN Demo.[Address] A ON A.AddressId = E.AddressId
+	JOIN Demo.Sale S ON S.EmployeeId = E.EmployeeId
+WHERE E.FirstName Like @FirstName OR E.LastName LIKE @LastName
+GROUP BY E.FirstName,E.LastName, E.EmployeeId, E.PhoneNumber, E.Email, D.[Name], 
+	A.Street, A.City, A.Zipcode; 
 GO
 
 /*---------------------------------------------------------------------------------
@@ -181,13 +198,13 @@ FROM
 	JOIN Demo.Dealership D ON E.DealershipId = D.DealershipId
 	JOIN Demo.Sale S ON E.EmployeeId = S.EmployeeId
 	inner join Demo.Car c on s.CarId = c.CarId
-WHERE D.DealershipId = @DealershipId
+WHERE D.DealershipId = @DealershipId and s.SaleDate > @StartDate and s.SaleDate < @EndDate
 GROUP BY D.DealershipId, D.[Name], D.AddressId, D.PhoneNumber;
 GO
 
 EXEC Demo.DealershipPerformance
 	@DealershipId = 1,
-	@StartDate = '2018-01-01',
+	@StartDate = '2017-01-01',
 	@EndDate = '2018-12-31'
 GO
 
@@ -404,10 +421,31 @@ CREATE PROCEDURE Demo.MakePurchase
 	@CarId int
 AS
 insert into Demo.Sale(EmployeeId, CustomerId, CarId, SaleAmount)
+
 Select e.EmployeeId, c.CustomerId, @CarID, @SalePrice
 From Demo.Employee e
 	cross join Demo.Customer c
-where e.Email = @EmployeeEmail and c.Email = @CustomerEmail
+where e.Email = @EmployeeEmail and c.Email = @CustomerEmail and e.DealershipId =
+(
+	select c.DealershipId 
+	from Demo.Car c
+	where c.CarId = @CarId
+)
+
+update Demo.Car 
+set IsSold = 1
+where CarId = @CarID and exists (
+	select s.CarId
+	from Demo.Sale s
+	where s.CarId = @CarId
+)
+
+select CarId
+from Demo.Sale 
+where CarId = @CarId
+
+go
+
 
 /*---------------------------------------------------------------------------------
 Get a certain employee's weekly performance 
@@ -424,8 +462,3 @@ FROM Demo.Employee E
 
 EXEC Demo.GetWeeklyPerformance;
 GO
-update Demo.Car
-set IsSold = 1
-where CarId = @CarID
-
-go

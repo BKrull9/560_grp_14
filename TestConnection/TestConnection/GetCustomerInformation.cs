@@ -15,7 +15,7 @@ namespace TestConnection
     {
         Home homePage;
         Group14Connection conn;
-        //TODO: Add first/last name options to search with
+
         public GetCustomerInformation(Home ret)
         {
             homePage = ret;
@@ -44,12 +44,11 @@ namespace TestConnection
         private void displayData(int? customerId, string first, string last)
         {
             uxDataGrid.Rows.Clear();
-            var data = conn.GetCustomerInformation( customerId, first, last );
-            var table = data.Tables[0];
-            if( table.Rows.Count > 0 )
+            DataSet data = conn.GetCustomerInformation( customerId, first, last );
+            if( data != null )
             {
                 uxDataGrid.Rows.Add();
-                foreach ( DataRow data_row in table.Rows )
+                foreach ( DataRow data_row in data.Tables[0].Rows )
                 {
                     DataGridViewRow new_row = (DataGridViewRow)uxDataGrid.Rows[0].Clone();
                     new_row.Cells[0].Value = data_row.ItemArray[0].ToString();
@@ -85,10 +84,10 @@ namespace TestConnection
             if( row != null && row.Cells != null && row.Cells[0].Value != null )
             {
                 uxCustomerId.Text   = row.Cells[0].Value.ToString();
-                uxPhoneNumber.Text  = row.Cells[1].Value.ToString();
-                uxEmail.Text        = row.Cells[2].Value.ToString();
-                //First Name = row.Cells[3].Value.ToString();
-                //Last Name = row.Cells[4].Value.ToString();
+                //First Name = row.Cells[1].Value.ToString();
+                //Last Name = row.Cells[2].Value.ToString();
+                uxPhoneNumber.Text  = row.Cells[3].Value.ToString();
+                uxEmail.Text        = row.Cells[4].Value.ToString();
                 uxStreet.Text       = row.Cells[5].Value.ToString();
                 uxStreet2.Text      = row.Cells[6].Value.ToString();
                 uxCity.Text         = row.Cells[7].Value.ToString();

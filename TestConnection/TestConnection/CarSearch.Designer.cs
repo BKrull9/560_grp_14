@@ -53,6 +53,9 @@
             this.label14 = new System.Windows.Forms.Label();
             this.uxBack = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Year = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Make = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Model = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.uxPurchase = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -108,15 +111,15 @@
             // textbox
             // 
             this.textbox.AutoSize = true;
-            this.textbox.Location = new System.Drawing.Point(494, 9);
+            this.textbox.Location = new System.Drawing.Point(490, 9);
             this.textbox.Name = "textbox";
-            this.textbox.Size = new System.Drawing.Size(32, 13);
+            this.textbox.Size = new System.Drawing.Size(52, 13);
             this.textbox.TabIndex = 7;
-            this.textbox.Text = "Year:";
+            this.textbox.Text = "Min Year:";
             // 
             // uxYear
             // 
-            this.uxYear.Location = new System.Drawing.Point(541, 6);
+            this.uxYear.Location = new System.Drawing.Point(548, 6);
             this.uxYear.Name = "uxYear";
             this.uxYear.Size = new System.Drawing.Size(100, 20);
             this.uxYear.TabIndex = 6;
@@ -126,13 +129,13 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(178, 35);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(72, 13);
+            this.label5.Size = new System.Drawing.Size(95, 13);
             this.label5.TabIndex = 9;
-            this.label5.Text = "Owner Count:";
+            this.label5.Text = "Max Owner Count:";
             // 
             // uxOwnerCount
             // 
-            this.uxOwnerCount.Location = new System.Drawing.Point(256, 32);
+            this.uxOwnerCount.Location = new System.Drawing.Point(275, 32);
             this.uxOwnerCount.Name = "uxOwnerCount";
             this.uxOwnerCount.Size = new System.Drawing.Size(100, 20);
             this.uxOwnerCount.TabIndex = 8;
@@ -182,7 +185,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(416, 87);
+            this.label7.Location = new System.Drawing.Point(324, 88);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(37, 13);
             this.label7.TabIndex = 16;
@@ -191,7 +194,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(416, 110);
+            this.label8.Location = new System.Drawing.Point(324, 111);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(39, 13);
             this.label8.TabIndex = 17;
@@ -200,7 +203,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(416, 132);
+            this.label9.Location = new System.Drawing.Point(324, 133);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(34, 13);
             this.label9.TabIndex = 18;
@@ -209,7 +212,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(416, 155);
+            this.label10.Location = new System.Drawing.Point(324, 156);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(32, 13);
             this.label10.TabIndex = 19;
@@ -218,7 +221,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(416, 177);
+            this.label11.Location = new System.Drawing.Point(324, 178);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(41, 13);
             this.label11.TabIndex = 20;
@@ -227,7 +230,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(416, 201);
+            this.label12.Location = new System.Drawing.Point(324, 202);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(72, 13);
             this.label12.TabIndex = 21;
@@ -236,7 +239,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(416, 223);
+            this.label13.Location = new System.Drawing.Point(324, 224);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(55, 13);
             this.label13.TabIndex = 22;
@@ -245,7 +248,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(416, 245);
+            this.label14.Location = new System.Drawing.Point(324, 246);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(51, 13);
             this.label14.TabIndex = 23;
@@ -267,15 +270,37 @@
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AllowUserToResizeRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Year,
+            this.Make,
+            this.Model});
             this.dataGridView1.Location = new System.Drawing.Point(12, 87);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(398, 254);
+            this.dataGridView1.Size = new System.Drawing.Size(304, 254);
             this.dataGridView1.TabIndex = 25;
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
+            // 
+            // Year
+            // 
+            this.Year.HeaderText = "Year";
+            this.Year.Name = "Year";
+            this.Year.ReadOnly = true;
+            // 
+            // Make
+            // 
+            this.Make.HeaderText = "Make";
+            this.Make.Name = "Make";
+            this.Make.ReadOnly = true;
+            // 
+            // Model
+            // 
+            this.Model.HeaderText = "Model";
+            this.Model.Name = "Model";
+            this.Model.ReadOnly = true;
             // 
             // uxPurchase
             // 
@@ -357,5 +382,8 @@
         private System.Windows.Forms.Button uxBack;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button uxPurchase;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Year;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Make;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Model;
     }
 }

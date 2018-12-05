@@ -247,6 +247,7 @@
             this.uxDataGrid.Location = new System.Drawing.Point(12, 152);
             this.uxDataGrid.MultiSelect = false;
             this.uxDataGrid.Name = "uxDataGrid";
+            this.uxDataGrid.ReadOnly = true;
             this.uxDataGrid.RowHeadersVisible = false;
             this.uxDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.uxDataGrid.Size = new System.Drawing.Size(271, 155);
@@ -345,7 +346,6 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.uxFeatureTable);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "FeatureSearchForm";
             this.Text = "FeatureSearchForm";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FeatureSearchForm_FormClosed);

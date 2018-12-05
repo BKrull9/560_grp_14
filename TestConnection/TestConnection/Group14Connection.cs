@@ -26,10 +26,10 @@ namespace TestConnection
             int? milage, int? ownerCount, int? askPrice, int? year)
         {
             return ExecQuery($"EXEC Demo.CarSearch " +
-                $"@Make={HandlePossibleEmptyString(make)}, " +
-                $"@Model={HandlePossibleEmptyString(model)}, " +
+                $"@Make='%{make}%', " +
+                $"@Model='%{model}%', " +
                 $"@Year={HandleNullableInt(year)}, " +
-                $"@Color={HandlePossibleEmptyString(color)}, " +
+                $"@Color='%{color}%', " +
                 $"@Milage={HandleNullableInt(milage)}, " +
                 $"@OwnerCnt={HandleNullableInt(ownerCount)}, " +
                 $"@AskPrice={HandleNullableInt(askPrice)}");
@@ -90,9 +90,12 @@ namespace TestConnection
         {
             return ExecQuery($"EXEC Demo.GetTopEmployees @EmployeeNumber={employeeNumber}, @DealershipId={dealership}");
         }
-        public DataSet ListEmployee(int DealershipId)
+        public DataSet ListEmployee(int? customerId, string firstName, string lastName)
         {
-            return ExecQuery($"EXEC Demo.GetEmployees @DealershipId = {DealershipId}");
+            return ExecQuery($"EXEC Demo.ListEmployee " +
+                $"@EmployeeId={HandleNullableInt(customerId)}," +
+                $"@FirstName='%{firstName}%', " + 
+                $"@LastName='%{lastName}%'");
         }
         public DataSet ListFeature()
         {
@@ -109,6 +112,12 @@ namespace TestConnection
             }
 
             conn.Close();
+
+            if( dataSet.Tables[0].Rows.Count == 0 )
+            {
+                dataSet = null;
+            }
+
             return dataSet;
         }
         public DataSet MakePurchase(string employeeEmail, string customerEmail, int carID, int purchaseAmount)

@@ -54,6 +54,11 @@ namespace TestConnection
             dataGridView1.Rows.Clear();
             Group14Connection g14 = new Group14Connection();
             var data = g14.GetTopEmployees(top, deal);
+            if (data == null)
+            {
+                MessageBox.Show("There was an error proccessing your request.");
+                return;
+            }
             var table = data.Tables[0];
             for(int i = 0; i < table.Rows.Count; i++)
             {
@@ -105,13 +110,16 @@ namespace TestConnection
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
-            uxEmplyeeId.Text = "Employee Id: " + dataGridView1.SelectedRows[0].Cells[3].Value.ToString();
-            uxfName.Text = "First Name: " + dataGridView1.SelectedRows[0].Cells[1].Value.ToString();
-            uxlNAme.Text = "Last Name: " + dataGridView1.SelectedRows[0].Cells[2].Value.ToString();
-            uxEmail.Text = "Email: " + dataGridView1.SelectedRows[0].Cells[4].Value.ToString();
-            uxCity.Text = "City: " + dataGridView1.SelectedRows[0].Cells[5].Value.ToString();
-            uxSSaleNum.Text = "Number of Sales: " + dataGridView1.SelectedRows[0].Cells[6].Value.ToString();
-            uxVolume.Text = "Sales Volume: " + string.Format("{0:c}", Convert.ToInt32(dataGridView1.SelectedRows[0].Cells[7].Value.ToString()));
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                uxEmplyeeId.Text = "Employee Id: " + dataGridView1.SelectedRows[0].Cells[3].Value.ToString();
+                uxfName.Text = "First Name: " + dataGridView1.SelectedRows[0].Cells[1].Value.ToString();
+                uxlNAme.Text = "Last Name: " + dataGridView1.SelectedRows[0].Cells[2].Value.ToString();
+                uxEmail.Text = "Email: " + dataGridView1.SelectedRows[0].Cells[4].Value.ToString();
+                uxCity.Text = "City: " + dataGridView1.SelectedRows[0].Cells[5].Value.ToString();
+                uxSSaleNum.Text = "Number of Sales: " + dataGridView1.SelectedRows[0].Cells[6].Value.ToString();
+                uxVolume.Text = "Sales Volume: " + string.Format("{0:c}", Convert.ToInt32(dataGridView1.SelectedRows[0].Cells[7].Value.ToString()));
+            }
         }
 
         private void GetTopEmployees_FormClosed(object sender, FormClosedEventArgs e)
