@@ -409,6 +409,7 @@
             this.Controls.Add(this.uxBack);
             this.Controls.Add(this.uxTxtCustomerId);
             this.Controls.Add(this.label2);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "GetCustomerInformation";
             this.Text = "Get Customer Information";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.GetCustomerInformation_FormClosed);

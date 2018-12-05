@@ -226,6 +226,7 @@
             this.Controls.Add(this.uxWest);
             this.Controls.Add(this.dateTimePicker2);
             this.Controls.Add(this.dateTimePicker1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "DealershipPerformance";
             this.Text = "DealershipPerformance";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

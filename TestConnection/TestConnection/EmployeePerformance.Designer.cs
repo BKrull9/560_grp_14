@@ -183,6 +183,7 @@
             this.Controls.Add(this.LastName);
             this.Controls.Add(this.Back);
             this.Controls.Add(this.Search);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "EmployeePerformance";
             this.Text = "Employee Performance";
             ((System.ComponentModel.ISupportInitialize)(this.uxDataGrid)).EndInit();

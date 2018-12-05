@@ -90,6 +90,7 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.uxBackButton);
             this.Controls.Add(this.uxEmployeeSearchButton);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "ListEmployeesForm";
             this.Text = "ListEmployeesForm";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

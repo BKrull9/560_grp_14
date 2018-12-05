@@ -319,6 +319,7 @@
             this.Controls.Add(this.uxModel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.uxMake);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "CarSearch";
             this.Text = "Car Search";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CarSearch_FormClosed);

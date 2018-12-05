@@ -280,6 +280,7 @@
             this.Controls.Add(this.uxEast);
             this.Controls.Add(this.uxNorthWest);
             this.Controls.Add(this.uxWest);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "GetTopEmployees";
             this.Text = "Top Employees";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
