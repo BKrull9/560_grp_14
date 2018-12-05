@@ -436,17 +436,69 @@ where CarId = @CarID
 go
 
 /*---------------------------------------------------------------------------------
-Get a certain employee's weekly performance 
+Get a certain employee's yearly performance 
 ---------------------------------------------------------------------------------*/
-DROP PROCEDURE IF EXISTS Demo.GetWeeklyPerformace;
+DROP PROCEDURE IF EXISTS Demo.GetYearlyPerformance;
 GO
 
-CREATE PROCEDURE Demo.GetWeeklyPerformance
+CREATE PROCEDURE Demo.GetYearlyPerformance
+	@EmployeeId INT = 0,
+	@StartDate DATETIMEOFFSET = '2000-01-01',
+	@EndDate DATETIMEOFFSET = '2999-12-31'
 AS
 
-SELECT E.EmployeeId, E.FirstName, E.LastName, SUM(sales), COUNT(DISTINCT S.SaleId), SUM(DIFFERENCE(ask-sale)
+SELECT
+	E.FirstName,
+	E.LastName,
+	E.EmployeeId,
+	YEAR(S.SaleDate) AS [Year],
+	Sum(S.SaleAmount) AS TotalSales,
+	Count(DISTINCT S.SaleId) AS NumberOfSales,
+	SUM(C.AskPrice)-SUM(S.SaleAmount) AS HaggleLoss	
 FROM Demo.Employee E
-	INNER JOIN Demo.Sale S ON E.EmployeeId = S.EmployeeId
+	INNER JOIN Demo.Sale S ON S.EmployeeId = E.EmployeeId
+	INNER JOIN Demo.Car C ON S.SaleId = C.CarId
+WHERE E.EmployeeId = @EmployeeId AND S.SaleDate BETWEEN @StartDate AND @EndDate
+GROUP BY E.FirstName,E.LastName, E.EmployeeId, YEAR(S.SaleDate)
+ORDER BY YEAR(S.SaleDate) DESC
+GO
 
-EXEC Demo.GetWeeklyPerformance;
+EXEC Demo.GetYearlyPerformance
+	@EmployeeId = 1,
+	@StartDate = '2000-01-01',
+	@EndDate = '2018-12-31'
+GO
+/*---------------------------------------------------------------------------------
+Get a certain employee's monthly performance 
+---------------------------------------------------------------------------------*/
+DROP PROCEDURE IF EXISTS Demo.GetMonthlyPerformance;
+GO
+
+CREATE PROCEDURE Demo.GetMonthlyPerformance
+	@EmployeeId INT = 0,
+	@StartDate DATETIMEOFFSET = '2000-01-01',
+	@EndDate DATETIMEOFFSET = '2999-12-31'
+AS
+
+SELECT
+	E.FirstName,
+	E.LastName,
+	E.EmployeeId,
+	YEAR(S.SaleDate) AS Year,
+	(SELECT DATENAME(month, DateAdd(month, MONTH(S.SaleDate), 0)-1)) AS [Month],
+	Sum(S.SaleAmount) AS TotalSales,
+	Count(DISTINCT S.SaleId) AS NumberOfSales,
+	SUM(C.AskPrice)-SUM(S.SaleAmount) AS HaggleLoss	
+FROM Demo.Employee E
+	INNER JOIN Demo.Sale S ON S.EmployeeId = E.EmployeeId
+	INNER JOIN Demo.Car C ON S.SaleId = C.CarId
+WHERE E.EmployeeId = @EmployeeId AND S.SaleDate BETWEEN @StartDate AND @EndDate
+GROUP BY E.FirstName,E.LastName, E.EmployeeId, MONTH(S.SaleDate), YEAR(S.SaleDate)
+ORDER BY YEAR(S.SaleDate) DESC , MONTH(S.SaleDate) DESC
+GO
+
+EXEC Demo.GetMonthlyPerformance
+	@EmployeeId = 1,
+	@StartDate = '2000-01-01',
+	@EndDate = '2018-12-31'
 GO

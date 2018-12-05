@@ -145,5 +145,19 @@ namespace TestConnection
                 return i.ToString();
             }
         }
+        public DataSet GetYearlyEmployeePerformance(int customerId, DateTime StartDate, DateTime EndDate)
+        {
+            return ExecQuery($"EXEC Demo.GetYearlyPerformance " +
+                $"@EmployeeId={customerId}, " +
+                $"@StartDate='{StartDate.ToString()}', " +
+                $"@EndDate='{EndDate.ToString()}'");
+        }
+        public DataSet GetMonthlyEmployeePerformance(int customerId, DateTime StartDate, DateTime EndDate)
+        {
+            return ExecQuery($"EXEC Demo.GetMonthlyPerformance " +
+                $"@EmployeeId={customerId}, " +
+                $"@StartDate='{StartDate.ToString()}', " +
+                $"@EndDate='{EndDate.ToString()}'");
+        }
     }
 }
