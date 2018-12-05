@@ -414,9 +414,6 @@ GO
 DROP PROCEDURE IF EXISTS Demo.MakePurchase;
 GO
 
-DROP PROCEDURE IF EXISTS Demo.MakePurchase;
-GO
-
 CREATE PROCEDURE Demo.MakePurchase
 	@EmployeeEmail NVARCHAR(128),
 	@CustomerEmail NVARCHAR(128),
@@ -424,16 +421,31 @@ CREATE PROCEDURE Demo.MakePurchase
 	@CarId int
 AS
 insert into Demo.Sale(EmployeeId, CustomerId, CarId, SaleAmount)
+
 Select e.EmployeeId, c.CustomerId, @CarID, @SalePrice
 From Demo.Employee e
 	cross join Demo.Customer c
-where e.Email = @EmployeeEmail and c.Email = @CustomerEmail
+where e.Email = @EmployeeEmail and c.Email = @CustomerEmail and e.DealershipId =
+(
+	select c.DealershipId 
+	from Demo.Car c
+	where c.CarId = @CarId
+)
 
-update Demo.Car
+update Demo.Car 
 set IsSold = 1
-where CarId = @CarID
+where CarId = @CarID and exists (
+	select s.CarId
+	from Demo.Sale s
+	where s.CarId = @CarId
+)
+
+select CarId
+from Demo.Sale 
+where CarId = @CarId
 
 go
+
 
 /*---------------------------------------------------------------------------------
 Get a certain employee's weekly performance 
