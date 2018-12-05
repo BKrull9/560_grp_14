@@ -81,5 +81,12 @@ namespace TestConnection
             dp.Show();
             this.Hide();
         }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            GetTopCustomers tc = new GetTopCustomers(this);
+            tc.Show();
+            this.Hide();
+        }
     }
 }

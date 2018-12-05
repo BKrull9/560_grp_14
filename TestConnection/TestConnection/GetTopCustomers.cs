@@ -12,9 +12,33 @@ namespace TestConnection
 {
     public partial class GetTopCustomers : Form
     {
-        public GetTopCustomers()
+        Form homePage;
+        public GetTopCustomers(Form ret)
         {
+            homePage = ret;
             InitializeComponent();
+        }
+
+        private void uxBack_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            homePage.Show();
+        }
+
+        private void usSearch_Click(object sender, EventArgs e)
+        {
+
+            runQuery();
+        }
+
+        private void runQuery()
+        {
+            displayResults();
+        }
+
+        private void displayResults()
+        {
+
         }
     }
 }
