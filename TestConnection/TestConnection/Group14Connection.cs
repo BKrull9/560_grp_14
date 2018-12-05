@@ -90,11 +90,12 @@ namespace TestConnection
         {
             return ExecQuery($"EXEC Demo.GetTopEmployees @EmployeeNumber={employeeNumber}, @DealershipId={dealership}");
         }
-        public DataSet ListEmployee(string firstName, string lastName)
+        public DataSet ListEmployee(int? customerId, string firstName, string lastName)
         {
             return ExecQuery($"EXEC Demo.ListEmployee " +
-                $"@FirstName = '{firstName}', " + 
-                $"@LastName = '{lastName}'");
+                $"@EmployeeId={HandleNullableInt(customerId)}," +
+                $"@FirstName='%{firstName}%', " + 
+                $"@LastName='%{lastName}%'");
         }
         public DataSet ListFeature()
         {

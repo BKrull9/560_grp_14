@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,18 +13,25 @@ namespace TestConnection
 {
     public partial class ListEmployeesForm : Form
     {
+        Group14Connection conn;
         Home homePage;
         public ListEmployeesForm(Home ret)
         {
+            conn = new Group14Connection();
             homePage = ret;
             InitializeComponent();
         }
 
         private void uxEmployeeSearchButton_Click(object sender, EventArgs e)
         {
-            string firstName = firstNameText.Text;
-            string lastName = lastNameText.Text;
-            displayData(firstName, lastName);
+            Nullable<int> customer_id = null;
+            int temp;
+            if (Int32.TryParse(uxTxtEmployeeId.Text, out temp))
+            {
+                customer_id = temp;
+            }
+            DataSet data = conn.ListEmployee(customer_id, firstNameText.Text, lastNameText.Text);
+            displayData(data);
         }
 
         private void uxBackButton_Click(object sender, EventArgs e)
@@ -32,61 +40,62 @@ namespace TestConnection
             homePage.Show();
         }
 
-        private void displayData(string firstName, string lastName)
+        private void displayData(DataSet data)
         {
-            Group14Connection g14 = new Group14Connection();
-            var data = g14.ListEmployee(firstName, lastName);
-            var table = data.Tables[0];
-
-            if(dataGridView1.Columns.Count > 0)
+            if( data != null )
             {
+                DataTable table = data.Tables[0];
                 dataGridView1.Rows.Clear();
-                dataGridView1.Columns.Clear();
-            }
-           
 
-            for (int i = 0; i < table.Rows[0].ItemArray.Length; i++)
-            {
-                dataGridView1.Columns.Add(table.Columns[i].ColumnName, table.Columns[i].ColumnName);
-                if(i != 0 && i !=1 && i != 2)
+                dataGridView1.Rows.Add();
+                foreach (DataRow data_row in data.Tables[0].Rows)
                 {
-                    dataGridView1.Columns[i].Visible = false;
+                    DataGridViewRow new_row = (DataGridViewRow)dataGridView1.Rows[0].Clone();
+                    new_row.Cells[0].Value = data_row.ItemArray[0].ToString();
+                    new_row.Cells[1].Value = data_row.ItemArray[1].ToString();
+                    new_row.Cells[2].Value = data_row.ItemArray[2].ToString();
+                    new_row.Cells[3].Value = data_row.ItemArray[3].ToString();
+                    new_row.Cells[4].Value = data_row.ItemArray[4].ToString();
+                    new_row.Cells[5].Value = data_row.ItemArray[5].ToString();
+                    new_row.Cells[6].Value = data_row.ItemArray[6].ToString();
+                    new_row.Cells[7].Value = data_row.ItemArray[7].ToString();
+                    new_row.Cells[8].Value = data_row.ItemArray[8].ToString();
+                    new_row.Cells[9].Value = data_row.ItemArray[9].ToString();
+                    new_row.Cells[10].Value = data_row.ItemArray[10].ToString();
+                    new_row.Cells[11].Value = data_row.ItemArray[11].ToString();
+                    dataGridView1.Rows.Add(new_row);
                 }
-
+                dataGridView1.Rows.RemoveAt(0);
             }
-
-            for (int i = 0; i < table.Rows.Count; i++)
+            else
             {
-                List<string> rowData = new List<string>();
-                var row = table.Rows[i];
-                for(int j = 0; j < table.Rows[0].ItemArray.Length; j++)
-                {
-                    rowData.Add(row[j].ToString());
-                }
-                string[] arr = rowData.ToArray();
-                string hold = arr[0];
-                dataGridView1.Rows.Add(arr);
+                MessageBox.Show( "Employee does not exist." );
             }
         }
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
-            try
+            DataGridViewRow row = dataGridView1.SelectedRows.Count == 0 ? null : dataGridView1.SelectedRows[0];
+            if (row != null && row.Cells != null && row.Cells[0].Value != null)
             {
-                employeeId.Text = "Employee ID: " + dataGridView1.SelectedRows[0].Cells[2].Value.ToString();
-                PhoneLabel.Text = "Phone Number: " + dataGridView1.SelectedRows[0].Cells[3].Value.ToString();
-                EmailLabel.Text = "Email: " + dataGridView1.SelectedRows[0].Cells[4].Value.ToString();
-                DealershipName.Text = "Dealership: " + dataGridView1.SelectedRows[0].Cells[5].Value.ToString();
-                StreetAddress.Text = "Street: " + dataGridView1.SelectedRows[0].Cells[6].Value.ToString();
-                CityLabel.Text = "City: " + dataGridView1.SelectedRows[0].Cells[7].Value.ToString();
-                ZipCodeLabel.Text = "Zip Code: " + dataGridView1.SelectedRows[0].Cells[8].Value.ToString();
-                NumberOfSalesLabel.Text = "Number of Sales: " + dataGridView1.SelectedRows[0].Cells[9].Value.ToString();
-                TotalSalesLabel.Text = "Total Sales: " + dataGridView1.SelectedRows[0].Cells[10].Value.ToString();
+                employeeId.Text         = row.Cells[0].Value.ToString();
+                //First name = row.Cells[1].Value.ToString();
+                //Last Name = row.Cells[2].Value.ToString();
+                PhoneLabel.Text         = row.Cells[3].Value.ToString();
+                EmailLabel.Text         = row.Cells[4].Value.ToString();
+                DealershipName.Text     = row.Cells[5].Value.ToString();
+                StreetAddress.Text      = row.Cells[6].Value.ToString();
+                StreetAddress2.Text     = row.Cells[7].Value.ToString();
+                CityLabel.Text          = row.Cells[8].Value.ToString();
+                ZipCodeLabel.Text       = row.Cells[9].Value.ToString();
+                NumberOfSalesLabel.Text = row.Cells[10].Value.ToString();
+                TotalSalesLabel.Text    = Int32.Parse( row.Cells[11].Value.ToString() ).ToString( "C", CultureInfo.CurrentCulture );
             }
-            catch
-            {
+        }
 
-            }
+        private void ListEmployeesForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
