@@ -13,10 +13,15 @@ namespace TestConnection
     public partial class CarSearch : Form
     {
         Home homePage;
+        private int carLocationId;
+        private int employeeLocationId;
         public CarSearch(Home ret)
         {
             homePage = ret;
+            carLocationId = -1;
+            employeeLocationId = -1;
             InitializeComponent();
+            updatePurchaseAvailability();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -119,15 +124,17 @@ namespace TestConnection
                 label11.Text = "Milage: " + dataGridView1.SelectedRows[0].Cells[6].Value.ToString();
                 label12.Text = "Owner Count: " + dataGridView1.SelectedRows[0].Cells[7].Value.ToString();
                 label13.Text = "Ask Price: " + dataGridView1.SelectedRows[0].Cells[8].Value.ToString();
+
                 Group14Connection g14 = new Group14Connection();
-                int num = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells[0].Value);
-                var data = g14.GetCarFeatures(num);
+
+                int carId = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells[0].Value);
+                var carData = g14.GetCarFeatures(carId);
                 string features = "";
-                if (data != null && data.Tables[0].Rows.Count > 0)
+                if (carData != null && carData.Tables[0].Rows.Count > 0)
                 {
-                    for (int i = 0; i < data.Tables[0].Rows.Count; i++)
+                    for (int i = 0; i < carData.Tables[0].Rows.Count; i++)
                     {
-                        features += data.Tables[0].Rows[i].ItemArray[0] + "\n";
+                        features += carData.Tables[0].Rows[i].ItemArray[0] + "\n";
                     }
                 }
                 else
@@ -135,6 +142,19 @@ namespace TestConnection
                     features = "NA";
                 }
                 label14.Text = "Features: " + features;
+
+                int dealershipId;
+                bool success = Int32.TryParse(dataGridView1.SelectedRows[0].Cells[1].Value.ToString(), out dealershipId);
+                if (!success)
+                {
+                    dealershipId = -1;
+                }
+                carLocationId = dealershipId;
+                var dealershipData = g14.GetDealershipInformation(dealershipId);
+                string dealershipName = dealershipData.Tables[0].Rows[0].ItemArray[1].ToString();
+                label15.Text = "Location: " + dealershipName;
+
+                updatePurchaseAvailability();
             }
 
         }
@@ -149,6 +169,51 @@ namespace TestConnection
         private void CarSearch_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void uxEmployeeEmailTxtBox_TextChanged(object sender, EventArgs e)
+        {
+            string employeeEmail = uxEmployeeEmailTxtBox.Text;
+            int dealershipId;
+            Group14Connection g14 = new Group14Connection();
+            var employeeData = g14.GetEmployeeFromEmail(employeeEmail);
+            if(employeeData == null)
+            {
+                dealershipId = -1;
+            }
+            else
+            {
+                bool success = Int32.TryParse(employeeData.Tables[0].Rows[0].ItemArray[2].ToString(), out dealershipId);
+                if (!success)
+                {
+                    dealershipId = -1;
+                }
+            }
+            
+            employeeLocationId = dealershipId;
+
+            string dealershipName = "";
+            var dealershipData = g14.GetDealershipInformation(dealershipId);
+            if(dealershipData != null)
+            {
+                dealershipName = dealershipData.Tables[0].Rows[0].ItemArray[1].ToString();
+            }
+            uxEmployeeLocationLbl.Text = "Employee Location: " + dealershipName;
+
+            updatePurchaseAvailability();
+        }
+
+        private void updatePurchaseAvailability()
+        {
+            if((carLocationId == employeeLocationId) &&
+                (carLocationId != -1 && employeeLocationId != -1))
+            {
+                uxPurchase.Enabled = true;
+            }
+            else
+            {
+                uxPurchase.Enabled = false;
+            }
         }
     }
 }

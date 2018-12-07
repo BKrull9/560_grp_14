@@ -174,5 +174,17 @@ namespace TestConnection
                 $"@StartDate='{StartDate.ToString()}', " +
                 $"@EndDate='{EndDate.ToString()}'");
         }
+
+        public DataSet GetDealershipInformation(int dealershipId)
+        {
+            return ExecQuery($"EXEC Demo.GetDealershipInformation " +
+                $"@dealershipId={dealershipId}");
+        }
+
+        public DataSet GetEmployeeFromEmail(string email)
+        {
+            return ExecQuery($"EXEC Demo.GetEmployeeFromEmail " +
+                $"@email='{email}'");
+        }
     }
 }

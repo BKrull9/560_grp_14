@@ -85,7 +85,8 @@ SELECT
 	A.City,
 	A.Zipcode,
 	Count(S.SaleId) AS NumberOfSales,
-	Sum(S.SaleAmount) AS TotalSales 	
+	Sum(S.SaleAmount) AS TotalSales,
+	E.DealershipId 	
 FROM Demo.Employee E
 	JOIN Demo.Dealership D ON E.DealershipId = D.DealershipId
 	JOIN Demo.[Address] A ON A.AddressId = E.AddressId
@@ -95,7 +96,7 @@ WHERE E.EmployeeId = ISNULL(@EmployeeId, E.EmployeeId)
 	AND E.LastName LIKE @LastName
 
 GROUP BY E.FirstName, E.LastName, E.EmployeeId, E.PhoneNumber, E.Email, D.[Name], 
-	A.Street, A.Street2, A.City, A.Zipcode; 
+	A.Street, A.Street2, A.City, A.Zipcode, E.DealershipId; 
 GO
 
 /*---------------------------------------------------------------------------------
@@ -265,7 +266,7 @@ CREATE PROCEDURE Demo.CarWithFeature
 	@Feature20 INT = null
 AS 
 
-SELECT C.CarId, C.Make, C.Model, C.[Year], C.AskPrice, C.Color, C.Milage, C.DealershipId, C.OwnerCnt
+SELECT C.CarId, C.Make, C.Model, C.[Year], C.AskPrice, C.Color, C.Milage, C.DealershipId, C.OwnerCnt, C.DealershipId
 FROM Demo.Car C
 	INNER JOIN Demo.CarFeature CF ON C.CarId = CF.CarId 
 WHERE C.CarId IN ( SELECT CF.CarId FROM Demo.CarFeature CF WHERE CF.FeatureId =ISNULL(@Feature1, CF.FeatureId) )
@@ -462,11 +463,6 @@ GROUP BY E.FirstName,E.LastName, E.EmployeeId, YEAR(S.SaleDate)
 ORDER BY YEAR(S.SaleDate) DESC
 GO
 
-EXEC Demo.GetYearlyPerformance
-	@EmployeeId = 1,
-	@StartDate = '2000-01-01',
-	@EndDate = '2018-12-31'
-GO
 /*---------------------------------------------------------------------------------
 Get a certain employee's monthly performance 
 ---------------------------------------------------------------------------------*/
@@ -496,12 +492,32 @@ GROUP BY E.FirstName,E.LastName, E.EmployeeId, MONTH(S.SaleDate), YEAR(S.SaleDat
 ORDER BY YEAR(S.SaleDate) DESC , MONTH(S.SaleDate) DESC
 GO
 
-EXEC Demo.GetMonthlyPerformance
-	@EmployeeId = 1,
-	@StartDate = '2000-01-01',
-	@EndDate = '2018-12-31'
+/*---------------------------------------------------------------------------------
+Get all dealership information for a given DealershipId
+---------------------------------------------------------------------------------*/
+DROP PROCEDURE IF EXISTS Demo.GetDealershipInformation;
 GO
 
-select * from Demo.Car where Make = 'Volkswagen' and Model = 'Type 2'
-select * from Demo.Employee where DealershipId = 6
-select * from Demo.Customer
+CREATE PROCEDURE Demo.GetDealershipInformation
+	@DealershipId INT = 0
+AS
+
+SELECT *
+FROM Demo.Dealership D
+WHERE D.DealershipId = @DealershipId
+GO
+
+/*---------------------------------------------------------------------------------
+Get all employee information for a given email
+---------------------------------------------------------------------------------*/
+DROP PROCEDURE IF EXISTS Demo.GetEmployeeFromEmail;
+GO
+
+CREATE PROCEDURE Demo.GetEmployeeFromEmail
+	@email NVARCHAR(64) = ''
+AS
+
+SELECT *
+FROM Demo.Employee E
+WHERE E.Email = @email
+GO

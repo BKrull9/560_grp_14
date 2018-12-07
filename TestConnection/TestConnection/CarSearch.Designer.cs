@@ -57,6 +57,11 @@
             this.Make = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Model = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.uxPurchase = new System.Windows.Forms.Button();
+            this.label15 = new System.Windows.Forms.Label();
+            this.uxEmployeeEmailTxtBox = new System.Windows.Forms.TextBox();
+            this.uxEmployeeEmailLbl = new System.Windows.Forms.Label();
+            this.uxEmployeeLocationLbl = new System.Windows.Forms.Label();
+            this.uxWarningLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -248,7 +253,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(324, 246);
+            this.label14.Location = new System.Drawing.Point(324, 270);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(51, 13);
             this.label14.TabIndex = 23;
@@ -312,12 +317,61 @@
             this.uxPurchase.UseVisualStyleBackColor = true;
             this.uxPurchase.Click += new System.EventHandler(this.button2_Click);
             // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(325, 248);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(54, 13);
+            this.label15.TabIndex = 27;
+            this.label15.Text = "Location: ";
+            // 
+            // uxEmployeeEmailTxtBox
+            // 
+            this.uxEmployeeEmailTxtBox.Location = new System.Drawing.Point(320, 349);
+            this.uxEmployeeEmailTxtBox.Name = "uxEmployeeEmailTxtBox";
+            this.uxEmployeeEmailTxtBox.Size = new System.Drawing.Size(100, 20);
+            this.uxEmployeeEmailTxtBox.TabIndex = 28;
+            this.uxEmployeeEmailTxtBox.TextChanged += new System.EventHandler(this.uxEmployeeEmailTxtBox_TextChanged);
+            // 
+            // uxEmployeeEmailLbl
+            // 
+            this.uxEmployeeEmailLbl.AutoSize = true;
+            this.uxEmployeeEmailLbl.Location = new System.Drawing.Point(178, 352);
+            this.uxEmployeeEmailLbl.Name = "uxEmployeeEmailLbl";
+            this.uxEmployeeEmailLbl.Size = new System.Drawing.Size(136, 13);
+            this.uxEmployeeEmailLbl.TabIndex = 29;
+            this.uxEmployeeEmailLbl.Text = "Employee Email (Required):";
+            // 
+            // uxEmployeeLocationLbl
+            // 
+            this.uxEmployeeLocationLbl.AutoSize = true;
+            this.uxEmployeeLocationLbl.Location = new System.Drawing.Point(432, 352);
+            this.uxEmployeeLocationLbl.Name = "uxEmployeeLocationLbl";
+            this.uxEmployeeLocationLbl.Size = new System.Drawing.Size(103, 13);
+            this.uxEmployeeLocationLbl.TabIndex = 30;
+            this.uxEmployeeLocationLbl.Text = "Employee Location: ";
+            // 
+            // uxWarningLabel
+            // 
+            this.uxWarningLabel.AutoSize = true;
+            this.uxWarningLabel.Location = new System.Drawing.Point(333, 376);
+            this.uxWarningLabel.Name = "uxWarningLabel";
+            this.uxWarningLabel.Size = new System.Drawing.Size(321, 13);
+            this.uxWarningLabel.TabIndex = 36;
+            this.uxWarningLabel.Text = "Note: locations of car and salesman must match to make purchase";
+            // 
             // CarSearch
             // 
             this.AcceptButton = this.uxSearch;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(658, 382);
+            this.ClientSize = new System.Drawing.Size(658, 398);
+            this.Controls.Add(this.uxWarningLabel);
+            this.Controls.Add(this.uxEmployeeLocationLbl);
+            this.Controls.Add(this.uxEmployeeEmailLbl);
+            this.Controls.Add(this.uxEmployeeEmailTxtBox);
+            this.Controls.Add(this.label15);
             this.Controls.Add(this.uxPurchase);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.uxBack);
@@ -385,5 +439,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Year;
         private System.Windows.Forms.DataGridViewTextBoxColumn Make;
         private System.Windows.Forms.DataGridViewTextBoxColumn Model;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TextBox uxEmployeeEmailTxtBox;
+        private System.Windows.Forms.Label uxEmployeeEmailLbl;
+        private System.Windows.Forms.Label uxEmployeeLocationLbl;
+        private System.Windows.Forms.Label uxWarningLabel;
     }
 }

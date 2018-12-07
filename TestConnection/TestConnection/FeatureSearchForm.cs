@@ -18,11 +18,16 @@ namespace TestConnection
     public partial class FeatureSearchForm : Form
     {
         Home homePage;
+        private int carLocationId;
+        private int employeeLocationId;
         Group14Connection conn; 
 
         public FeatureSearchForm(Home ret)
         {
+            carLocationId = -1;
+            employeeLocationId = -1;
             InitializeComponent();
+            updatePurchaseAvailability();
             homePage = ret;
 
             conn = new Group14Connection();
@@ -86,7 +91,7 @@ namespace TestConnection
                 id_list.Add("null");
             }
 
-            DataSet data = conn.CarWithFeature(id_list); //conn.CarSearch("", "", "", null, null, null);
+            DataSet data = conn.CarWithFeature(id_list);
             PopulateDataGrid(data);
         }
 
@@ -107,8 +112,9 @@ namespace TestConnection
                     new_row.Cells[4].Value = Int32.Parse(data_row.ItemArray[4].ToString()).ToString("C", CultureInfo.CurrentCulture);
                     new_row.Cells[5].Value = data_row.ItemArray[5].ToString();
                     new_row.Cells[6].Value = data_row.ItemArray[6].ToString();
-                    new_row.Cells[7].Value = data_row.ItemArray[7].ToString();
+                    new_row.Cells[7].Value = data_row.ItemArray[9].ToString();
                     new_row.Cells[8].Value = data_row.ItemArray[8].ToString();
+                    
                     uxDataGrid.Rows.Add(new_row);
                 }
                 uxDataGrid.Rows.RemoveAt(0);
@@ -137,9 +143,25 @@ namespace TestConnection
                 uxAskPrice.Text = row.Cells[4].Value.ToString();
                 uxColor.Text    = row.Cells[5].Value.ToString();
                 uxMilage.Text   = row.Cells[6].Value.ToString();
-                //DealershipId = row.Cells[7].Value.ToString();
                 uxOwnerCount.Text = row.Cells[8].Value.ToString();
             }
+            Group14Connection g14 = new Group14Connection();
+            int dealershipId;
+            bool success = Int32.TryParse(row.Cells[7].Value.ToString(), out dealershipId);
+            if (!success)
+            {
+                dealershipId = -1;
+            }
+            carLocationId = dealershipId;
+            string dealershipName = "";
+            var dealershipData = g14.GetDealershipInformation(dealershipId);
+            if (dealershipData != null)
+            {
+                dealershipName = dealershipData.Tables[0].Rows[0].ItemArray[1].ToString();
+            }
+            label15.Text = "Location: " + dealershipName;
+
+            updatePurchaseAvailability();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -147,6 +169,51 @@ namespace TestConnection
             MakePurchase purch = new MakePurchase(homePage, Convert.ToInt32(uxDataGrid.SelectedRows[0].Cells[0].Value));
             purch.Show();
             this.Hide();
+        }
+
+        private void updatePurchaseAvailability()
+        {
+            if ((carLocationId == employeeLocationId) &&
+                (carLocationId != -1 && employeeLocationId != -1))
+            {
+                button1.Enabled = true;
+            }
+            else
+            {
+                button1.Enabled = false;
+            }
+        }
+
+        private void uxEmployeeEmailTxtBox_TextChanged(object sender, EventArgs e)
+        {
+            string employeeEmail = uxEmployeeEmailTxtBox.Text;
+            int dealershipId;
+            Group14Connection g14 = new Group14Connection();
+            var employeeData = g14.GetEmployeeFromEmail(employeeEmail);
+            if (employeeData == null)
+            {
+                dealershipId = -1;
+            }
+            else
+            {
+                bool success = Int32.TryParse(employeeData.Tables[0].Rows[0].ItemArray[2].ToString(), out dealershipId);
+                if (!success)
+                {
+                    dealershipId = -1;
+                }
+            }
+
+            employeeLocationId = dealershipId;
+
+            string dealershipName = "";
+            var dealershipData = g14.GetDealershipInformation(dealershipId);
+            if (dealershipData != null)
+            {
+                dealershipName = dealershipData.Tables[0].Rows[0].ItemArray[1].ToString();
+            }
+            uxEmployeeLocationLbl.Text = "Employee Location: " + dealershipName;
+
+            updatePurchaseAvailability();
         }
     }
 }
