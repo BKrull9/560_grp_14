@@ -144,22 +144,24 @@ namespace TestConnection
                 uxColor.Text    = row.Cells[5].Value.ToString();
                 uxMilage.Text   = row.Cells[6].Value.ToString();
                 uxOwnerCount.Text = row.Cells[8].Value.ToString();
+
+                Group14Connection g14 = new Group14Connection();
+                int dealershipId;
+                bool success = Int32.TryParse(row.Cells[7].Value.ToString(), out dealershipId);
+                if (!success)
+                {
+                    dealershipId = -1;
+                }
+                carLocationId = dealershipId;
+                string dealershipName = "";
+                var dealershipData = g14.GetDealershipInformation(dealershipId);
+                if (dealershipData != null)
+                {
+                    dealershipName = dealershipData.Tables[0].Rows[0].ItemArray[1].ToString();
+                }
+                label15.Text = "Location: " + dealershipName;
             }
-            Group14Connection g14 = new Group14Connection();
-            int dealershipId;
-            bool success = Int32.TryParse(row.Cells[7].Value.ToString(), out dealershipId);
-            if (!success)
-            {
-                dealershipId = -1;
-            }
-            carLocationId = dealershipId;
-            string dealershipName = "";
-            var dealershipData = g14.GetDealershipInformation(dealershipId);
-            if (dealershipData != null)
-            {
-                dealershipName = dealershipData.Tables[0].Rows[0].ItemArray[1].ToString();
-            }
-            label15.Text = "Location: " + dealershipName;
+
 
             updatePurchaseAvailability();
         }
