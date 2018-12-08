@@ -344,6 +344,28 @@ GROUP BY E.EmployeeId, E.FirstName, E.LastName, E.Email, a.City
 ORDER BY SalesVolume DESC
 GO
 
+/*---------------------------------------------------------------------------------
+Get the top X performing customers
+---------------------------------------------------------------------------------*/
+DROP PROCEDURE IF EXISTS Demo.GetTopCustomers;
+GO
+
+CREATE PROCEDURE Demo.GetTopCustomers
+	@NumberOfCustomers INT = 0,
+	@DealershipId INT = 0
+AS
+
+SELECT TOP(@NumberOfCustomers) Rank() over(order by SUM(S.SaleAmount) desc) AS [Rank],  
+	C.FirstName, C.LastName, C.CustomerId, C.Email, 
+	A.City, COUNT(DISTINCT S.SaleId) AS NumberPurchases, SUM(S.SaleAmount) AS PurchaseVolume
+FROM Demo.Customer C
+	INNER JOIN Demo.Sale S ON C.CustomerId = S.CustomerId
+	Inner Join Demo.[Address] a ON a.AddressId = C.AddressId
+	INNER JOIN Demo.Employee E ON E.EmployeeId = S.EmployeeId
+where E.DealershipId = @DealershipID
+GROUP BY C.CustomerId, C.FirstName, C.LastName, C.Email, a.City
+ORDER BY PurchaseVolume DESC
+GO
 
 /*---------------------------------------------------------------------------------
 Get all make types
@@ -368,26 +390,6 @@ GO
 CREATE PROCEDURE Demo.GetStockTotalValue
 AS
 
-SELECT SUM(C.AskPrice)
-FROM Demo.Car C
-WHERE NOT EXISTS
-(
-	SELECT S.CarId
-	FROM Demo.Sale S
-	WHERE S.CarId = C.CarId
-)
-
-GO
-
-/*---------------------------------------------------------------------------------
-Get the total value of the in-stock cars
----------------------------------------------------------------------------------*/
-DROP PROCEDURE IF EXISTS Demo.GetStockTotalValue;
-GO
-
-CREATE PROCEDURE Demo.GetStockTotalValue
-AS
-
 SELECT SUM(C.AskPrice) AS TotalStockValue
 FROM Demo.Car C
 WHERE NOT EXISTS
@@ -399,6 +401,9 @@ WHERE NOT EXISTS
 
 GO
 
+/*---------------------------------------------------------------------------------
+Update the Sale and Car tables for a purchase
+---------------------------------------------------------------------------------*/
 DROP PROCEDURE IF EXISTS Demo.MakePurchase;
 GO
 
